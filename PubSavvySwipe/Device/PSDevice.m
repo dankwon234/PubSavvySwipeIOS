@@ -24,7 +24,7 @@
     
 }
 
-+ (PSDevice *)sharedProfile
++ (PSDevice *)sharedDevice
 {
     static PSDevice *shared;
     static dispatch_once_t onceToken;
