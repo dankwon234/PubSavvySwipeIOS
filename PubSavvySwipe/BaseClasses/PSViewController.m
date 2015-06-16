@@ -10,6 +10,7 @@
 
 @implementation PSViewController
 @synthesize loadingIndicator;
+@synthesize device;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -17,6 +18,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.device = [PSDevice sharedDevice];
         [self addNavigationTitleView];
         
     }
