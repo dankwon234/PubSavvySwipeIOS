@@ -23,6 +23,6 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
 // DEVICE
-//- (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
 @end

@@ -15,8 +15,8 @@
 #define kPathSearch     @"/api/search/"
 #define kPathUpload     @"/api/upload/"
 #define kPathImages     @"/site/image/"
-#define kPathProfiles   @"/api/profile/"
-#define kPathDevices    @"/api/device/"
+#define kPathProfile   @"/api/profile/"
+#define kPathDevice    @"/api/device/"
 #define kPathLogin      @"/api/login/"
 
 
@@ -41,6 +41,37 @@
     return networkStatus != NotReachable;
 }
 
+
+#pragma mark - Device
+- (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [self requestManagerForJSONSerializiation];
+
+    [manager POST:kPathDevice
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"JSON: %@", responseObject);
+              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+              
+              if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]==NO){
+                  if (completionBlock){
+                      NSLog(@"REGISTRATION FAILED");
+                      completionBlock(nil, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+                  }
+                  return;
+              }
+              
+              if (completionBlock)
+                  completionBlock(responseDictionary, nil);
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+              if (completionBlock)
+                  completionBlock(nil, error);
+          }];
+
+    
+}
 
 
 #pragma mark - Search
@@ -71,6 +102,18 @@
          }];
 }
 
+
+
+- (AFHTTPRequestOperationManager *)requestManagerForJSONSerializiation
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    AFSecurityPolicy *policy = [[AFSecurityPolicy alloc] init];
+    policy.allowInvalidCertificates = YES;
+    manager.securityPolicy = policy;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    return manager;
+}
 
 
 
