@@ -10,12 +10,14 @@
 
 @implementation PSDevice
 @synthesize deviceToken;
+@synthesize uniqueId;
 
 
 - (id)init
 {
     self = [super init];
     if (self){
+        self.uniqueId = @"none";
         self.deviceToken = @"none";
     }
     return self;
@@ -28,8 +30,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shared = [[PSDevice alloc] init];
-//        if ([shared populateFromCache])
-//            [shared refreshProfileInfo];
         
     });
     
@@ -39,10 +39,36 @@
 + (PSDevice *)deviceWithInfo:(NSDictionary *)info
 {
     PSDevice *device = [[PSDevice alloc] init];
-//    profile.isPublic = YES;
-//    [profile populate:info];
+    [device populate:info];
     return device;
 }
+
+- (void)populate:(NSDictionary *)profileInfo
+{
+    self.uniqueId = profileInfo[@"id"];
+    self.deviceToken = profileInfo[@"deviceToken"];
+}
+
+- (NSDictionary *)parametersDictionary
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"id":self.uniqueId, @"deviceToken":self.deviceToken}];
+    
+    return params;
+}
+
+- (NSString *)jsonRepresentation
+{
+    NSDictionary *info = [self parametersDictionary];
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:info options:NSJSONWritingPrettyPrinted error:&error];
+    if (error)
+        return nil;
+    
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
 
 
 @end

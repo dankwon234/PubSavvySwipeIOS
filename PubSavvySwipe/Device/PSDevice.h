@@ -11,7 +11,12 @@
 @interface PSDevice : NSObject
 
 
+@property (copy, nonatomic) NSString *uniqueId;
 @property (copy, nonatomic) NSString *deviceToken;
 + (PSDevice *)sharedProfile;
 + (PSDevice *)deviceWithInfo:(NSDictionary *)info;
+- (void)populate:(NSDictionary *)profileInfo;
+- (NSDictionary *)parametersDictionary;
+- (NSString *)jsonRepresentation;
+
 @end
