@@ -7,7 +7,7 @@
 
 
 #import <Foundation/Foundation.h>
-#define kBaseUrl @"https://pubsavvy.herokuapp.com/"
+#define kBaseUrl @"https://pubsavvyswipe.herokuapp.com/"
 
 typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
