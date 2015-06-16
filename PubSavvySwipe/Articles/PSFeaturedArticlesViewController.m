@@ -93,7 +93,6 @@
     [super viewDidLoad];
     [self addMenuButton];
     
-    /*
     [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer"} completionBlock:^(id result, NSError *error){
         if (error){
             
@@ -101,44 +100,9 @@
         }
         
         NSDictionary *results = (NSDictionary *)result;
-        NSDictionary *pubmedArticleSet = results[@"PubmedArticleSet"];
-        NSArray *articles = pubmedArticleSet[@"PubmedArticle"];
-        
-        for (NSDictionary *article in articles) {
-            NSArray *medLineCitation = article[@"MedlineCitation"];
-//            NSLog(@"%@", [medLineCitation description]);
-            
-            NSDictionary *summary = (NSDictionary *)medLineCitation[0];
-            NSDictionary *article = summary[@"Article"][0];
-//            NSLog(@"%@", [article description]);
-            
-            // ABSTRACT:
-            NSDictionary *abstract = article[@"Abstract"][0];
-            NSDictionary *abstractText = abstract[@"AbstractText"][0];
-//            NSLog(@"%@", abstractText[@"_"]);
-            
-            
-            // TITLE:
-            NSString *title = article[@"ArticleTitle"][0];
-//            NSLog(@"%@", title);
-
-            
-            // AUTHORS:
-            NSDictionary *authorList = article[@"AuthorList"][0];
-            NSArray *author = authorList[@"Author"];
-            NSMutableArray *authors = [NSMutableArray array];
-            for (int i=0; i<author.count; i++) {
-                NSDictionary *authorInfo = author[i];
-                NSString *authorName = [NSString stringWithFormat:@"%@ %@", authorInfo[@"ForeName"][0], authorInfo[@"LastName"][0]];
-                [authors addObject:authorName];
-            }
-            
-            NSLog(@"%@", [authors description]);
-
-            NSLog(@"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-        }
+        NSLog(@"%@", [results description]);
+     
     }];
-     */
     
 }
 
