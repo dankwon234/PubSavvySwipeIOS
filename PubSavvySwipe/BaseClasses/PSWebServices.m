@@ -54,9 +54,8 @@
              NSString *confirmation = responseDictionary[@"confirmation"];
              
              if ([confirmation isEqualToString:@"success"]){
-                 NSDictionary *results = responseDictionary[@"results"];
                  if (completionBlock)
-                     completionBlock(results, nil);
+                     completionBlock(responseObject, nil);
                  
                  return;
              }
