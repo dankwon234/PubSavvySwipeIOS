@@ -18,5 +18,6 @@
 - (void)populate:(NSDictionary *)profileInfo;
 - (NSDictionary *)parametersDictionary;
 - (NSString *)jsonRepresentation;
-
+- (void)updateDevice;
+- (void)registerDevice;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "PSDevice.h"
+#import "PSWebServices.h"
 
 @implementation PSDevice
 @synthesize deviceToken;
@@ -42,6 +43,52 @@
     [device populate:info];
     return device;
 }
+
+- (void)updateDevice
+{
+    
+}
+
+- (void)registerDevice
+{
+    [[PSWebServices sharedInstance] registerDevice:nil completionBlock:^(id result, NSError *error) {
+        if (error)
+            return;
+        
+        NSLog(@"%@", [result description]);
+        
+    }];
+}
+
+- (void)cacheDevice
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *jsonString = [self jsonRepresentation];
+    [defaults setObject:jsonString forKey:@"device"];
+    [defaults synchronize];
+}
+
+
+- (BOOL)populateFromCache
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *json = [defaults objectForKey:@"device"];
+    if (!json)
+        return NO;
+    
+    NSError *error = nil;
+    NSDictionary *profileInfo = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"STORED PROFILE: %@", [profileInfo description]);
+    
+    if (error)
+        return NO;
+    
+    [self populate:profileInfo];
+    return YES;
+}
+
+
+
 
 - (void)populate:(NSDictionary *)profileInfo
 {
