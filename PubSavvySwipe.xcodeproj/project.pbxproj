@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */; };
+		0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4AE7741B309D0400EF5429 /* PSDevice.m */; };
 		0C635EA21B28E4A000343157 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635E9F1B28E4A000343157 /* Reachability.m */; };
 		0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA11B28E4A000343157 /* SignalCheck.m */; };
 		0C635EB81B28E4D800343157 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA61B28E4D800343157 /* AFHTTPRequestOperation.m */; };
@@ -49,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPadlock@2x.png"; sourceTree = "<group>"; };
+		0C4AE7731B309D0400EF5429 /* PSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDevice.h; sourceTree = "<group>"; };
+		0C4AE7741B309D0400EF5429 /* PSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDevice.m; sourceTree = "<group>"; };
 		0C635E9E1B28E4A000343157 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0C635E9F1B28E4A000343157 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0C635EA01B28E4A000343157 /* SignalCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalCheck.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 		0C635EC11B28ED2900343157 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				0C4AE7731B309D0400EF5429 /* PSDevice.h */,
+				0C4AE7741B309D0400EF5429 /* PSDevice.m */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				0C635EB91B28E4D800343157 /* AFHTTPRequestOperationManager.m in Sources */,
 				0CA2BE6D1B0DA37D004B4D81 /* PSWebServices.m in Sources */,
 				0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */,
+				0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */,
 				0C635EBC1B28E4D800343157 /* AFSecurityPolicy.m in Sources */,
 				0CA2BE731B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m in Sources */,
 				0CA2BE671B0DA2AA004B4D81 /* PSContainerViewController.m in Sources */,
