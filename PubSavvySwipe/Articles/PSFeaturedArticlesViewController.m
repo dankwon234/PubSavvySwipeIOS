@@ -8,6 +8,7 @@
 
 #import "PSFeaturedArticlesViewController.h"
 #import "PSArticleView.h"
+#import "PSArticle.h"
 
 
 @interface PSFeaturedArticlesViewController ()
@@ -37,21 +38,6 @@
     UIView *view = [self baseView];
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
-    
-    for (int i=0; i<5; i++) {
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(kPadding, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
-        articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        articleView.backgroundColor = [UIColor whiteColor];
-        articleView.tag = 1000+i;
-        articleView.lblAuthors.text = @"Author 1, Author 2, Author 3, Author 4, Author 5, Author 6, Author 7";
-//        articleView.lblTitle.text = @"A Really long ARTICLE TITLE name with a lot of text that no one understands.";
-        articleView.lblTitle.text = @"ARTICLE TITLE";
-        
-        [view addSubview:articleView];
-        self.topView = articleView;
-    }
-    
-    self.topView.delegate = self;
     
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*kPadding);
@@ -93,14 +79,69 @@
     [super viewDidLoad];
     [self addMenuButton];
     
+    [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer"} completionBlock:^(id result, NSError *error){
         if (error){
-            
+            [self.loadingIndicator stopLoading];
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
             return;
         }
         
-        NSDictionary *results = (NSDictionary *)result;
-        NSLog(@"%@", [results description]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *response = (NSDictionary *)result;
+            NSLog(@"%@", [response description]);
+            
+            NSArray *results = response[@"results"];
+            for (int i=0; i<results.count; i++) {
+                PSArticle *article = [PSArticle articleWithInfo:results[i]];
+                [self.featuredArticles addObject:article];
+            }
+            
+            
+            
+            CGRect frame = self.view.frame;
+            for (int i=0; i<5; i++) {
+                PSArticle *article = self.featuredArticles[i];
+                
+                CGFloat x = (i %2 ==0) ? -frame.size.width : frame.size.width;
+                PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+                articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+                articleView.backgroundColor = [UIColor whiteColor];
+                articleView.tag = 1000+i;
+                articleView.lblTitle.text = article.title;
+                articleView.lblDate.text = article.date;
+                articleView.lblAuthors.text = [article authorsString];
+                
+                [self.view addSubview:articleView];
+                self.topView = articleView;
+                [self.loadingIndicator stopLoading];
+                
+                [UIView animateWithDuration:1.65f
+                                      delay:(i*0.18f)
+                     usingSpringWithDamping:0.5f
+                      initialSpringVelocity:0
+                                    options:UIViewAnimationOptionCurveEaseInOut
+                                 animations:^{
+                                     CGRect frame = articleView.frame;
+                                     frame.origin.x = kPadding;
+                                     articleView.frame = frame;
+                                 }
+                                 completion:^(BOOL finished){
+                                     
+                                 }];
+                
+            }
+            
+            self.topView.delegate = self;
+            
+            
+            
+            
+        });
+        
+        
+        
      
     }];
     
