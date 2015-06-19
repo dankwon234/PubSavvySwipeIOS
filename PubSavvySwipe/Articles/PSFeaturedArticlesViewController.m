@@ -87,7 +87,6 @@
             return;
         }
         
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *response = (NSDictionary *)result;
             NSLog(@"%@", [response description]);
@@ -98,10 +97,10 @@
                 [self.featuredArticles addObject:article];
             }
             
-            
+            int max = (self.featuredArticles.count >= 5) ? 5 : (int)self.featuredArticles.count;
             
             CGRect frame = self.view.frame;
-            for (int i=0; i<5; i++) {
+            for (int i=0; i<max; i++) {
                 PSArticle *article = self.featuredArticles[i];
                 
                 CGFloat x = (i %2 ==0) ? -frame.size.width : frame.size.width;
@@ -130,19 +129,10 @@
                                  completion:^(BOOL finished){
                                      
                                  }];
-                
             }
             
             self.topView.delegate = self;
-            
-            
-            
-            
         });
-        
-        
-        
-     
     }];
     
 }
