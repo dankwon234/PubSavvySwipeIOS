@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */; };
+		0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11D85C1B3497B600ED7C78 /* PSArticle.m */; };
 		0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4AE7741B309D0400EF5429 /* PSDevice.m */; };
 		0C635EA21B28E4A000343157 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635E9F1B28E4A000343157 /* Reachability.m */; };
 		0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA11B28E4A000343157 /* SignalCheck.m */; };
@@ -50,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPadlock@2x.png"; sourceTree = "<group>"; };
+		0C11D85B1B3497B600ED7C78 /* PSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticle.h; sourceTree = "<group>"; };
+		0C11D85C1B3497B600ED7C78 /* PSArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticle.m; sourceTree = "<group>"; };
 		0C4AE7731B309D0400EF5429 /* PSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDevice.h; sourceTree = "<group>"; };
 		0C4AE7741B309D0400EF5429 /* PSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDevice.m; sourceTree = "<group>"; };
 		0C635E9E1B28E4A000343157 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 		0CA2BE701B0DA578004B4D81 /* Articles */ = {
 			isa = PBXGroup;
 			children = (
+				0C11D85B1B3497B600ED7C78 /* PSArticle.h */,
+				0C11D85C1B3497B600ED7C78 /* PSArticle.m */,
 				0CA2BE711B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.h */,
 				0CA2BE721B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m */,
 				0CA2BE7C1B0DAEA1004B4D81 /* PSArticleView.h */,
@@ -398,6 +403,7 @@
 				0C635EBF1B28E4D800343157 /* AFURLResponseSerialization.m in Sources */,
 				0C635EBE1B28E4D800343157 /* AFURLRequestSerialization.m in Sources */,
 				0C635EBD1B28E4D800343157 /* AFURLConnectionOperation.m in Sources */,
+				0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */,
 				0C635EB91B28E4D800343157 /* AFHTTPRequestOperationManager.m in Sources */,
 				0CA2BE6D1B0DA37D004B4D81 /* PSWebServices.m in Sources */,
 				0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */,
