@@ -111,6 +111,7 @@
                 articleView.lblAuthors.text = [article authorsString];
                 articleView.lblTitle.text = article.title;
                 articleView.lblDate.text = article.date;
+                articleView.lblJournal.text = article.journal[@"iso"];
                 
                 [self.view addSubview:articleView];
                 self.topView = articleView;
