@@ -108,9 +108,9 @@
                 articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
                 articleView.backgroundColor = [UIColor whiteColor];
                 articleView.tag = 1000+i;
+                articleView.lblAuthors.text = [article authorsString];
                 articleView.lblTitle.text = article.title;
                 articleView.lblDate.text = article.date;
-                articleView.lblAuthors.text = [article authorsString];
                 
                 [self.view addSubview:articleView];
                 self.topView = articleView;
