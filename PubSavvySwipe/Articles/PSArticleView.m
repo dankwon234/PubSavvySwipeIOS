@@ -20,6 +20,7 @@
 @synthesize lblAuthors;
 @synthesize lblTitle;
 @synthesize iconAccess;
+@synthesize lblAbsratct;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -84,7 +85,18 @@
         self.lblAuthors.backgroundColor = [UIColor clearColor];
         self.lblAuthors.numberOfLines = 0;
         [self addSubview:self.lblAuthors];
+        y += self.lblAuthors.frame.size.height;
+
         
+        self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 18.0f)];
+        self.lblAbsratct.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
+        self.lblAbsratct.lineBreakMode = NSLineBreakByWordWrapping;
+        self.lblAbsratct.textColor = [UIColor lightGrayColor];
+        self.lblAbsratct.backgroundColor = [UIColor clearColor];
+        self.lblAbsratct.text = @"ABSTRACT";
+        self.lblAbsratct.numberOfLines = 0;
+        [self addSubview:self.lblAbsratct];
+
         
         [self enableDragging];
     }
@@ -131,6 +143,11 @@
     frame.size.height = bounds.size.height;
     frame.origin.y = y;
     self.lblAuthors.frame = frame;
+    y += frame.size.height+12.0f;
+    
+    frame = self.lblAbsratct.frame;
+    frame.origin.y = y;
+    self.lblAbsratct.frame = frame;
 
     
     
