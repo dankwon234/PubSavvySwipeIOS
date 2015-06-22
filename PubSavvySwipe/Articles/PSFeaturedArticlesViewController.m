@@ -13,6 +13,7 @@
 
 @interface PSFeaturedArticlesViewController ()
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
+@property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @end
 
@@ -26,6 +27,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.featuredArticles = [NSMutableArray array];
+        self.currentArticle = nil;
         
     }
     return self;
@@ -98,45 +100,57 @@
             }
             
             int max = (self.featuredArticles.count >= 5) ? 5 : (int)self.featuredArticles.count;
-            
-            CGRect frame = self.view.frame;
-            for (int i=0; i<max; i++) {
-                PSArticle *article = self.featuredArticles[i];
-                
-                CGFloat x = (i %2 ==0) ? -frame.size.width : frame.size.width;
-                PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
-                articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-                articleView.backgroundColor = [UIColor whiteColor];
-                articleView.tag = 1000+i;
-                articleView.lblAuthors.text = [article authorsString];
-                articleView.lblTitle.text = article.title;
-                articleView.lblDate.text = article.date;
-                articleView.lblJournal.text = article.journal[@"iso"];
-                articleView.lblAbsratct.text = article.abstract;
-                
-                [self.view addSubview:articleView];
-                self.topView = articleView;
-                [self.loadingIndicator stopLoading];
-                
-                [UIView animateWithDuration:1.65f
-                                      delay:(i*0.18f)
-                     usingSpringWithDamping:0.5f
-                      initialSpringVelocity:0
-                                    options:UIViewAnimationOptionCurveEaseInOut
-                                 animations:^{
-                                     CGRect frame = articleView.frame;
-                                     frame.origin.x = kPadding;
-                                     articleView.frame = frame;
-                                 }
-                                 completion:^(BOOL finished){
-                                     
-                                 }];
-            }
-            
-            self.topView.delegate = self;
+            [self animateFeaturedArticles:max from:0];
         });
     }];
+}
+
+- (void)animateFeaturedArticles:(int)max from:(int)start
+{
+    CGRect frame = self.view.frame;
+    int m = start+max;
+    NSLog(@"MAX: %d", m);
     
+    if (m >= self.featuredArticles.count)
+        m = (int)self.featuredArticles.count;
+    
+    for (int i=start; i<m; i++) {
+        PSArticle *article = self.featuredArticles[i];
+        
+        CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
+        int index = i%max;
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+        articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        articleView.backgroundColor = [UIColor whiteColor];
+        
+        articleView.tag = 1000 + index;
+        articleView.lblAuthors.text = [article authorsString];
+        articleView.lblTitle.text = article.title;
+        articleView.lblDate.text = article.date;
+        articleView.lblJournal.text = article.journal[@"iso"];
+        articleView.lblAbsratct.text = article.abstract;
+        
+        [self.view addSubview:articleView];
+        self.topView = articleView;
+        [self.loadingIndicator stopLoading];
+        
+        [UIView animateWithDuration:1.65f
+                              delay:(i*0.18f)
+             usingSpringWithDamping:0.5f
+              initialSpringVelocity:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             CGRect frame = articleView.frame;
+                             frame.origin.x = kPadding;
+                             articleView.frame = frame;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+        
+    }
+    
+    self.topView.delegate = self;
 }
 
 
@@ -156,10 +170,16 @@
 
 - (void)queueNextArticle
 {
+    NSLog(@"queueNextArticle: %d", (int)self.topView.tag);
     if (self.topView.tag == 1000){
         [self.topView removeFromSuperview];
         self.topView.delegate = nil;
         self.topView = nil;
+        
+        
+        [self animateFeaturedArticles:5 from:5]; // load next set of 5
+        
+//        [self animateFeaturedArticles:6 from:self.leftOff]; // load next set of 5
         return;
     }
     
@@ -167,6 +187,10 @@
     [self.topView removeFromSuperview];
     self.topView = (PSArticleView *)[self.view viewWithTag:tag-1];
     self.topView.delegate = self;
+    
+    // TODO: assign current article
+//    NSLog(@"assign current article: %d", self.leftOff); //4, 9, 14, 19...
+    
 }
 
 
