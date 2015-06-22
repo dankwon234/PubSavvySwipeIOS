@@ -15,11 +15,13 @@
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
+@property (nonatomic) int leftOff;
 @end
 
 #define kPadding 12.0f
 
 @implementation PSFeaturedArticlesViewController
+@synthesize currentArticle = _currentArticle;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,6 +30,7 @@
     if (self){
         self.featuredArticles = [NSMutableArray array];
         self.currentArticle = nil;
+        self.leftOff = 0;
         
     }
     return self;
@@ -100,21 +103,26 @@
             }
             
             int max = (self.featuredArticles.count >= 5) ? 5 : (int)self.featuredArticles.count;
-            [self animateFeaturedArticles:max from:0];
+            [self animateFeaturedArticles:max];
         });
     }];
 }
 
-- (void)animateFeaturedArticles:(int)max from:(int)start
+- (void)setCurrentArticle:(PSArticle *)currentArticle
+{
+    _currentArticle = currentArticle;
+    NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
+}
+
+- (void)animateFeaturedArticles:(int)max
 {
     CGRect frame = self.view.frame;
-    int m = start+max;
-    NSLog(@"MAX: %d", m);
     
+    int m = self.leftOff+5;
     if (m >= self.featuredArticles.count)
         m = (int)self.featuredArticles.count;
     
-    for (int i=start; i<m; i++) {
+    for (int i=self.leftOff; i<m; i++) {
         PSArticle *article = self.featuredArticles[i];
         
         CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
@@ -135,7 +143,7 @@
         [self.loadingIndicator stopLoading];
         
         [UIView animateWithDuration:1.65f
-                              delay:(i*0.18f)
+                              delay:(index*0.18f)
              usingSpringWithDamping:0.5f
               initialSpringVelocity:0
                             options:UIViewAnimationOptionCurveEaseInOut
@@ -147,9 +155,9 @@
                          completion:^(BOOL finished){
                              
                          }];
-        
     }
     
+    self.leftOff = m;
     self.topView.delegate = self;
 }
 
@@ -176,10 +184,7 @@
         self.topView.delegate = nil;
         self.topView = nil;
         
-        
-        [self animateFeaturedArticles:5 from:5]; // load next set of 5
-        
-//        [self animateFeaturedArticles:6 from:self.leftOff]; // load next set of 5
+        [self animateFeaturedArticles:5]; // load next set of 5
         return;
     }
     
@@ -188,8 +193,9 @@
     self.topView = (PSArticleView *)[self.view viewWithTag:tag-1];
     self.topView.delegate = self;
     
+    NSLog(@"LEFT OFF: %d", self.leftOff);
+    
     // TODO: assign current article
-//    NSLog(@"assign current article: %d", self.leftOff); //4, 9, 14, 19...
     
 }
 
