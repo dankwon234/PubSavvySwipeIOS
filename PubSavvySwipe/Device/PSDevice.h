@@ -21,4 +21,5 @@
 - (NSString *)jsonRepresentation;
 - (void)updateDevice;
 - (void)registerDevice;
+- (void)saveArticle:(NSString *)pmid;
 @end

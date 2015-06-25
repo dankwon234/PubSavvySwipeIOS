@@ -50,6 +50,16 @@
     return device;
 }
 
+- (void)saveArticle:(NSString *)pmid
+{
+    if ([self.saved containsObject:pmid])
+        return;
+    
+    [self.saved addObject:pmid];
+    [self updateDevice];
+}
+
+
 - (void)updateDevice
 {
     if ([self.uniqueId isEqualToString:@"none"])
