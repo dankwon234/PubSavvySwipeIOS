@@ -167,13 +167,9 @@
 
 - (void)findCurrentArticle
 {
-//    NSLog(@"FIND CURRENT ARTICLE: %d", self.currentIndex);
     PSArticle *article = self.featuredArticles[self.currentIndex];
     self.currentArticle = article;
-//    NSLog(@"FIND CURRENT ARTICLE: %@", article.title);
     self.currentIndex++;
-    
-    
 }
 
 
@@ -182,13 +178,36 @@
     CGRect frame = self.topView.frame;
 //    NSLog(@"articleViewStoppedMoving: %.2f, %.2f", frame.origin.x, frame.origin.y);
     
-    if (frame.origin.x > kPadding){
+    CGFloat nuetral = 90.0f;
+    
+    if (frame.origin.x > kPadding+nuetral){
         [self likeArticle];
+        return;
     }
     
-    if (frame.origin.x < kPadding){
+    if (frame.origin.x < kPadding-nuetral){
         [self dislikeArticle];
+        return;
     }
+    
+    // neutral
+    [UIView animateWithDuration:0.3f
+                          delay:0
+         usingSpringWithDamping:0.5f
+          initialSpringVelocity:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.topView.frame;
+                         frame.origin.x = kPadding;
+                         frame.origin.y = kPadding;
+                         self.topView.frame = frame;
+
+                     }
+                     completion:NULL];
+    
+    
+
+    
 }
 
 - (void)queueNextArticle
