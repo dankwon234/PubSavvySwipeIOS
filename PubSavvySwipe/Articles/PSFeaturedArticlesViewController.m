@@ -16,6 +16,7 @@
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @property (nonatomic) int leftOff;
+@property (nonatomic) int currentIndex;
 @end
 
 #define kPadding 12.0f
@@ -31,7 +32,7 @@
         self.featuredArticles = [NSMutableArray array];
         self.currentArticle = nil;
         self.leftOff = 0;
-        
+        self.currentIndex = 0;
     }
     return self;
 }
@@ -104,6 +105,8 @@
             
             int max = (self.featuredArticles.count >= 5) ? 5 : (int)self.featuredArticles.count;
             [self animateFeaturedArticles:max];
+            [self findCurrentArticle];
+
         });
     }];
 }
@@ -123,7 +126,8 @@
         m = (int)self.featuredArticles.count;
     
     for (int i=self.leftOff; i<m; i++) {
-        PSArticle *article = self.featuredArticles[i];
+        int idx = m-i-1+self.leftOff; // adjust index to show articles in correct sequence
+        PSArticle *article = self.featuredArticles[idx];
         
         CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
@@ -161,11 +165,22 @@
     self.topView.delegate = self;
 }
 
+- (void)findCurrentArticle
+{
+//    NSLog(@"FIND CURRENT ARTICLE: %d", self.currentIndex);
+    PSArticle *article = self.featuredArticles[self.currentIndex];
+    self.currentArticle = article;
+//    NSLog(@"FIND CURRENT ARTICLE: %@", article.title);
+    self.currentIndex++;
+    
+    
+}
+
 
 - (void)articleViewStoppedMoving
 {
     CGRect frame = self.topView.frame;
-    NSLog(@"articleViewStoppedMoving: %.2f, %.2f", frame.origin.x, frame.origin.y);
+//    NSLog(@"articleViewStoppedMoving: %.2f, %.2f", frame.origin.x, frame.origin.y);
     
     if (frame.origin.x > kPadding){
         [self likeArticle];
@@ -178,12 +193,13 @@
 
 - (void)queueNextArticle
 {
-    NSLog(@"queueNextArticle: %d", (int)self.topView.tag);
+//    NSLog(@"queueNextArticle: %d", (int)self.topView.tag);
     if (self.topView.tag == 1000){
         [self.topView removeFromSuperview];
         self.topView.delegate = nil;
         self.topView = nil;
         
+        [self findCurrentArticle];
         [self animateFeaturedArticles:5]; // load next set of 5
         return;
     }
@@ -193,10 +209,8 @@
     self.topView = (PSArticleView *)[self.view viewWithTag:tag-1];
     self.topView.delegate = self;
     
-    NSLog(@"LEFT OFF: %d", self.leftOff);
-    
-    // TODO: assign current article
-    
+    // assign current article
+    [self findCurrentArticle];
 }
 
 
