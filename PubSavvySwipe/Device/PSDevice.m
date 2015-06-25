@@ -20,7 +20,11 @@
     if (self){
         self.uniqueId = @"none";
         self.deviceToken = @"none";
+        if ([self populateFromCache]==NO) // not stored, register new device on backend
+            [self registerDevice];
+        
     }
+    
     return self;
     
 }
@@ -51,11 +55,13 @@
 
 - (void)registerDevice
 {
-    [[PSWebServices sharedInstance] registerDevice:nil completionBlock:^(id result, NSError *error) {
+    [[PSWebServices sharedInstance] registerDevice:@{@"deviceToken":self.deviceToken} completionBlock:^(id result, NSError *error) {
         if (error)
             return;
         
         NSLog(@"%@", [result description]);
+        NSDictionary *device = result[@"device"];
+        [self populate:device];
         
     }];
 }
@@ -78,7 +84,7 @@
     
     NSError *error = nil;
     NSDictionary *profileInfo = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"STORED PROFILE: %@", [profileInfo description]);
+    NSLog(@"STORED DEVICE: %@", [profileInfo description]);
     
     if (error)
         return NO;
@@ -94,6 +100,7 @@
 {
     self.uniqueId = profileInfo[@"id"];
     self.deviceToken = profileInfo[@"deviceToken"];
+    [self cacheDevice];
 }
 
 - (NSDictionary *)parametersDictionary
