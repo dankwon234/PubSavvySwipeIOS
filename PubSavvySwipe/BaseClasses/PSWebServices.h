@@ -7,6 +7,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "PSDevice.h"
 #define kBaseUrl @"https://pubsavvyswipe.herokuapp.com/"
 
 typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
@@ -24,5 +25,5 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
 // DEVICE
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
-
+- (void)updateDevice:(PSDevice *)device completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 @end
