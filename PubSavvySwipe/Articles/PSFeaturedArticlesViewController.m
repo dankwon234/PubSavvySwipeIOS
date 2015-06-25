@@ -95,7 +95,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *response = (NSDictionary *)result;
-            NSLog(@"%@", [response description]);
+//            NSLog(@"%@", [response description]);
             
             NSArray *results = response[@"results"];
             for (int i=0; i<results.count; i++) {
