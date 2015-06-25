@@ -51,18 +51,18 @@
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //              NSLog(@"JSON: %@", responseObject);
-              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+              NSDictionary *response = (NSDictionary *)responseObject;
               
-              if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]==NO){
+              if ([response[@"confirmation"] isEqualToString:@"success"]==NO){
                   if (completionBlock){
                       NSLog(@"REGISTRATION FAILED");
-                      completionBlock(nil, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+                      completionBlock(nil, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:response[@"message"]}]);
                   }
                   return;
               }
               
               if (completionBlock)
-                  completionBlock(responseDictionary, nil);
+                  completionBlock(response, nil);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
