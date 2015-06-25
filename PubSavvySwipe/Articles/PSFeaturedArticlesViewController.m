@@ -232,9 +232,12 @@
     
 }
 
+
 - (void)likeArticle
 {
-//    NSLog(@"LIKE Article");
+    NSLog(@"LIKE Article: %@", self.currentArticle.title);
+    [self.device saveArticle:self.currentArticle.pmid];
+    
     [UIView animateWithDuration:0.20f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
