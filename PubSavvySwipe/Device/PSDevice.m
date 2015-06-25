@@ -50,7 +50,18 @@
 
 - (void)updateDevice
 {
-    
+    if ([self.uniqueId isEqualToString:@"none"])
+        return;
+ 
+    [[PSWebServices sharedInstance] updateDevice:self completionBlock:^(id result, NSError *error){
+        if (error){
+            return;
+        }
+        
+        NSLog(@"%@", [result description]);
+        NSDictionary *device = result[@"device"];
+        [self populate:device];
+    }];
 }
 
 - (void)registerDevice
