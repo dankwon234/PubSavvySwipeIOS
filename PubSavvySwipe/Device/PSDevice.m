@@ -12,6 +12,7 @@
 @implementation PSDevice
 @synthesize deviceToken;
 @synthesize uniqueId;
+@synthesize saved;
 
 
 - (id)init
@@ -20,6 +21,7 @@
     if (self){
         self.uniqueId = @"none";
         self.deviceToken = @"none";
+        self.saved = [NSMutableArray array];
         if ([self populateFromCache]==NO) // not stored, register new device on backend
             [self registerDevice];
         
@@ -111,12 +113,19 @@
 {
     self.uniqueId = profileInfo[@"id"];
     self.deviceToken = profileInfo[@"deviceToken"];
+    
+    if (profileInfo[@"saved"] != nil)
+        self.saved = [NSMutableArray arrayWithArray:profileInfo[@"saved"]];
+    
     [self cacheDevice];
 }
 
 - (NSDictionary *)parametersDictionary
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"id":self.uniqueId, @"deviceToken":self.deviceToken}];
+    
+    if (self.saved)
+        params[@"saved"] = self.saved;
     
     return params;
 }

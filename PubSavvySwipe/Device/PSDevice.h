@@ -13,6 +13,7 @@
 
 @property (copy, nonatomic) NSString *uniqueId;
 @property (copy, nonatomic) NSString *deviceToken;
+@property (strong, nonatomic) NSMutableArray *saved;
 + (PSDevice *)sharedDevice;
 + (PSDevice *)deviceWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)profileInfo;
