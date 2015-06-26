@@ -54,8 +54,11 @@
 {
     NSString *authorsStr = @"";
     for (int i=0; i<self.authors.count; i++) {
+        NSString *fullName = @"";
         NSDictionary *author = self.authors[i];
-        NSString *fullName = author[@"firstName"];
+        if (author[@"firstName"]!=nil)
+            fullName = author[@"firstName"];
+        
         if (author[@"lastName"] != nil)
             fullName = [fullName stringByAppendingString:[NSString stringWithFormat:@" %@", author[@"lastName"]]];
         
