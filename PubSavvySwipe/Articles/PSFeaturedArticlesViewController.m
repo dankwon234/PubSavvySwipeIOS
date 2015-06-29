@@ -120,14 +120,7 @@
 {
     CGRect frame = self.view.frame;
     
-//    int m = self.leftOff+kSetSize;
-//    if (m >= self.featuredArticles.count)
-//        m = (int)self.featuredArticles.count;
-    
-//    for (int i=self.leftOff; i<m; i++) {
     for (int i=0; i<self.featuredArticles.count; i++) {
-        
-//        int idx = m-i-1+self.leftOff; // adjust index to show articles in correct sequence
         int idx = (int)self.featuredArticles.count-i-1; // adjust index to show articles in correct sequence
         
         PSArticle *article = self.featuredArticles[idx];
@@ -164,7 +157,6 @@
                          }];
     }
     
-//    self.leftOff = m;
     self.topView.delegate = self;
 }
 
