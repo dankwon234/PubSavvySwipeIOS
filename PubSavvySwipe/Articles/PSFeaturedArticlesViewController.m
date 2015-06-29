@@ -86,7 +86,7 @@
     [self addMenuButton];
     
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer"} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer", @"limit":@"10"} completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
