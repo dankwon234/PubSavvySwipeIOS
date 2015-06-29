@@ -20,6 +20,7 @@
 @end
 
 #define kPadding 12.0f
+#define kSetSize 10
 
 @implementation PSFeaturedArticlesViewController
 @synthesize currentArticle = _currentArticle;
@@ -103,7 +104,7 @@
                 [self.featuredArticles addObject:article];
             }
             
-            int max = (self.featuredArticles.count >= 5) ? 5 : (int)self.featuredArticles.count;
+            int max = (self.featuredArticles.count >= kSetSize) ? kSetSize : (int)self.featuredArticles.count;
             [self animateFeaturedArticles:max];
             [self findCurrentArticle];
 
@@ -121,7 +122,7 @@
 {
     CGRect frame = self.view.frame;
     
-    int m = self.leftOff+5;
+    int m = self.leftOff+kSetSize;
     if (m >= self.featuredArticles.count)
         m = (int)self.featuredArticles.count;
     
@@ -246,7 +247,9 @@
                          
                      }
                      completion:^(BOOL finished){
-                         [self queueNextArticle];
+                         if (self.featuredArticles.count > 0){
+                             [self queueNextArticle];
+                         }
                      }];
     
 }
@@ -267,7 +270,10 @@
 
                      }
                      completion:^(BOOL finished){
-                         [self queueNextArticle];
+                         if (self.featuredArticles.count > 0){
+                             [self queueNextArticle];
+                         }
+//                         [self queueNextArticle];
                      }];
 }
 
