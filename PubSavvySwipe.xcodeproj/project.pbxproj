@@ -26,6 +26,7 @@
 		0C6459681B0D9EFA00D22151 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C6459671B0D9EFA00D22151 /* Images.xcassets */; };
 		0C6459771B0D9EFA00D22151 /* PubSavvySwipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6459761B0D9EFA00D22151 /* PubSavvySwipeTests.m */; };
 		0C73B8C11B45EC7500D1099F /* PSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */; };
+		0C73B8C41B45F87700D1099F /* PSArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C73B8C31B45F87700D1099F /* PSArticleViewController.m */; };
 		0CA2BE641B0DA277004B4D81 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE631B0DA277004B4D81 /* PSViewController.m */; };
 		0CA2BE671B0DA2AA004B4D81 /* PSContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE661B0DA2AA004B4D81 /* PSContainerViewController.m */; };
 		0CA2BE6A1B0DA343004B4D81 /* PSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE691B0DA343004B4D81 /* PSLoadingIndicator.m */; };
@@ -90,6 +91,8 @@
 		0C6459761B0D9EFA00D22151 /* PubSavvySwipeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubSavvySwipeTests.m; sourceTree = "<group>"; };
 		0C73B8BF1B45EC7500D1099F /* PSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSearchViewController.h; sourceTree = "<group>"; };
 		0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSearchViewController.m; sourceTree = "<group>"; };
+		0C73B8C21B45F87700D1099F /* PSArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticleViewController.h; sourceTree = "<group>"; };
+		0C73B8C31B45F87700D1099F /* PSArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticleViewController.m; sourceTree = "<group>"; };
 		0CA2BE611B0DA234004B4D81 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		0CA2BE621B0DA277004B4D81 /* PSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSViewController.h; sourceTree = "<group>"; };
 		0CA2BE631B0DA277004B4D81 /* PSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSViewController.m; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */,
 				0C73B8BF1B45EC7500D1099F /* PSSearchViewController.h */,
 				0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */,
+				0C73B8C21B45F87700D1099F /* PSArticleViewController.h */,
+				0C73B8C31B45F87700D1099F /* PSArticleViewController.m */,
 			);
 			path = Articles;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				0C635EB91B28E4D800343157 /* AFHTTPRequestOperationManager.m in Sources */,
 				0CA2BE6D1B0DA37D004B4D81 /* PSWebServices.m in Sources */,
 				0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */,
+				0C73B8C41B45F87700D1099F /* PSArticleViewController.m in Sources */,
 				0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */,
 				0C635EBC1B28E4D800343157 /* AFSecurityPolicy.m in Sources */,
 				0CA2BE731B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m in Sources */,
