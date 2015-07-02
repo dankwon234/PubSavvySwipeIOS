@@ -175,12 +175,16 @@
     NSString *section = [self.sections[indexPath.row] lowercaseString];
     NSLog(@"SECTION = %@", section);
     
-    if (indexPath.row == self.sections.count-1){ // ignore for now
+    
+//    self.sections = @[@"Random", @"Search", @"Saved", @"About"];
+
+    if ([section isEqual:@"about"]){ // ignore for now
         [self toggleMenu];
         return;
     }
+
     
-    if (indexPath.row==0){
+    if ([section isEqual:@"random"]){
         if ([self.currentVc isEqual:self.featuredVc]){
             [self toggleMenu];
             return;
@@ -189,7 +193,7 @@
         self.currentVc = self.featuredVc;
     }
     
-    if (indexPath.row==1){
+    if ([section isEqual:@"search"]){
         if ([self.currentVc isEqual:self.searchVc]){
             [self toggleMenu];
             return;
@@ -201,7 +205,7 @@
         self.currentVc = self.searchVc;
     }
     
-    if (indexPath.row==2){
+    if ([section isEqual:@"saved"]){
         if ([self.currentVc isEqual:self.savedVc]){
             [self toggleMenu];
             return;
@@ -212,6 +216,10 @@
         
         self.currentVc = self.savedVc;
     }
+
+    
+//    if (indexPath.row==2){
+//    }
     
     
     CGRect frame = self.view.frame;
