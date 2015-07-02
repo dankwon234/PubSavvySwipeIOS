@@ -9,6 +9,8 @@
 #import "PSArticleViewController.h"
 
 @implementation PSArticleViewController
+@synthesize article;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
