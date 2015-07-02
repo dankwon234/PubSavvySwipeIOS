@@ -7,6 +7,7 @@
 
 
 #import "PSSearchViewController.h"
+#import "PSArticleViewController.h"
 #import "PSArticle.h"
 
 @interface PSSearchViewController() <UISearchBarDelegate>
@@ -41,13 +42,10 @@
     [view addSubview:self.searchBar];
     
     self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, frame.size.width, frame.size.height-64.0f) style:UITableViewStylePlain];
-    self.articlesTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
+    self.articlesTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
     [view addSubview:self.articlesTable];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [view addGestureRecognizer:tap];
     
     
     self.view = view;
@@ -77,12 +75,21 @@
     static NSString *cellId = @"cellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     
     PSArticle *article = self.searchResults[indexPath.row];
     cell.textLabel.text = article.title;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"tableView didSelectRowAtIndexPath:");
+    
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.searchResults[indexPath.row];
+    [self.navigationController pushViewController:articleVc animated:YES];
 }
 
 
