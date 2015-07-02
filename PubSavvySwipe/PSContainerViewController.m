@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
+@property (strong, nonatomic) PSSearchViewController *searchVc;
 @end
 
 
@@ -63,9 +64,6 @@
     
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, kNavBarHeight)];
     header.backgroundColor = kLightBlue;
-//    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-white.png"]];
-//    logo.frame = CGRectMake(12.0f, 22.0f, 0.3f*logo.frame.size.width, 0.3f*logo.frame.size.height);
-//    [header addSubview:logo];
     self.sectionsTable.tableHeaderView = header;
     
     
@@ -73,6 +71,7 @@
     
     
     self.featuredVc = [[PSFeaturedArticlesViewController alloc] init];
+    self.currentVc = self.featuredVc;
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.featuredVc];
     self.navController.navigationBar.barTintColor = kDarkBlue;
     
@@ -169,6 +168,55 @@
     return 54.0f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *section = [self.sections[indexPath.row] lowercaseString];
+    NSLog(@"SECTION = %@", section);
+    
+    if (indexPath.row==0){
+        if ([self.currentVc isEqual:self.featuredVc]){
+            [self toggleMenu];
+            return;
+        }
+        
+        self.currentVc = self.featuredVc;
+    }
+    
+    if (indexPath.row==1){
+        if ([self.currentVc isEqual:self.searchVc]){
+            [self toggleMenu];
+            return;
+        }
+        
+        if (self.searchVc==nil)
+            self.searchVc = [[PSSearchViewController alloc] init];
+        
+        self.currentVc = self.searchVc;
+    }
+    
+    
+    CGRect frame = self.view.frame;
+    [UIView animateWithDuration:0.2f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         CGRect navFrame = self.navController.view.frame;
+                         navFrame.origin.x = frame.size.width;
+                         self.navController.view.frame = navFrame;
+                     }
+                     completion:^(BOOL finished){
+                         [self.navController popToRootViewControllerAnimated:NO];
+                         if (indexPath.row != 0)
+                             [self.navController pushViewController:self.currentVc animated:NO];
+                         
+                         [self toggleMenu:0.85f];
+                     }];
+    
+
+    
+
+
+}
 
 
 
