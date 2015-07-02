@@ -12,6 +12,7 @@
 
 
 @interface PSFeaturedArticlesViewController ()
+@property (strong, nonatomic) NSMutableArray *randomTerms;
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
@@ -81,7 +82,26 @@
 {
     [super viewDidLoad];
     [self addMenuButton];
-    [self searchRandomArticles];
+    
+
+    [self.loadingIndicator startLoading];
+    [[PSWebServices sharedInstance] fetchRandomTerms:@"5591a7ed6092181100f9fe79" completionBlock:^(id result, NSError *error){
+        if (error){
+            [self.loadingIndicator stopLoading];
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+            return;
+        }
+        
+        NSDictionary *response = (NSDictionary *)result;
+        NSDictionary *autosearch = response[@"autosearch"];
+        self.randomTerms = [NSMutableArray arrayWithArray:autosearch[@"terms"]];
+        NSLog(@"%@", [self.randomTerms description]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self searchRandomArticles];
+        });
+        
+    }];
 }
 
 - (void)setCurrentArticle:(PSArticle *)currentArticle
@@ -95,8 +115,26 @@
 
 - (void)searchRandomArticles
 {
+    if (self.randomTerms.count==0){
+//        NSLog(@"SEARCH RANDOM ARTICLES: Out of Terms");
+        return;
+    }
+    
+    NSLog(@"SEARCH RANDOM ARTICLES: %@", [self.randomTerms description]);
+    
+    int i = abs(arc4random());
+    i = i % self.randomTerms.count;
+    
+    NSString *term = self.randomTerms[i];
+    [self searchArticles:term];
+    [self.randomTerms removeObject:term];
+    
+}
+
+- (void)searchArticles:(NSString *)term
+{
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer", @"limit":@"10"} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10"} completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
