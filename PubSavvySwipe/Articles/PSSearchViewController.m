@@ -22,4 +22,10 @@
     self.view = view;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self addMenuButton];
+}
+
 @end
