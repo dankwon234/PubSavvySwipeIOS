@@ -15,7 +15,6 @@
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
-@property (nonatomic) int currentIndex;
 @end
 
 #define kPadding 12.0f
@@ -31,7 +30,6 @@
     if (self){
         self.featuredArticles = [NSMutableArray array];
         self.currentArticle = nil;
-        self.currentIndex = 0;
     }
     return self;
 }
@@ -113,6 +111,9 @@
 - (void)setCurrentArticle:(PSArticle *)currentArticle
 {
     _currentArticle = currentArticle;
+    if (currentArticle==nil)
+        return;
+    
     NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
 }
 
@@ -160,11 +161,24 @@
     self.topView.delegate = self;
 }
 
+
 - (void)findCurrentArticle
 {
-    PSArticle *article = self.featuredArticles[self.currentIndex];
-    self.currentArticle = article;
-    self.currentIndex++;
+    NSLog(@"Find Current Article: %d", (int)self.featuredArticles.count);
+    if (self.featuredArticles.count == 0)
+        return;
+    
+    if (self.currentArticle){
+        [self.featuredArticles removeObject:self.currentArticle];
+        self.currentArticle = nil;
+    }
+    
+    if (self.featuredArticles.count == 0){
+        NSLog(@"NO MORE ARTICLES!");
+        return;
+    }
+    
+    self.currentArticle = self.featuredArticles[0];
 }
 
 
