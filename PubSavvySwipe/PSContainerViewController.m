@@ -218,10 +218,6 @@
     }
 
     
-//    if (indexPath.row==2){
-//    }
-    
-    
     CGRect frame = self.view.frame;
     [UIView animateWithDuration:0.2f
                           delay:0.0f
