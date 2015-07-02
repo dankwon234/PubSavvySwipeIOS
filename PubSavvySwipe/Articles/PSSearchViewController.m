@@ -9,6 +9,7 @@
 #import "PSSearchViewController.h"
 #import "PSArticleViewController.h"
 #import "PSArticle.h"
+#import "PSArticleCell.h"
 
 @interface PSSearchViewController() <UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
@@ -73,9 +74,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    PSArticleCell *cell = (PSArticleCell *)[tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell = [[PSArticleCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     
     PSArticle *article = self.searchResults[indexPath.row];
