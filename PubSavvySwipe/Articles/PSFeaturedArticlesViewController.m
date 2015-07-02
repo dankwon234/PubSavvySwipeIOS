@@ -28,8 +28,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        self.featuredArticles = [NSMutableArray array];
         self.currentArticle = nil;
+        
     }
     return self;
 }
@@ -81,7 +81,20 @@
 {
     [super viewDidLoad];
     [self addMenuButton];
+    [self searchRandomArticles];
+}
+
+- (void)setCurrentArticle:(PSArticle *)currentArticle
+{
+    _currentArticle = currentArticle;
+    if (currentArticle==nil)
+        return;
     
+    NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
+}
+
+- (void)searchRandomArticles
+{
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":@"cancer", @"limit":@"10"} completionBlock:^(id result, NSError *error){
         if (error){
@@ -94,6 +107,7 @@
             NSDictionary *response = (NSDictionary *)result;
 //            NSLog(@"%@", [response description]);
             
+            self.featuredArticles = [NSMutableArray array];
             NSArray *results = response[@"results"];
             for (int i=0; i<results.count; i++) {
                 PSArticle *article = [PSArticle articleWithInfo:results[i]];
@@ -103,19 +117,11 @@
             int max = (self.featuredArticles.count >= kSetSize) ? kSetSize : (int)self.featuredArticles.count;
             [self animateFeaturedArticles:max];
             [self findCurrentArticle];
-
+            
         });
     }];
 }
 
-- (void)setCurrentArticle:(PSArticle *)currentArticle
-{
-    _currentArticle = currentArticle;
-    if (currentArticle==nil)
-        return;
-    
-    NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
-}
 
 - (void)animateFeaturedArticles:(int)max
 {
@@ -174,7 +180,8 @@
     }
     
     if (self.featuredArticles.count == 0){
-        NSLog(@"NO MORE ARTICLES!");
+//        NSLog(@"NO MORE ARTICLES!");
+        [self searchRandomArticles];
         return;
     }
     
