@@ -20,14 +20,14 @@
 @synthesize authors;
 @synthesize journal;
 @synthesize date;
-
+@synthesize keywords;
 
 
 - (id)init
 {
     self = [super init];
     if (self){
-        self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date"];
+        self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date", @"keywords"];
     }
     
     return self;

@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *date;
 @property (copy, nonatomic) NSString *abstract;
 @property (copy, nonatomic) NSString *language;
+@property (strong, nonatomic) NSArray *keywords;
 @property (strong, nonatomic) NSArray *authors;
 @property (strong, nonatomic) NSDictionary *journal;
 + (PSArticle *)articleWithInfo:(NSDictionary *)info;
