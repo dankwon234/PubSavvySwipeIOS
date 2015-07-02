@@ -46,6 +46,7 @@
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
     self.articlesTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    self.articlesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [view addSubview:self.articlesTable];
     
     
@@ -80,7 +81,7 @@
     }
     
     PSArticle *article = self.searchResults[indexPath.row];
-    cell.textLabel.text = article.title;
+    cell.lblTitle.text = article.title;
     return cell;
 }
 
@@ -91,6 +92,12 @@
     PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
     articleVc.article = self.searchResults[indexPath.row];
     [self.navigationController pushViewController:articleVc animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+    
 }
 
 
