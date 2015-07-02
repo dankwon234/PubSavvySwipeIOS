@@ -11,14 +11,16 @@
 #import "AFNetworking.h"
 #include <sys/xattr.h>
 
-#define kErrorDomain    @"pubsavvy.com"
-#define kPathSearch     @"/api/search/"
-#define kPathUpload     @"/api/upload/"
-#define kPathImages     @"/site/image/"
-#define kPathProfile   @"/api/profile/"
-#define kPathDevice    @"/api/device/"
-#define kPathLogin      @"/api/login/"
+#define kErrorDomain          @"pubsavvy.com"
+#define kPathSearch           @"/api/search/"
+#define kPathUpload           @"/api/upload/"
+#define kPathImages           @"/site/image/"
+#define kPathProfile          @"/api/profile/"
+#define kPathDevice           @"/api/device/"
+#define kPathLogin            @"/api/login/"
+#define kPathRandomTerms      @"/api/autosearch/"
 
+//https://pubsavvyswipe.herokuapp.com/api/autosearch/5591a7ed6092181100f9fe79
 
 @implementation PSWebServices
 
@@ -41,6 +43,32 @@
     return networkStatus != NotReachable;
 }
 
+#pragma mark - Random Search
+- (void)fetchRandomTerms:(NSString *)singletonId completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [manager GET:[kPathRandomTerms stringByAppendingString:singletonId]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSDictionary *response = (NSDictionary *)responseObject;
+             
+             if ([response[@"confirmation"] isEqualToString:@"success"]){
+                 if (completionBlock)
+                     completionBlock(responseObject, nil);
+                 
+                 return;
+             }
+             
+             
+             if (completionBlock)
+                 completionBlock(response, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:response[@"message"]}]);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
 
 #pragma mark - Device
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock

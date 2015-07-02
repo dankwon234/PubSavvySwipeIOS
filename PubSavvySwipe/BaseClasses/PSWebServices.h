@@ -20,6 +20,9 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 + (PSWebServices *)sharedInstance;
 - (BOOL)checkConnection;
 
+// RANDOM SEARCH TERMS
+- (void)fetchRandomTerms:(NSString *)singletonId completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+
 // SEARCH
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
