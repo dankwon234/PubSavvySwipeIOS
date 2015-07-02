@@ -8,11 +8,12 @@
 
 #import "PSContainerViewController.h"
 #import "PSFeaturedArticlesViewController.h"
+#import "PSSearchViewController.h"
+
 
 @interface PSContainerViewController()
 @property (strong, nonatomic) UITableView *sectionsTable;
 @property (strong, nonatomic) NSArray *sections;
-//@property (strong, nonatomic) PSWelcomeView *welcomeView;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;

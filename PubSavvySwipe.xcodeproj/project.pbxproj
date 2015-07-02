@@ -25,6 +25,7 @@
 		0C6459601B0D9EFA00D22151 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C64595F1B0D9EFA00D22151 /* AppDelegate.m */; };
 		0C6459681B0D9EFA00D22151 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C6459671B0D9EFA00D22151 /* Images.xcassets */; };
 		0C6459771B0D9EFA00D22151 /* PubSavvySwipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6459761B0D9EFA00D22151 /* PubSavvySwipeTests.m */; };
+		0C73B8C11B45EC7500D1099F /* PSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */; };
 		0CA2BE641B0DA277004B4D81 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE631B0DA277004B4D81 /* PSViewController.m */; };
 		0CA2BE671B0DA2AA004B4D81 /* PSContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE661B0DA2AA004B4D81 /* PSContainerViewController.m */; };
 		0CA2BE6A1B0DA343004B4D81 /* PSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE691B0DA343004B4D81 /* PSLoadingIndicator.m */; };
@@ -87,6 +88,8 @@
 		0C6459701B0D9EFA00D22151 /* PubSavvySwipeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubSavvySwipeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6459751B0D9EFA00D22151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C6459761B0D9EFA00D22151 /* PubSavvySwipeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubSavvySwipeTests.m; sourceTree = "<group>"; };
+		0C73B8BF1B45EC7500D1099F /* PSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSearchViewController.h; sourceTree = "<group>"; };
+		0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSearchViewController.m; sourceTree = "<group>"; };
 		0CA2BE611B0DA234004B4D81 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		0CA2BE621B0DA277004B4D81 /* PSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSViewController.h; sourceTree = "<group>"; };
 		0CA2BE631B0DA277004B4D81 /* PSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSViewController.m; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				0CA2BE721B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m */,
 				0CA2BE7C1B0DAEA1004B4D81 /* PSArticleView.h */,
 				0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */,
+				0C73B8BF1B45EC7500D1099F /* PSSearchViewController.h */,
+				0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */,
 			);
 			path = Articles;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				0C635EC01B28E4D800343157 /* AFURLSessionManager.m in Sources */,
 				0C635EBA1B28E4D800343157 /* AFHTTPSessionManager.m in Sources */,
 				0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */,
+				0C73B8C11B45EC7500D1099F /* PSSearchViewController.m in Sources */,
 				0C635EBB1B28E4D800343157 /* AFNetworkReachabilityManager.m in Sources */,
 				0C635EA21B28E4A000343157 /* Reachability.m in Sources */,
 				0C635EBF1B28E4D800343157 /* AFURLResponseSerialization.m in Sources */,
