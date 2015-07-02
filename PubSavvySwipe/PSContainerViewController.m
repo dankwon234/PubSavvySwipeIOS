@@ -9,6 +9,7 @@
 #import "PSContainerViewController.h"
 #import "PSFeaturedArticlesViewController.h"
 #import "PSSearchViewController.h"
+#import "PSSavedViewController.h"
 
 
 @interface PSContainerViewController()
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
 @property (strong, nonatomic) PSSearchViewController *searchVc;
+@property (strong, nonatomic) PSSavedViewController *savedVc;
 @end
 
 
@@ -173,6 +175,11 @@
     NSString *section = [self.sections[indexPath.row] lowercaseString];
     NSLog(@"SECTION = %@", section);
     
+    if (indexPath.row == self.sections.count-1){ // ignore for now
+        [self toggleMenu];
+        return;
+    }
+    
     if (indexPath.row==0){
         if ([self.currentVc isEqual:self.featuredVc]){
             [self toggleMenu];
@@ -194,6 +201,18 @@
         self.currentVc = self.searchVc;
     }
     
+    if (indexPath.row==2){
+        if ([self.currentVc isEqual:self.savedVc]){
+            [self toggleMenu];
+            return;
+        }
+        
+        if (self.savedVc==nil)
+            self.savedVc = [[PSSavedViewController alloc] init];
+        
+        self.currentVc = self.savedVc;
+    }
+    
     
     CGRect frame = self.view.frame;
     [UIView animateWithDuration:0.2f
@@ -211,11 +230,6 @@
                          
                          [self toggleMenu:0.85f];
                      }];
-    
-
-    
-
-
 }
 
 
