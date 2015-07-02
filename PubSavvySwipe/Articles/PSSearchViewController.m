@@ -7,22 +7,44 @@
 
 
 #import "PSSearchViewController.h"
+#import "PSArticle.h"
 
 @interface PSSearchViewController() <UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) UITableView *articlesTable;
 @end
 
 @implementation PSSearchViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        self.searchResults = [NSMutableArray array];
+        
+    }
+    
+    return self;
+}
+
+
+
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor redColor];
+    view.backgroundColor = kLightBlue;
     CGRect frame = view.frame;
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 44.0f)];
     self.searchBar.delegate = self;
     [view addSubview:self.searchBar];
+    
+    self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, frame.size.width, frame.size.height-64.0f) style:UITableViewStylePlain];
+    self.articlesTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    self.articlesTable.dataSource = self;
+    self.articlesTable.delegate = self;
+    [view addSubview:self.articlesTable];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [view addGestureRecognizer:tap];
@@ -42,11 +64,63 @@
     [self.searchBar resignFirstResponder];
 }
 
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.searchResults.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell==nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    PSArticle *article = self.searchResults[indexPath.row];
+    cell.textLabel.text = article.title;
+    return cell;
+}
+
+
 #pragma mark - SearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     NSLog(@"searchBarShouldBeginEditing:");
     return YES;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarSearchButtonClicked: %@", searchBar.text);
+    [searchBar resignFirstResponder];
+    
+    [self.loadingIndicator startLoading];
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":searchBar.text, @"limit":@"50", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+            return;
+        }
+        
+        NSDictionary *response = (NSDictionary *)result;
+        NSArray *results = response[@"results"];
+        for (int i=0; i<results.count; i++) {
+            PSArticle *article = [PSArticle articleWithInfo:results[i]];
+            [self.searchResults addObject:article];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.articlesTable reloadData];
+        });
+        
+        
+        
+    }];
+    
 }
 
 //- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;                     // called when text starts editing
@@ -55,7 +129,6 @@
 //- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;   // called when text changes (including clear)
 //- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0); // called before text changes
 //
-//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
 
 
 @end
