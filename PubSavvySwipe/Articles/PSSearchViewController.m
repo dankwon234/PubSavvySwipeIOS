@@ -82,6 +82,7 @@
     
     PSArticle *article = self.searchResults[indexPath.row];
     cell.lblTitle.text = article.title;
+    cell.lblAuthors.text = article.authorsString;
     return cell;
 }
 
@@ -96,8 +97,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [PSArticleCell standardCellHeight];
+    PSArticle *article = self.searchResults[indexPath.row];
+    CGRect boundingRect = [article.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width, 250.0f)
+                                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                                   attributes:@{NSFontAttributeName:[PSArticleCell titleFont]}
+                                                      context:nil];
+
     
+    return [PSArticleCell standardCellHeight]+boundingRect.size.height;
 }
 
 
