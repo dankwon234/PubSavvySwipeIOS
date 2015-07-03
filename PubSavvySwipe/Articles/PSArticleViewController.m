@@ -8,6 +8,10 @@
 
 #import "PSArticleViewController.h"
 
+@interface PSArticleViewController() <UIWebViewDelegate>
+@property (strong, nonatomic) UIWebView *articleWebview;
+@end
+
 @implementation PSArticleViewController
 @synthesize article;
 
@@ -27,8 +31,13 @@
 {
     UIView *view = [self baseView];
     view.backgroundColor = kLightBlue;
-//    CGRect frame = view.frame;
-
+    CGRect frame = view.frame;
+    
+    self.articleWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height-20.0f)];
+    self.articleWebview.delegate = self;
+    self.articleWebview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    [view addSubview:self.articleWebview];
+    
     
     self.view = view;
 }
@@ -37,6 +46,10 @@
 {
     [super viewDidLoad];
     [self addCustomBackButton];
+    
+//    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/pubmed/m/%@", self.article.pmid];
+    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/pubmed/%@", self.article.pmid];
+    [self.articleWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 
