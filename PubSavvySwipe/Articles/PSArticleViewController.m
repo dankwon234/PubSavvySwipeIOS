@@ -47,9 +47,29 @@
     [super viewDidLoad];
     [self addCustomBackButton];
     
-//    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/pubmed/m/%@", self.article.pmid];
-    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/pubmed/%@", self.article.pmid];
+    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.article.pmid];
     [self.articleWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+}
+
+#pragma mark - UIWebviewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"webView shouldStartLoadWithRequest: %@", request.URL.absoluteString);
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
 }
 
 
