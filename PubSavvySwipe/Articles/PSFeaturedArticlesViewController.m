@@ -177,7 +177,7 @@
         articleView.backgroundColor = [UIColor whiteColor];
         
         articleView.tag = 1000 + index;
-        articleView.lblAuthors.text = [article authorsString];
+        articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
         articleView.lblJournal.text = article.journal[@"iso"];
