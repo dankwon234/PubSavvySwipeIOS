@@ -47,6 +47,7 @@
     [super viewDidLoad];
     [self addCustomBackButton];
     
+    [self.loadingIndicator startLoading];
     NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.article.pmid];
     [self.articleWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
@@ -64,7 +65,8 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    
+    [self.loadingIndicator stopLoading];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
