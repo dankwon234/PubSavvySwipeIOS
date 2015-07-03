@@ -91,6 +91,7 @@
     PSArticle *article = self.searchResults[indexPath.row];
     cell.lblTitle.text = article.title;
     cell.lblAuthors.text = article.authorsString;
+    cell.lblDetail.text = @"details";
     return cell;
 }
 
@@ -106,13 +107,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PSArticle *article = self.searchResults[indexPath.row];
-    CGRect boundingRect = [article.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width, 250.0f)
+    CGRect boundingRect = [article.title boundingRectWithSize:CGSizeMake(tableView.frame.size.width, 350.0f)
                                                       options:NSStringDrawingUsesLineFragmentOrigin
                                                    attributes:@{NSFontAttributeName:[PSArticleCell titleFont]}
                                                       context:nil];
 
     
-    return [PSArticleCell standardCellHeight]+boundingRect.size.height;
+    return [PSArticleCell standardCellHeight]+boundingRect.size.height+46.0f;
 }
 
 
