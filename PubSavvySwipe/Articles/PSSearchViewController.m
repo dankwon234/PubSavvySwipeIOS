@@ -38,11 +38,13 @@
     view.backgroundColor = kLightBlue;
     CGRect frame = view.frame;
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 44.0f)];
+    CGFloat h = 44.0f;
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, h)];
     self.searchBar.delegate = self;
+    self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
     [view addSubview:self.searchBar];
     
-    self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, frame.size.width, frame.size.height-64.0f) style:UITableViewStylePlain];
+    self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, h, frame.size.width, frame.size.height-h-20.0f) style:UITableViewStylePlain];
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
     self.articlesTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
