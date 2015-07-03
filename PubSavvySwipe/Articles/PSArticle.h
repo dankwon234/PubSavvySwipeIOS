@@ -16,10 +16,10 @@
 @property (copy, nonatomic) NSString *date;
 @property (copy, nonatomic) NSString *abstract;
 @property (copy, nonatomic) NSString *language;
+@property (copy, nonatomic) NSString *authorsString;
 @property (strong, nonatomic) NSArray *keywords;
 @property (strong, nonatomic) NSArray *authors;
 @property (strong, nonatomic) NSDictionary *journal;
 + (PSArticle *)articleWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)articleInfo;
-- (NSString *)authorsString;
 @end

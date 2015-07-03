@@ -21,7 +21,7 @@
 @synthesize journal;
 @synthesize date;
 @synthesize keywords;
-
+@synthesize authorsString;
 
 - (id)init
 {
@@ -48,11 +48,11 @@
         
         [self setValue:articleInfo[key] forKeyPath:key];
     }
-}
-
-- (NSString *)authorsString
-{
-    NSString *authorsStr = @"";
+    
+    if (self.authors.count == 0)
+        return;
+    
+    self.authorsString = @"";
     for (int i=0; i<self.authors.count; i++) {
         NSString *fullName = @"";
         NSDictionary *author = self.authors[i];
@@ -62,13 +62,13 @@
         if (author[@"lastName"] != nil)
             fullName = [fullName stringByAppendingString:[NSString stringWithFormat:@" %@", author[@"lastName"]]];
         
-        authorsStr = [authorsStr stringByAppendingString:fullName];
+        self.authorsString = [self.authorsString stringByAppendingString:fullName];
         if (i != self.authors.count-1)
-            authorsStr = [authorsStr stringByAppendingString:@", "];
+            self.authorsString = [self.authorsString stringByAppendingString:@", "];
     }
     
-    return authorsStr;
 }
+
 
 
 @end
