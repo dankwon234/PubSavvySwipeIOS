@@ -13,7 +13,7 @@
 @synthesize lblTitle;
 @synthesize lblDetail;
 
-#define kStandardCellHeight 80.0f
+#define kStandardCellHeight 64.0f
 #define kTitleFont [UIFont fontWithName:@"Helvetica" size:16.0f]
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -45,6 +45,7 @@
         y += self.lblTitle.frame.size.height;
         
         self.lblDetail = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 16.0f)];
+        self.lblDetail.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:self.lblDetail];
         
         
@@ -64,7 +65,7 @@
         return;
     
     CGRect frame = self.lblTitle.frame;
-    CGRect boundingRect = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 250.0f)
+    CGRect boundingRect = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 350.0f)
                                                            options:NSStringDrawingUsesLineFragmentOrigin
                                                         attributes:@{NSFontAttributeName:self.lblTitle.font}
                                                            context:nil];
@@ -72,10 +73,13 @@
     frame.size.height = boundingRect.size.height;
     self.lblTitle.frame = frame;
     
-    CGFloat y = frame.origin.y+frame.size.height;
+    CGFloat y = frame.origin.y+frame.size.height+24.0f;
+    
     frame = self.lblDetail.frame;
     frame.origin.y = y;
     self.lblDetail.frame = frame;
+    
+//    boundingRect.size.height
     
     
 }
