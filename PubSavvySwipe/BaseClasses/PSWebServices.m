@@ -126,6 +126,34 @@
           }];
 }
 
+- (void)fetchDevice:(NSString *)deviceId completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [manager GET:[kPathDevice stringByAppendingString:deviceId]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+             NSString *confirmation = responseDictionary[@"confirmation"];
+             
+             if ([confirmation isEqualToString:@"success"]){
+                 if (completionBlock)
+                     completionBlock(responseObject, nil);
+                 
+                 return;
+             }
+             
+             
+             if (completionBlock)
+                 completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+    
+}
+
 
 #pragma mark - Search
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
