@@ -144,6 +144,9 @@
             [self.searchResults addObject:article];
         }
         
+        [self.device populate:response[@"device"]];
+
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.articlesTable reloadData];
         });
