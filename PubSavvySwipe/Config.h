@@ -15,7 +15,8 @@
 #define kViewMenuNotification @"ViewMenuNotification"
 #define kHideCellNotification @"hideCellNotification"
 
-
+#define kAutoSearchId @"55986a4717af620b2d1676d4" // DEV
+//#define kAutoSearchId @"5591a7ed6092181100f9fe79" // PRODUCTION
 
 #define kBaseFontName @"Heiti SC"
 #define kLightBlue  [UIColor colorWithRed:69.0f/255.0f green:126.0f/255.0f blue:221.0f/255.0f alpha:1.0f]
