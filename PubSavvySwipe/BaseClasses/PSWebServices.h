@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PSDevice.h"
+
 #define kBaseUrl @"https://pubsavvyswipe.herokuapp.com/"
+//#define kBaseUrl @"http://localhost:3000/"
 
 typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
