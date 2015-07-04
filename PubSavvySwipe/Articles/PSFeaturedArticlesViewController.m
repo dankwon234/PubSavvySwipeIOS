@@ -86,7 +86,7 @@
     
 
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] fetchRandomTerms:@"5591a7ed6092181100f9fe79" completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] fetchRandomTerms:kAutoSearchId completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
