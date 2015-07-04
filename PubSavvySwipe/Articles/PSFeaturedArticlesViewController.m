@@ -135,7 +135,7 @@
 - (void)searchArticles:(NSString *)term
 {
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10"} completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
