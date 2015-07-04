@@ -14,6 +14,7 @@
 @property (copy, nonatomic) NSString *uniqueId;
 @property (copy, nonatomic) NSString *deviceToken;
 @property (strong, nonatomic) NSMutableArray *saved;
+@property (strong, nonatomic) NSMutableDictionary *searchHistory;
 + (PSDevice *)sharedDevice;
 + (PSDevice *)deviceWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)profileInfo;

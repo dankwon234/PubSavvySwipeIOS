@@ -22,6 +22,7 @@
         self.uniqueId = @"none";
         self.deviceToken = @"none";
         self.saved = [NSMutableArray array];
+        self.searchHistory = [NSMutableDictionary dictionary];
         if ([self populateFromCache]==NO) // not stored, register new device on backend
             [self registerDevice];
         
@@ -78,7 +79,8 @@
 
 - (void)registerDevice
 {
-    [[PSWebServices sharedInstance] registerDevice:@{@"deviceToken":self.deviceToken} completionBlock:^(id result, NSError *error) {
+    NSLog(@"REGISTER DEVICE!");
+    [[PSWebServices sharedInstance] registerDevice:[self parametersDictionary] completionBlock:^(id result, NSError *error) {
         if (error)
             return;
         
@@ -123,6 +125,7 @@
 {
     self.uniqueId = profileInfo[@"id"];
     self.deviceToken = profileInfo[@"deviceToken"];
+    self.searchHistory = profileInfo[@"searchHistory"];
     
     if (profileInfo[@"saved"] != nil)
         self.saved = [NSMutableArray arrayWithArray:profileInfo[@"saved"]];
@@ -136,7 +139,10 @@
     
     if (self.saved)
         params[@"saved"] = self.saved;
-    
+
+    if (self.searchHistory)
+        params[@"searchHistory"] = self.searchHistory;
+
     return params;
 }
 
