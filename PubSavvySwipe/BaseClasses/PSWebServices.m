@@ -13,6 +13,7 @@
 
 #define kErrorDomain          @"pubsavvy.com"
 #define kPathSearch           @"/api/search/"
+#define kPathRelated          @"/api/related/"
 #define kPathUpload           @"/api/upload/"
 #define kPathImages           @"/site/image/"
 #define kPathProfile          @"/api/profile/"
@@ -70,6 +71,7 @@
          }];
 }
 
+
 #pragma mark - Device
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
@@ -97,8 +99,6 @@
               if (completionBlock)
                   completionBlock(nil, error);
           }];
-
-    
 }
 
 - (void)updateDevice:(PSDevice *)device completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
@@ -154,6 +154,35 @@
                  completionBlock(nil, error);
          }];
 }
+
+- (void)searchRelatedArticles:(NSString *)pmid completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [manager GET:kPathRelated
+      parameters:@{@"pmid":pmid}
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+             NSString *confirmation = responseDictionary[@"confirmation"];
+             
+             if ([confirmation isEqualToString:@"success"]){
+                 if (completionBlock)
+                     completionBlock(responseObject, nil);
+                 
+                 return;
+             }
+             
+             if (completionBlock)
+                 completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
+
+
+
 
 
 

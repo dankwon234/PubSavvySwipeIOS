@@ -25,6 +25,7 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
 // SEARCH
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)searchRelatedArticles:(NSString *)pmid completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
 // DEVICE
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
