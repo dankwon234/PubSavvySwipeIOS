@@ -9,6 +9,7 @@
 #import "PSFeaturedArticlesViewController.h"
 #import "PSArticleView.h"
 #import "PSArticle.h"
+#import "PSArticleViewController.h"
 
 
 @interface PSFeaturedArticlesViewController ()
@@ -206,6 +207,7 @@
 }
 
 
+
 - (void)findCurrentArticle
 {
     NSLog(@"Find Current Article: %d", (int)self.featuredArticles.count);
@@ -226,6 +228,14 @@
     self.currentArticle = self.featuredArticles[0];
 }
 
+- (void)articleViewTapped:(NSInteger)tag
+{
+    NSLog(@"articleViewTapped: %@", self.currentArticle.title);
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.currentArticle;
+    [self.navigationController pushViewController:articleVc animated:YES];
+    
+}
 
 - (void)articleViewStoppedMoving
 {
