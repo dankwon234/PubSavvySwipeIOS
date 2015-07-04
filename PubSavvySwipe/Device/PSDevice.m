@@ -23,9 +23,11 @@
         self.deviceToken = @"none";
         self.saved = [NSMutableArray array];
         self.searchHistory = [NSMutableDictionary dictionary];
-        if ([self populateFromCache]==NO) // not stored, register new device on backend
-            [self registerDevice];
+        if ([self populateFromCache])
+            [self refreshDevice];
         
+        else // not stored, register new device on backend
+            [self registerDevice];
     }
     
     return self;
@@ -59,6 +61,24 @@
     [self.saved addObject:pmid];
     [self updateDevice];
 }
+
+
+- (void)refreshDevice
+{
+    if ([self.uniqueId isEqualToString:@"none"])
+        return;
+    
+    [[PSWebServices sharedInstance] fetchDevice:self.uniqueId completionBlock:^(id result, NSError *error){
+        if (error){
+            return;
+        }
+        
+        NSLog(@"%@", [result description]);
+        NSDictionary *device = result[@"device"];
+        [self populate:device];
+    }];
+}
+
 
 
 - (void)updateDevice
