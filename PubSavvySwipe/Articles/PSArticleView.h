@@ -10,6 +10,7 @@
 
 @protocol PSArticleViewDelegate
 - (void)articleViewStoppedMoving;
+- (void)articleViewTapped:(NSInteger)tag;
 @end
 
 @interface PSArticleView : UIView

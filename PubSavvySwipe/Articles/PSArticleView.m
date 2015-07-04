@@ -11,6 +11,7 @@
 
 @interface PSArticleView ()
 @property (strong, nonatomic) UIView *line;
+@property (nonatomic) BOOL isMoving;
 @end
 
 @implementation PSArticleView
@@ -27,6 +28,8 @@
 {
     self = [super initWithFrame:frame];
     if (self){
+        self.isMoving = NO;
+        
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.layer.borderWidth = 1.0f;
         self.layer.cornerRadius = 3.0f;
@@ -164,6 +167,7 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //    NSLog(@"touchesMoved:");
+    self.isMoving = YES;
 //    UITouch *touch = [touches anyObject];
     
 }
@@ -172,8 +176,15 @@
 {
 //    NSLog(@"touchesEnded: ");
 //    UITouch *touch = [touches anyObject];
+    if (self.isMoving){
+        [self.delegate articleViewStoppedMoving];
+        self.isMoving = NO;
+        return;
+    }
     
-    [self.delegate articleViewStoppedMoving];
+    // This is a tap
+    [self.delegate articleViewTapped:self.tag];
+    NSLog(@"tap!");
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
