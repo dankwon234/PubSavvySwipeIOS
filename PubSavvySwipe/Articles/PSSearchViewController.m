@@ -34,7 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.currentArticle = nil;
-        self.searchResults = [NSMutableArray array];
+        
     }
     
     return self;
@@ -331,8 +331,20 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    self.index = 0;
     [searchBar resignFirstResponder];
+
+    self.searchResults = [NSMutableArray array];
+    self.currentArticle = nil;
+    self.index = 0;
+    self.topView.delegate = nil;
+    self.topView = nil;
+    for (UIView *view in self.view.subviews) {
+        if (view.tag < 1000)
+            continue;
+        
+        [view removeFromSuperview];
+    }
+    
     [self searchArticles:searchBar.text];
 }
 
