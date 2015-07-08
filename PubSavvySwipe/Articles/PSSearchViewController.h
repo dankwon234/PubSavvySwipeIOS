@@ -8,6 +8,6 @@
 
 #import "PSViewController.h"
 
-@interface PSSearchViewController : PSViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PSSearchViewController : PSViewController
 
 @end
