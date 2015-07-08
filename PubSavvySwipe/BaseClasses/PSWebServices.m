@@ -80,7 +80,6 @@
     [manager POST:kPathDevice
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//              NSLog(@"JSON: %@", responseObject);
               NSDictionary *response = (NSDictionary *)responseObject;
               
               if ([response[@"confirmation"] isEqualToString:@"success"]==NO){
