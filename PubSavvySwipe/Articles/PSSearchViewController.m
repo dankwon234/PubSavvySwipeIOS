@@ -214,46 +214,7 @@
     NSLog(@"CURRENT INDEX: %d", self.index);
 }
 
-- (void)articleViewTapped:(NSInteger)tag
-{
-    NSLog(@"articleViewTapped: %@", self.currentArticle.title);
-    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
-    articleVc.article = self.currentArticle;
-    [self.navigationController pushViewController:articleVc animated:YES];
-    
-}
 
-
-- (void)articleViewStoppedMoving
-{
-    CGRect frame = self.topView.frame;
-    CGFloat nuetral = 90.0f;
-    
-    if (frame.origin.x > kPadding+nuetral){
-        [self likeArticle];
-        return;
-    }
-    
-    if (frame.origin.x < kPadding-nuetral){
-        [self dislikeArticle];
-        return;
-    }
-    
-    // neutral
-    [UIView animateWithDuration:0.3f
-                          delay:0
-         usingSpringWithDamping:0.5f
-          initialSpringVelocity:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = kPadding;
-                         frame.origin.y = kPadding+self.searchBar.frame.size.height;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:NULL];
-}
 
 
 - (void)queueNextArticle
@@ -319,6 +280,49 @@
                          }
                          
                      }];
+}
+
+#pragma mark - PSArticleViewDelegate
+
+- (void)articleViewTapped:(NSInteger)tag
+{
+    NSLog(@"articleViewTapped: %@", self.currentArticle.title);
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.currentArticle;
+    [self.navigationController pushViewController:articleVc animated:YES];
+    
+}
+
+
+- (void)articleViewStoppedMoving
+{
+    CGRect frame = self.topView.frame;
+    CGFloat nuetral = 90.0f;
+    
+    if (frame.origin.x > kPadding+nuetral){
+        [self likeArticle];
+        return;
+    }
+    
+    if (frame.origin.x < kPadding-nuetral){
+        [self dislikeArticle];
+        return;
+    }
+    
+    // neutral
+    [UIView animateWithDuration:0.3f
+                          delay:0
+         usingSpringWithDamping:0.5f
+          initialSpringVelocity:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.topView.frame;
+                         frame.origin.x = kPadding;
+                         frame.origin.y = kPadding+self.searchBar.frame.size.height;
+                         self.topView.frame = frame;
+                         
+                     }
+                     completion:NULL];
 }
 
 
