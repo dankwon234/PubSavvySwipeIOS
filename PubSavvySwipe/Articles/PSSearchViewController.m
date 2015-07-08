@@ -10,7 +10,7 @@
 #import "PSArticleViewController.h"
 #import "PSArticle.h"
 #import "PSArticleView.h"
-
+#import "PSWebViewController.h"
 
 
 @interface PSSearchViewController() <UISearchBarDelegate>
@@ -287,10 +287,9 @@
 - (void)articleViewTapped:(NSInteger)tag
 {
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
-    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
-    articleVc.article = self.currentArticle;
+    PSWebViewController *articleVc = [[PSWebViewController alloc] init];
+    articleVc.url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
     [self.navigationController pushViewController:articleVc animated:YES];
-    
 }
 
 

@@ -40,6 +40,7 @@
 		0CA2BE7B1B0DACAA004B4D81 /* dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BE7A1B0DACAA004B4D81 /* dots@2x.png */; };
 		0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */; };
 		0CA2BE811B0DB608004B4D81 /* UIView+draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */; };
+		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,8 @@
 		0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticleView.m; sourceTree = "<group>"; };
 		0CA2BE7F1B0DB608004B4D81 /* UIView+draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+draggable.h"; sourceTree = "<group>"; };
 		0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+draggable.m"; sourceTree = "<group>"; };
+		0CB386841B4D01540036F072 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
+		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +257,8 @@
 				0CA2BE691B0DA343004B4D81 /* PSLoadingIndicator.m */,
 				0CA2BE6B1B0DA37D004B4D81 /* PSWebServices.h */,
 				0CA2BE6C1B0DA37D004B4D81 /* PSWebServices.m */,
+				0CB386841B4D01540036F072 /* PSWebViewController.h */,
+				0CB386851B4D01540036F072 /* PSWebViewController.m */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 				0C73B8C41B45F87700D1099F /* PSArticleViewController.m in Sources */,
 				0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */,
 				0C635EBC1B28E4D800343157 /* AFSecurityPolicy.m in Sources */,
+				0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */,
 				0CA2BE731B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m in Sources */,
 				0CA2BE671B0DA2AA004B4D81 /* PSContainerViewController.m in Sources */,
 				0CA2BE6A1B0DA343004B4D81 /* PSLoadingIndicator.m in Sources */,
