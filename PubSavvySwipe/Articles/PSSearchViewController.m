@@ -88,13 +88,16 @@
         }
         
         NSDictionary *response = (NSDictionary *)result;
+        NSLog(@"%@", [response description]);
         NSArray *results = response[@"results"];
         for (int i=0; i<results.count; i++) {
             PSArticle *article = [PSArticle articleWithInfo:results[i]];
             [self.searchResults addObject:article];
         }
         
-        [self.device populate:response[@"device"]];
+        NSDictionary *deviceInfo = response[@"device"];
+        if (deviceInfo)
+            [self.device populate:deviceInfo];
 
         
         dispatch_async(dispatch_get_main_queue(), ^{
