@@ -8,12 +8,13 @@
 
 #import "PSArticleViewController.h"
 
-@interface PSArticleViewController() <UIWebViewDelegate>
+@interface PSArticleViewController() <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UIScrollView *container;
 @property (strong, nonatomic) UILabel *lblTitle;
 @property (strong, nonatomic) UILabel *lblAuthors;
 @property (strong, nonatomic) UILabel *lblDetails;
 @property (strong, nonatomic) UILabel *lblAbstract;
+@property (strong, nonatomic) UITableView *relatedTable;
 @end
 
 @implementation PSArticleViewController
@@ -108,6 +109,14 @@
     [self.container addSubview:lblRelated];
     y += lblRelated.frame.size.height;
     
+    self.relatedTable = [[UITableView alloc] initWithFrame:CGRectMake(padding, y, width, 250.0f) style:UITableViewStyleGrouped];
+    self.relatedTable.delegate = self;
+    self.relatedTable.dataSource = self;
+    self.relatedTable.backgroundColor = [UIColor clearColor];
+    self.relatedTable.scrollEnabled = NO;
+    self.relatedTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.container addSubview:self.relatedTable];
+    y += self.relatedTable.frame.size.height;
     
     self.container.contentSize = CGSizeMake(0, y+4*padding);
     
@@ -122,20 +131,63 @@
     [super viewDidLoad];
     [self addCustomBackButton];
     
+    if (self.article.related.count > 0)
+        return;
+    
     [[PSWebServices sharedInstance] searchRelatedArticles:self.article.pmid completionBlock:^(id result, NSError *error){
         if (error){
-            
             return;
         }
         
         NSDictionary *results = (NSDictionary *)result;
         NSLog(@"%@", [results description]);
         
+        NSArray *list = results[@"results"];
+        for (int i=0; i<list.count; i++) {
+            if (i==0) // ignore first one, it's the same as the source article
+                continue;
+            
+            PSArticle *relatedArticle = [PSArticle articleWithInfo:list[i]];
+            [self.article.related addObject:relatedArticle];
+            if (self.article.related.count==5)
+                break;
+        }
+        
+        [self.relatedTable reloadData];
+        
     }];
-    
-    
 }
 
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.article.related.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell==nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    
+    PSArticle *relatedArticle = self.article.related[indexPath.row];
+    cell.textLabel.text = relatedArticle.title;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PSArticle *relatedArticle = self.article.related[indexPath.row];
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = relatedArticle;
+    [self.navigationController pushViewController:articleVc animated:YES];
+    
+}
 
 
 
