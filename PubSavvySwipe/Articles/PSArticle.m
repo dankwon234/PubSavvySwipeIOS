@@ -22,12 +22,14 @@
 @synthesize date;
 @synthesize keywords;
 @synthesize authorsString;
+@synthesize related;
 
 - (id)init
 {
     self = [super init];
     if (self){
         self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date", @"keywords"];
+        self.related = [NSMutableArray array];
     }
     
     return self;

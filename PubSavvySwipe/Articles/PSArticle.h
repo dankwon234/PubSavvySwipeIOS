@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSArray *keywords;
 @property (strong, nonatomic) NSArray *authors;
 @property (strong, nonatomic) NSDictionary *journal;
+@property (strong, nonatomic) NSMutableArray *related;
 + (PSArticle *)articleWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)articleInfo;
 @end
