@@ -94,7 +94,20 @@
     self.lblAbstract.lineBreakMode = NSLineBreakByWordWrapping;
     self.lblAbstract.text = self.article.abstract;
     [self.container addSubview:self.lblAbstract];
-    y += self.lblAbstract.frame.size.height;
+    y += self.lblAbstract.frame.size.height+2*padding;
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 1.0f)];
+    line.backgroundColor = [UIColor grayColor];
+    [self.container addSubview:line];
+    y += line.frame.size.height+2*padding;
+    
+    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 22.0f)];
+    lblRelated.font = [UIFont boldSystemFontOfSize:16.0f];
+    lblRelated.textAlignment = NSTextAlignmentCenter;
+    lblRelated.text = @"Related";
+    [self.container addSubview:lblRelated];
+    y += lblRelated.frame.size.height;
+    
     
     self.container.contentSize = CGSizeMake(0, y+4*padding);
     
@@ -108,6 +121,18 @@
 {
     [super viewDidLoad];
     [self addCustomBackButton];
+    
+    [[PSWebServices sharedInstance] searchRelatedArticles:self.article.pmid completionBlock:^(id result, NSError *error){
+        if (error){
+            
+            return;
+        }
+        
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        
+    }];
+    
     
 }
 
