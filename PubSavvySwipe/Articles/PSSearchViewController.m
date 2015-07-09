@@ -287,8 +287,8 @@
 - (void)articleViewTapped:(NSInteger)tag
 {
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
-    PSWebViewController *articleVc = [[PSWebViewController alloc] init];
-    articleVc.url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.currentArticle;
     [self.navigationController pushViewController:articleVc animated:YES];
 }
 

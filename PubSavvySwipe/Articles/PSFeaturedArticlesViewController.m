@@ -9,7 +9,7 @@
 #import "PSFeaturedArticlesViewController.h"
 #import "PSArticleView.h"
 #import "PSArticle.h"
-//#import "PSArticleViewController.h"
+#import "PSArticleViewController.h"
 #import "PSWebViewController.h"
 
 
@@ -232,8 +232,9 @@
 - (void)articleViewTapped:(NSInteger)tag
 {
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
-    PSWebViewController *articleVc = [[PSWebViewController alloc] init];
-    articleVc.url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.currentArticle;
+//    articleVc.url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
     [self.navigationController pushViewController:articleVc animated:YES];
     
 }
