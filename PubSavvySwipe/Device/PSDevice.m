@@ -83,6 +83,8 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:articlesMap options:NSJSONWritingPrettyPrinted error:&error];
     [jsonData writeToFile:filePath atomically:YES];
     
+    // TODO: post notification for saved articles
+    
 }
 
 
