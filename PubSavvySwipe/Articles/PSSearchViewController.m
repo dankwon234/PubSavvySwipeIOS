@@ -263,7 +263,7 @@
 - (void)likeArticle
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
-    [self.device saveArticle:self.currentArticle.pmid];
+    [self.device saveArticle:self.currentArticle];
     
     [UIView animateWithDuration:0.20f
                           delay:0
