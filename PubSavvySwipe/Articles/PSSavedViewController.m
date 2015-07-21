@@ -7,6 +7,8 @@
 
 
 #import "PSSavedViewController.h"
+#import "PSArticleViewController.h"
+
 
 @interface PSSavedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UITableView *articlesTable;
@@ -103,6 +105,14 @@
     return filePath;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PSArticle *article = self.saved[indexPath.row];
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = article;
+    [self.navigationController pushViewController:articleVc animated:YES];
+    
+}
 
 
 
