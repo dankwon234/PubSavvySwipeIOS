@@ -53,13 +53,30 @@
     return device;
 }
 
-- (void)saveArticle:(NSString *)pmid
+- (void)saveArticle:(PSArticle *)article
 {
-    if ([self.saved containsObject:pmid])
+    if ([self.saved containsObject:article.pmid])
         return;
     
-    [self.saved addObject:pmid];
+    [self.saved addObject:article.pmid];
     [self updateDevice];
+    
+//    NSString *filePath = [self createFilePath:@"articles.txt"];
+//    NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
+//    if (articlesData==nil){
+//        NSDictionary *articlesMap = @{pmid:[self parametersDictionary]};
+//    }
+//    else{
+//        NSError *error = nil;
+//        NSDictionary *articlesMap = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData options:NSJSONReadingMutableContainers error:&error];
+//
+//        NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:articlesMap];
+//        d[pmid] = [self parametersDictionary];
+//    }
+    
+    
+    
+    
 }
 
 
@@ -177,6 +194,15 @@
     
     
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+
+- (NSString *)createFilePath:(NSString *)fileName
+{
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"+"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:fileName];
+    return filePath;
 }
 
 

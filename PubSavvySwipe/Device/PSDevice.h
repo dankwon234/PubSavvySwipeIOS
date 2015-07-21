@@ -7,6 +7,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "PSArticle.h"
 
 @interface PSDevice : NSObject
 
@@ -22,5 +23,5 @@
 - (NSString *)jsonRepresentation;
 - (void)updateDevice;
 - (void)registerDevice;
-- (void)saveArticle:(NSString *)pmid;
+- (void)saveArticle:(PSArticle *)article;
 @end
