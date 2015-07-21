@@ -26,4 +26,6 @@
 #define kDarkBlue   [UIColor colorWithRed:6.0f/255.0f green:62.0f/255.0f blue:83.0f/255.0f alpha:1.0f]
 
 
+#define kSavedArticlesFileName @"articles.txt"
+
 #endif
