@@ -71,6 +71,33 @@
     
 }
 
+- (NSDictionary *)parametersDictionary
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"pmid":self.pmid, @"title":self.title}];
+    
+    if (self.date)
+        params[@"date"] = self.date;
+    
+    if (self.abstract)
+        params[@"abstract"] = self.abstract;
+
+    if (self.language)
+        params[@"language"] = self.language;
+    
+    if (self.authors)
+        params[@"authors"] = self.authors;
+
+    if (self.keywords)
+        params[@"keywords"] = self.keywords;
+
+    if (self.journal)
+        params[@"journal"] = self.journal;
+    
+    return params;
+}
+
+
+
 
 
 @end

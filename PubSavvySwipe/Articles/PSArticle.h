@@ -23,4 +23,5 @@
 @property (strong, nonatomic) NSMutableArray *related;
 + (PSArticle *)articleWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)articleInfo;
+- (NSDictionary *)parametersDictionary;
 @end
