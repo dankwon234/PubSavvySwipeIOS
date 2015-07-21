@@ -8,6 +8,7 @@
 
 #import "PSDevice.h"
 #import "PSWebServices.h"
+#import "Config.h"
 
 @implementation PSDevice
 @synthesize deviceToken;
@@ -61,21 +62,26 @@
     [self.saved addObject:article.pmid];
     [self updateDevice];
     
-//    NSString *filePath = [self createFilePath:@"articles.txt"];
-//    NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
-//    if (articlesData==nil){
-//        NSDictionary *articlesMap = @{pmid:[self parametersDictionary]};
-//    }
-//    else{
-//        NSError *error = nil;
-//        NSDictionary *articlesMap = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData options:NSJSONReadingMutableContainers error:&error];
-//
-//        NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:articlesMap];
-//        d[pmid] = [self parametersDictionary];
-//    }
+    NSString *filePath = [self createFilePath:kSavedArticlesFileName];
+    NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
+    NSMutableDictionary *articlesMap = nil;
     
+    if (articlesData==nil){
+        articlesMap = [NSMutableDictionary dictionaryWithDictionary:@{article.pmid:[article parametersDictionary]}];
+    }
+    else {
+        NSError *error = nil;
+        NSDictionary *map = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData options:NSJSONReadingMutableContainers error:&error];
+        
+        articlesMap = [NSMutableDictionary dictionaryWithDictionary:map];
+        articlesMap[article.pmid] = [article parametersDictionary];
+    }
     
+    NSLog(@"SAVED: %@", [articlesMap description]);
     
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:articlesMap options:NSJSONWritingPrettyPrinted error:&error];
+    [jsonData writeToFile:filePath atomically:YES];
     
 }
 
