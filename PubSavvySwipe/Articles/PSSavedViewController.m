@@ -74,7 +74,11 @@
     NSString *filePath = [self createFilePath:kSavedArticlesFileName];
     NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
     
-    if (articlesData != nil){
+    if (articlesData == nil){
+        NSLog(@"CANNOT FIND ARTICLES DATA!");
+
+    }
+    else{
         NSError *error = nil;
         NSDictionary *map = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData
                                                                             options:NSJSONReadingMutableContainers
@@ -82,6 +86,7 @@
         
         self.articlesMap = [NSMutableDictionary dictionaryWithDictionary:map];
     }
+    
     
     self.saved = [NSMutableArray array];
     for (NSString *pmid in self.device.saved) {
@@ -116,6 +121,25 @@
     
     cell.textLabel.text = article.title;
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle != UITableViewCellEditingStyleDelete)
+        return;
+    
+    
+    PSArticle *article = self.saved[indexPath.row];
+    NSLog(@"REMOVE ARTICLE: %@", article.pmid);
+    [self.saved removeObject:article];
+    [self.articlesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    if ([self.device.saved containsObject:article.pmid]==NO)
+        return;
+    
+    [self.device.saved removeObject:article.pmid];
+    [self.device updateDevice];
 }
 
 - (NSString *)createFilePath:(NSString *)fileName
