@@ -77,7 +77,7 @@
         articlesMap[article.pmid] = [article parametersDictionary];
     }
     
-    NSLog(@"SAVED: %@", [articlesMap description]);
+//    NSLog(@"SAVED: %@", [articlesMap description]);
     
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:articlesMap options:NSJSONWritingPrettyPrinted error:&error];
