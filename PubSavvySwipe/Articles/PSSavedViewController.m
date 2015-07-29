@@ -22,31 +22,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        // TODO: register notification for when user saves articles
-        
-        NSString *filePath = [self createFilePath:kSavedArticlesFileName];
-        NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
-        
-        if (articlesData != nil){
-            NSError *error = nil;
-            NSDictionary *map = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData
-                                                                                options:NSJSONReadingMutableContainers
-                                                                                  error:&error];
-            
-            self.articlesMap = [NSMutableDictionary dictionaryWithDictionary:map];
-            NSLog(@"SAVED: %@", [self.articlesMap description]);
-        }
-        
-        self.saved = [NSMutableArray array];
-        for (NSString *pmid in self.device.saved) {
-            NSDictionary *articleInfo = self.articlesMap[pmid];
-            if (articleInfo==nil)
-                continue;
-            
-            PSArticle *article = [PSArticle articleWithInfo:articleInfo];
-            [self.saved addObject:article];
-        }
+        // register notification for when user saves articles
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(articleSaved:)
+                                                     name:kArticleSavedNotification
+                                                   object:nil];
 
+        
+        [self setupArticlesSource:^{
+            
+        }];
     }
     
     return self;
@@ -75,6 +60,42 @@
     [self addMenuButton];
 }
 
+
+- (void)articleSaved:(NSNotification *)notification
+{
+    [self setupArticlesSource:^{
+        [self.articlesTable reloadData];
+    }];
+}
+
+- (void)setupArticlesSource:(void (^)(void))completion
+{
+    
+    NSString *filePath = [self createFilePath:kSavedArticlesFileName];
+    NSData *articlesData = [NSData dataWithContentsOfFile:filePath];
+    
+    if (articlesData != nil){
+        NSError *error = nil;
+        NSDictionary *map = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:articlesData
+                                                                            options:NSJSONReadingMutableContainers
+                                                                              error:&error];
+        
+        self.articlesMap = [NSMutableDictionary dictionaryWithDictionary:map];
+    }
+    
+    self.saved = [NSMutableArray array];
+    for (NSString *pmid in self.device.saved) {
+        NSDictionary *articleInfo = self.articlesMap[pmid];
+        if (articleInfo==nil)
+            continue;
+        
+        PSArticle *article = [PSArticle articleWithInfo:articleInfo];
+        [self.saved addObject:article];
+    }
+    
+    if (completion)
+        completion();
+}
 
 #pragma mark - UITableViewDataSource
 
