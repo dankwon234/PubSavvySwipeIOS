@@ -15,7 +15,7 @@
 @end
 
 @implementation PSArticleView
-@synthesize delegate;
+@synthesize delegate = _delegate;
 @synthesize lblJournal;
 @synthesize lblDate;
 @synthesize lblAuthors;
@@ -28,6 +28,10 @@
 {
     self = [super initWithFrame:frame];
     if (self){
+        
+        UIScrollView *base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
+        
+        
         self.isMoving = NO;
         
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
@@ -44,16 +48,14 @@
         self.lblJournal.textAlignment = NSTextAlignmentCenter;
         self.lblJournal.textColor = [UIColor lightGrayColor];
         self.lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
-        self.lblJournal.text = @"Rofo";
-        [self addSubview:self.lblJournal];
+        [base addSubview:self.lblJournal];
         x += width;
 
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblDate.textAlignment = NSTextAlignmentCenter;
         self.lblDate.textColor = self.lblJournal.textColor;
         self.lblDate.font = self.lblJournal.font;
-        self.lblDate.text = @"June 10, 2015";
-        [self addSubview:self.lblDate];
+        [base addSubview:self.lblDate];
         x += width;
 
         self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
@@ -65,7 +67,7 @@
         
         self.line = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 1.0f)];
         self.line.backgroundColor = [UIColor lightGrayColor];
-        [self addSubview:self.line];
+        [base addSubview:self.line];
         y += self.line.frame.size.height+padding;
         
         self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 32.0f)];
@@ -73,11 +75,10 @@
         self.lblTitle.textAlignment = NSTextAlignmentCenter;
         self.lblTitle.textColor = [UIColor darkGrayColor];
         self.lblTitle.font = [UIFont fontWithName:@"Heiti SC" size:18.0f];
-        self.lblTitle.text = @"Article Title";
         self.lblTitle.numberOfLines = 0;
         self.lblTitle.lineBreakMode = NSLineBreakByWordWrapping;
         [self.lblTitle addObserver:self forKeyPath:@"text" options:0 context:nil];
-        [self addSubview:self.lblTitle];
+        [base addSubview:self.lblTitle];
         y += self.lblTitle.frame.size.height;
         
         
@@ -87,7 +88,7 @@
         self.lblAuthors.textColor = [UIColor lightGrayColor];
         self.lblAuthors.backgroundColor = [UIColor clearColor];
         self.lblAuthors.numberOfLines = 0;
-        [self addSubview:self.lblAuthors];
+        [base addSubview:self.lblAuthors];
         y += self.lblAuthors.frame.size.height;
 
         
@@ -96,12 +97,24 @@
         self.lblAbsratct.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAbsratct.textColor = [UIColor lightGrayColor];
         self.lblAbsratct.backgroundColor = [UIColor clearColor];
-        self.lblAbsratct.text = @"ABSTRACT";
         self.lblAbsratct.numberOfLines = 0;
-        [self addSubview:self.lblAbsratct];
+        [base addSubview:self.lblAbsratct];
+        
+        
+        [base addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
+        
+        
+        base.contentSize = CGSizeMake(0, 1000);
+        [self addSubview:base];
 
         
         [self enableDragging];
+        
+        // http://stackoverflow.com/questions/14556605/capturing-self-strongly-in-this-block-is-likely-to-lead-to-a-retain-cycle
+        __weak typeof(self) weakSelf = self;
+        self.draggingEndedBlock = ^{
+            [weakSelf.delegate articleViewStoppedMoving];
+        };
     }
     
     return self;
@@ -151,47 +164,14 @@
     frame = self.lblAbsratct.frame;
     frame.origin.y = y;
     self.lblAbsratct.frame = frame;
-
-    
-    
 }
 
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)tap:(UIGestureRecognizer *)tap
 {
-//    NSLog(@"touchesBegan:");
-//    UITouch *touch = [touches anyObject];
-    
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//    NSLog(@"touchesMoved:");
-    self.isMoving = YES;
-//    UITouch *touch = [touches anyObject];
-    
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//    NSLog(@"touchesEnded: ");
-//    UITouch *touch = [touches anyObject];
-    if (self.isMoving){
-        [self.delegate articleViewStoppedMoving];
-        self.isMoving = NO;
-        return;
-    }
-    
-    // This is a tap
     [self.delegate articleViewTapped:self.tag];
-    NSLog(@"tap!");
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touchesCancelled:");
-    
-}
+
 
 
 
