@@ -173,11 +173,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *section = [self.sections[indexPath.row] lowercaseString];
-    NSLog(@"SECTION = %@", section);
+//    NSLog(@"SECTION = %@", section);
     
-    
-//    self.sections = @[@"Random", @"Search", @"Saved", @"About"];
-
     if ([section isEqual:@"about"]){ // ignore for now
         [self toggleMenu];
         return;
