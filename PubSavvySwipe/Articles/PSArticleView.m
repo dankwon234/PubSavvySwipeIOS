@@ -10,6 +10,7 @@
 #import "UIView+draggable.h"
 
 @interface PSArticleView ()
+@property (strong, nonatomic) UIScrollView *base;
 @property (strong, nonatomic) UIView *line;
 @property (nonatomic) BOOL isMoving;
 @end
@@ -29,7 +30,7 @@
     self = [super initWithFrame:frame];
     if (self){
         
-        UIScrollView *base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
         
         
         self.isMoving = NO;
@@ -48,14 +49,14 @@
         self.lblJournal.textAlignment = NSTextAlignmentCenter;
         self.lblJournal.textColor = [UIColor lightGrayColor];
         self.lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
-        [base addSubview:self.lblJournal];
+        [self.base addSubview:self.lblJournal];
         x += width;
 
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblDate.textAlignment = NSTextAlignmentCenter;
         self.lblDate.textColor = self.lblJournal.textColor;
         self.lblDate.font = self.lblJournal.font;
-        [base addSubview:self.lblDate];
+        [self.base addSubview:self.lblDate];
         x += width;
 
         self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
@@ -67,7 +68,7 @@
         
         self.line = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 1.0f)];
         self.line.backgroundColor = [UIColor lightGrayColor];
-        [base addSubview:self.line];
+        [self.base addSubview:self.line];
         y += self.line.frame.size.height+padding;
         
         self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 32.0f)];
@@ -78,7 +79,7 @@
         self.lblTitle.numberOfLines = 0;
         self.lblTitle.lineBreakMode = NSLineBreakByWordWrapping;
         [self.lblTitle addObserver:self forKeyPath:@"text" options:0 context:nil];
-        [base addSubview:self.lblTitle];
+        [self.base addSubview:self.lblTitle];
         y += self.lblTitle.frame.size.height;
         
         
@@ -88,7 +89,7 @@
         self.lblAuthors.textColor = [UIColor lightGrayColor];
         self.lblAuthors.backgroundColor = [UIColor clearColor];
         self.lblAuthors.numberOfLines = 0;
-        [base addSubview:self.lblAuthors];
+        [self.base addSubview:self.lblAuthors];
         y += self.lblAuthors.frame.size.height;
 
         
@@ -98,14 +99,12 @@
         self.lblAbsratct.textColor = [UIColor lightGrayColor];
         self.lblAbsratct.backgroundColor = [UIColor clearColor];
         self.lblAbsratct.numberOfLines = 0;
-        [base addSubview:self.lblAbsratct];
+        [self.base addSubview:self.lblAbsratct];
         
         
-        [base addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
+        [self.base addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
         
-        
-        base.contentSize = CGSizeMake(0, 1000);
-        [self addSubview:base];
+        [self addSubview:self.base];
 
         
         [self enableDragging];
@@ -160,10 +159,21 @@
     frame.origin.y = y;
     self.lblAuthors.frame = frame;
     y += frame.size.height+12.0f;
-    
+
+    bounds = [self.lblAbsratct.text boundingRectWithSize:CGSizeMake(frame.size.width, 1000.0f)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName:self.lblAbsratct.font}
+                                                 context:nil];
+
     frame = self.lblAbsratct.frame;
     frame.origin.y = y;
+    frame.size.height = bounds.size.height;
     self.lblAbsratct.frame = frame;
+    
+    
+    self.base.contentSize = CGSizeMake(0, y+frame.size.height+12.0f);
+    
+
 }
 
 - (void)tap:(UIGestureRecognizer *)tap
