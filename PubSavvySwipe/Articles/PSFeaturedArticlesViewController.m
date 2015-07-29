@@ -179,11 +179,11 @@
         articleView.backgroundColor = [UIColor whiteColor];
         
         articleView.tag = 1000 + index;
+        articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
         articleView.lblJournal.text = article.journal[@"iso"];
-        articleView.lblAbsratct.text = article.abstract;
         
         [self.view addSubview:articleView];
         self.topView = articleView;
