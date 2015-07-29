@@ -16,6 +16,7 @@
 @interface PSSearchViewController() <UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) UITableView *searchHistoryTable;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @property (nonatomic) int index;
@@ -211,7 +212,7 @@
     
     self.currentArticle = self.searchResults[0];
     self.index++;
-    NSLog(@"CURRENT INDEX: %d", self.index);
+//    NSLog(@"CURRENT INDEX: %d", self.index);
 }
 
 
@@ -328,7 +329,7 @@
 #pragma mark - SearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    NSLog(@"searchBarShouldBeginEditing:");
+    NSLog(@"searchBarShouldBeginEditing: %@", [self.device.searchHistory description]);
     return YES;
 }
 
@@ -354,13 +355,6 @@
 
 
 
-
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;                     // called when text starts editing
-//- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar;                        // return NO to not resign first responder
-//- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar;                       // called when text ends editing
-//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;   // called when text changes (including clear)
-//- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0); // called before text changes
-//
 
 
 @end
