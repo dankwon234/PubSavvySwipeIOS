@@ -307,6 +307,23 @@
                      }];
 }
 
+
+- (void)reset
+{
+    self.searchResults = [NSMutableArray array];
+    self.currentArticle = nil;
+    self.index = 0;
+    self.topView.delegate = nil;
+    self.topView = nil;
+    for (UIView *view in self.view.subviews) {
+        if (view.tag < 1000)
+            continue;
+        
+        [view removeFromSuperview];
+    }
+}
+
+
 #pragma mark - PSArticleViewDelegate
 
 - (void)articleViewTapped:(NSInteger)tag
@@ -369,7 +386,16 @@
     NSString *searchTerm = self.searchHistory[indexPath.row];
     cell.textLabel.text = searchTerm;
     return cell;
-    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.searchBar resignFirstResponder];
+    [self reset];
+
+    NSString *searchTerm = self.searchHistory[indexPath.row];
+    self.searchBar.text = searchTerm;
+    [self searchArticles:searchTerm];
 }
 
 
@@ -409,19 +435,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-
-    self.searchResults = [NSMutableArray array];
-    self.currentArticle = nil;
-    self.index = 0;
-    self.topView.delegate = nil;
-    self.topView = nil;
-    for (UIView *view in self.view.subviews) {
-        if (view.tag < 1000)
-            continue;
-        
-        [view removeFromSuperview];
-    }
-    
+    [self reset];
     [self searchArticles:searchBar.text];
 }
 
