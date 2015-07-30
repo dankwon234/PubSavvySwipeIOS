@@ -13,7 +13,7 @@
 #import "PSWebViewController.h"
 
 
-@interface PSSearchViewController() <UISearchBarDelegate>
+@interface PSSearchViewController() <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) UITableView *searchHistoryTable;
@@ -84,6 +84,16 @@
     [btnLike setTitle:@"KEEP" forState:UIControlStateNormal];
     [btnLike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [view addSubview:btnLike];
+    
+    self.searchHistoryTable = [[UITableView alloc] initWithFrame:CGRectMake(0, h, frame.size.width, frame.size.height-h-20.0f) style:UITableViewStylePlain];
+    self.searchHistoryTable.dataSource = self;
+    self.searchHistoryTable.delegate = self;
+    self.searchHistoryTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
+    self.searchHistoryTable.alpha = 0.0f;
+    [view addSubview:self.searchHistoryTable];
+    
+
     
     
     self.view = view;
@@ -326,10 +336,58 @@
 }
 
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 25;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell==nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        
+    }
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.row];
+    return cell;
+    
+}
+
+
 #pragma mark - SearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     NSLog(@"searchBarShouldBeginEditing: %@", [self.device.searchHistory description]);
+    [self.view bringSubviewToFront:self.searchHistoryTable];
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.searchHistoryTable.alpha = 1.0f;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.searchHistoryTable.alpha = 0.0f;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+
     return YES;
 }
 
@@ -351,6 +409,7 @@
     
     [self searchArticles:searchBar.text];
 }
+
 
 
 
