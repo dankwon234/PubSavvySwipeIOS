@@ -16,6 +16,7 @@
 @interface PSSearchViewController() <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSMutableArray *searchHistory;
 @property (strong, nonatomic) UITableView *searchHistoryTable;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
@@ -35,6 +36,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.currentArticle = nil;
+        
+        self.searchHistory = [NSMutableArray array];
+        for (NSString *searchTerm in self.device.searchHistory.allKeys)
+            [self.searchHistory addObject:searchTerm];
+        
+        [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         
     }
     
@@ -127,6 +134,13 @@
 - (void)searchArticles:(NSString *)searchTerm
 {
     [self.loadingIndicator startLoading];
+    
+    if ([self.searchHistory containsObject:searchTerm]==NO){
+        [self.searchHistory addObject:searchTerm];
+        [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        [self.searchHistoryTable reloadData];
+    }
+    
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
@@ -340,7 +354,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 25;
+    return self.searchHistory.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -352,7 +366,8 @@
         
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.row];
+    NSString *searchTerm = self.searchHistory[indexPath.row];
+    cell.textLabel.text = searchTerm;
     return cell;
     
 }
