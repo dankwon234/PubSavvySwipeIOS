@@ -19,6 +19,7 @@
     if (self){
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.device = [PSDevice sharedDevice];
+        self.profile = [PSProfile sharedProfile];
         [self addNavigationTitleView];
         
     }
@@ -139,6 +140,22 @@
 - (void)back:(UIButton *)btn
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)showLoginView:(BOOL)animated
+{
+    
+}
+
+- (void)showRegistrationView:(BOOL)animated
+{
+    
+}
+
+- (void)showAccountView:(void (^)(void))completion
+{
+    
 }
 
 /*

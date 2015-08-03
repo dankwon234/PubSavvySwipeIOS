@@ -16,6 +16,7 @@
 @interface PSViewController : UIViewController
 
 @property (strong, nonatomic) PSDevice *device;
+@property (strong, nonatomic) PSProfile *profile;
 @property (strong, nonatomic) PSLoadingIndicator *loadingIndicator;
 - (UIView *)baseView;
 - (UIView *)baseViewWithNavBar;
@@ -26,4 +27,8 @@
 - (void)addCustomBackButton;
 - (void)viewMenu:(id)sender;
 - (void)addMenuButton;
+- (void)showLoginView:(BOOL)animated;
+- (void)showRegistrationView:(BOOL)animated;
+- (void)showAccountView:(void (^)(void))completion;
+
 @end
