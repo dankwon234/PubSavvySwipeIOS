@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PSDevice.h"
+#import "PSProfile.h"
 
 #define kBaseUrl @"https://pubsavvyswipe.herokuapp.com/"
 //#define kBaseUrl @"http://localhost:3000/"
@@ -33,4 +34,8 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)fetchDevice:(NSString *)deviceId completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 - (void)updateDevice:(PSDevice *)device completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+
+// PROFILE
+- (void)registerProfile:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+
 @end

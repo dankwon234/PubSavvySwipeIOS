@@ -76,7 +76,6 @@
 - (void)registerDevice:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
     AFHTTPRequestOperationManager *manager = [self requestManagerForJSONSerializiation];
-
     [manager POST:kPathDevice
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -151,6 +150,32 @@
                  completionBlock(nil, error);
          }];
     
+}
+
+#pragma mark - Profile
+
+- (void)registerProfile:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [self requestManagerForJSONSerializiation];
+    [manager POST:kPathProfile
+       parameters:[profile parametersDictionary]
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSDictionary *response = (NSDictionary *)responseObject;
+              
+              if ([response[@"confirmation"] isEqualToString:@"success"]==NO){
+                  if (completionBlock){
+                      completionBlock(nil, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:response[@"message"]}]);
+                  }
+                  return;
+              }
+              
+              if (completionBlock)
+                  completionBlock(response, nil);
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              if (completionBlock)
+                  completionBlock(nil, error);
+          }];
 }
 
 
