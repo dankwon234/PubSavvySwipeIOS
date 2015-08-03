@@ -182,11 +182,11 @@
          }];
 }
 
-- (void)searchRelatedArticles:(NSString *)pmid completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+- (void)searchRelatedArticles:(NSString *)pmids completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [manager GET:kPathRelated
-      parameters:@{@"pmid":pmid}
+      parameters:@{@"pmid":pmids}
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
              NSString *confirmation = responseDictionary[@"confirmation"];
