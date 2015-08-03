@@ -59,7 +59,6 @@
     if ([self.saved containsObject:article.pmid])
         return;
     
-//    [self.saved addObject:article.pmid];
     [self.saved insertObject:article.pmid atIndex:0];
     [self updateDevice];
     
