@@ -16,6 +16,7 @@
 #define kViewMenuNotification       @"ViewMenuNotification"
 #define kHideCellNotification       @"hideCellNotification"
 #define kArticleSavedNotification   @"articleSavedNotification"
+#define kLoggedInNotification       @"loggedInNotification"
 
 
 //#define kAutoSearchId @"55986a4717af620b2d1676d4" // DEV
