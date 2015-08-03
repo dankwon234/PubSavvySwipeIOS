@@ -131,8 +131,8 @@
                                     UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
                                     UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
                                     UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
-    controller.excludedActivityTypes = excludedActivities;
     
+    controller.excludedActivityTypes = excludedActivities;
     [self presentViewController:controller animated:YES completion:^{
         
     }];
