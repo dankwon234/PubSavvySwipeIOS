@@ -31,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        self.sections = @[@"Random", @"Related", @"Search", @"Saved", @"About"];
+        self.sections = @[@"Random", @"Related", @"Search", @"Saved", @"About", @"Account"];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(toggleMenu)
@@ -176,6 +176,12 @@
 {
     NSString *section = [self.sections[indexPath.row] lowercaseString];
 //    NSLog(@"SECTION = %@", section);
+    
+    if ([section isEqual:@"account"]){ // ignore for now
+        [self toggleMenu];
+        return;
+    }
+
     
     if ([section isEqual:@"about"]){ // ignore for now
         [self toggleMenu];
