@@ -177,8 +177,15 @@
     NSString *section = [self.sections[indexPath.row] lowercaseString];
 //    NSLog(@"SECTION = %@", section);
     
-    if ([section isEqual:@"account"]){ // ignore for now
-        [self toggleMenu];
+    if ([section isEqual:@"account"]){
+        if (self.profile.isPopulated){
+            return;
+        }
+        
+        [self showLoginView:YES completion:^{
+            [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
+        }];
+
         return;
     }
 
