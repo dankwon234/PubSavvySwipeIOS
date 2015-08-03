@@ -10,6 +10,7 @@
 #define PubSavvySwipe_Config_h
 
 #define kNavBarHeight 64.0f
+#define kHeaderLabelVerticalOffset 100.0f
 
 
 #define kViewMenuNotification       @"ViewMenuNotification"
