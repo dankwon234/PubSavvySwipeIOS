@@ -16,6 +16,7 @@
 		0C58046D1B6FDD1F00D87F12 /* backgroundLights@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */; };
 		0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */; };
 		0C58046F1B6FDD1F00D87F12 /* bgLosAngeles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */; };
+		0C5804721B6FDEAC00D87F12 /* PSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */; };
 		0C635EA21B28E4A000343157 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635E9F1B28E4A000343157 /* Reachability.m */; };
 		0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA11B28E4A000343157 /* SignalCheck.m */; };
 		0C635EB81B28E4D800343157 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA61B28E4D800343157 /* AFHTTPRequestOperation.m */; };
@@ -74,6 +75,8 @@
 		0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundLights@2x.png"; sourceTree = "<group>"; };
 		0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCoffee@2x.png"; sourceTree = "<group>"; };
 		0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgLosAngeles@2x.png"; sourceTree = "<group>"; };
+		0C5804701B6FDEAC00D87F12 /* PSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSLoginViewController.h; sourceTree = "<group>"; };
+		0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSLoginViewController.m; sourceTree = "<group>"; };
 		0C635E9E1B28E4A000343157 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0C635E9F1B28E4A000343157 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0C635EA01B28E4A000343157 /* SignalCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalCheck.h; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				0CA3B8221B6FCB4A004F61DB /* PSProfile.m */,
 				0C5804621B6FDA7300D87F12 /* PSRegistrationViewController.h */,
 				0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */,
+				0C5804701B6FDEAC00D87F12 /* PSLoginViewController.h */,
+				0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				0C635EA21B28E4A000343157 /* Reachability.m in Sources */,
 				0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */,
 				0C635EBF1B28E4D800343157 /* AFURLResponseSerialization.m in Sources */,
+				0C5804721B6FDEAC00D87F12 /* PSLoginViewController.m in Sources */,
 				0C635EBE1B28E4D800343157 /* AFURLRequestSerialization.m in Sources */,
 				0C635EBD1B28E4D800343157 /* AFURLConnectionOperation.m in Sources */,
 				0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */,
