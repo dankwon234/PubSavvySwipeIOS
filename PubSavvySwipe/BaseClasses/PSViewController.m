@@ -4,9 +4,12 @@
 //
 //  Created by Dan Kwon on 5/21/15.
 //  Copyright (c) 2015 FrameResearch. All rights reserved.
-//
+
 
 #import "PSViewController.h"
+#import "PSRegistrationViewController.h"
+#import "PSLoginViewController.h"
+
 
 @implementation PSViewController
 @synthesize loadingIndicator;
@@ -143,20 +146,47 @@
 }
 
 
-- (void)showLoginView:(BOOL)animated
+- (void)showLoginView:(BOOL)animated completion:(void (^)(void))completion
 {
+    PSLoginViewController *loginVc = [[PSLoginViewController alloc] init];
+    UINavigationController *navController = [self clearNavigationControllerWithRoot:loginVc];
+    [self presentViewController:navController animated:animated completion:^{
+        if (completion)
+            completion();
+    }];
+
     
 }
 
-- (void)showRegistrationView:(BOOL)animated
+- (void)showRegistrationView:(BOOL)animated completion:(void (^)(void))completion
 {
-    
+    PSRegistrationViewController *registerVc = [[PSRegistrationViewController alloc] init];
+    UINavigationController *navController = [self clearNavigationControllerWithRoot:registerVc];
+    [self presentViewController:navController animated:animated completion:^{
+        if (completion)
+            completion();
+    }];
+
 }
 
 - (void)showAccountView:(void (^)(void))completion
 {
     
 }
+
+
+- (UINavigationController *)clearNavigationControllerWithRoot:(UIViewController *)root
+{
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:root];
+    
+    // makes nav bar clear:
+    [navController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    navController.view.backgroundColor = [UIColor clearColor];
+    navController.navigationBar.shadowImage = [UIImage new];
+    navController.navigationBar.translucent = YES;
+    return navController;
+}
+
 
 /*
  - (void)showLoginView:(BOOL)animated
