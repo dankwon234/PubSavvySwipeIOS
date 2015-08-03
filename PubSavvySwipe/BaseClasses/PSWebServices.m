@@ -178,6 +178,32 @@
           }];
 }
 
+- (void)login:(NSDictionary *)credentials completion:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [self requestManagerForJSONSerializiation];
+    [manager POST:kPathLogin
+       parameters:credentials
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSDictionary *results = (NSDictionary *)responseObject;
+              
+              if ([results[@"confirmation"] isEqualToString:@"success"]==NO){
+                  if (completionBlock){
+                      completionBlock(nil, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:results[@"message"]}]);
+                  }
+                  return;
+              }
+              
+              if (completionBlock)
+                  completionBlock(results, nil);
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+              if (completionBlock)
+                  completionBlock(nil, error);
+          }];
+}
+
 
 #pragma mark - Search
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
