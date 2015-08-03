@@ -13,7 +13,6 @@
 #import "PSWebViewController.h"
 
 @interface PSRelatedViewController ()
-@property (strong, nonatomic) NSMutableArray *randomTerms;
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
@@ -85,9 +84,17 @@
     [super viewDidLoad];
     [self addMenuButton];
     
+    NSMutableArray *saved = self.device.saved;
+    NSMutableString *pmids = [NSMutableString stringWithString:@""];
+    for (int i=0; i<saved.count; i++) {
+        NSString *savedPmid = saved[i];
+        [pmids appendString:savedPmid];
+        if (i != saved.count-1)
+            [pmids appendString:@","];
+    }
     
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] fetchRandomTerms:kAutoSearchId completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchRelatedArticles:pmids completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
@@ -95,13 +102,7 @@
         }
         
         NSDictionary *response = (NSDictionary *)result;
-        NSDictionary *autosearch = response[@"autosearch"];
-        self.randomTerms = [NSMutableArray arrayWithArray:autosearch[@"terms"]];
-        NSLog(@"%@", [self.randomTerms description]);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self searchRandomArticles];
-        });
+        NSLog(@"%@", [response description]);
         
     }];
 }
@@ -115,23 +116,6 @@
     NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
 }
 
-- (void)searchRandomArticles
-{
-    if (self.randomTerms.count==0){
-        //        NSLog(@"SEARCH RANDOM ARTICLES: Out of Terms");
-        return;
-    }
-    
-    NSLog(@"SEARCH RANDOM ARTICLES: %@", [self.randomTerms description]);
-    
-    int i = abs(arc4random());
-    i = i % self.randomTerms.count;
-    
-    NSString *term = self.randomTerms[i];
-    [self searchArticles:term];
-    [self.randomTerms removeObject:term];
-    
-}
 
 - (void)searchArticles:(NSString *)term
 {
@@ -221,8 +205,8 @@
     }
     
     if (self.featuredArticles.count == 0){
-        //        NSLog(@"NO MORE ARTICLES!");
-        [self searchRandomArticles];
+        NSLog(@"NO MORE ARTICLES!");
+//        [self searchRandomArticles];
         return;
     }
     
