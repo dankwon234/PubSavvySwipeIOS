@@ -96,6 +96,14 @@
     [self.container addSubview:self.lblAbstract];
     y += self.lblAbstract.frame.size.height+2*padding;
     
+    UIButton *btnShare = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnShare.frame = CGRectMake(20.0f, y, frame.size.width-40.0f, 44.0f);
+    btnShare.backgroundColor = kGreen;
+    [btnShare setTitle:@"Share" forState:UIControlStateNormal];
+    [btnShare addTarget:self action:@selector(shareArticle) forControlEvents:UIControlEventTouchUpInside];
+    [self.container addSubview:btnShare];
+    y += btnShare.frame.size.height;
+    
     self.container.contentSize = CGSizeMake(0, y+4*padding);
     
     [view addSubview:self.container];
@@ -111,7 +119,24 @@
     
 }
 
-
+- (void)shareArticle
+{
+    NSString *articleUrl = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/pubmed/%@", self.article.pmid];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[articleUrl] applicationActivities:nil];
+    
+    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeMessage,
+                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+    controller.excludedActivityTypes = excludedActivities;
+    
+    [self presentViewController:controller animated:YES completion:^{
+        
+    }];
+}
 
 
 
