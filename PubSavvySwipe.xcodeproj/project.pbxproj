@@ -40,6 +40,7 @@
 		0CA2BE7B1B0DACAA004B4D81 /* dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BE7A1B0DACAA004B4D81 /* dots@2x.png */; };
 		0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */; };
 		0CA2BE811B0DB608004B4D81 /* UIView+draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */; };
+		0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */; };
 		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,8 @@
 		0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticleView.m; sourceTree = "<group>"; };
 		0CA2BE7F1B0DB608004B4D81 /* UIView+draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+draggable.h"; sourceTree = "<group>"; };
 		0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+draggable.m"; sourceTree = "<group>"; };
+		0CA3B81D1B6FB209004F61DB /* PSRelatedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRelatedViewController.h; sourceTree = "<group>"; };
+		0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRelatedViewController.m; sourceTree = "<group>"; };
 		0CB386841B4D01540036F072 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
 		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -300,6 +303,8 @@
 				0C73B8C01B45EC7500D1099F /* PSSearchViewController.m */,
 				0C73B8C21B45F87700D1099F /* PSArticleViewController.h */,
 				0C73B8C31B45F87700D1099F /* PSArticleViewController.m */,
+				0CA3B81D1B6FB209004F61DB /* PSRelatedViewController.h */,
+				0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */,
 				0C73B8C51B45FD4400D1099F /* PSSavedViewController.h */,
 				0C73B8C61B45FD4400D1099F /* PSSavedViewController.m */,
 			);
@@ -422,6 +427,7 @@
 				0C73B8C71B45FD4400D1099F /* PSSavedViewController.m in Sources */,
 				0C635EBB1B28E4D800343157 /* AFNetworkReachabilityManager.m in Sources */,
 				0C635EA21B28E4A000343157 /* Reachability.m in Sources */,
+				0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */,
 				0C635EBF1B28E4D800343157 /* AFURLResponseSerialization.m in Sources */,
 				0C635EBE1B28E4D800343157 /* AFURLRequestSerialization.m in Sources */,
 				0C635EBD1B28E4D800343157 /* AFURLConnectionOperation.m in Sources */,

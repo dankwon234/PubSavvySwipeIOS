@@ -10,6 +10,7 @@
 #import "PSFeaturedArticlesViewController.h"
 #import "PSSearchViewController.h"
 #import "PSSavedViewController.h"
+#import "PSRelatedViewController.h"
 
 
 @interface PSContainerViewController()
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
+@property (strong, nonatomic) PSRelatedViewController *relatedVc;
 @property (strong, nonatomic) PSSearchViewController *searchVc;
 @property (strong, nonatomic) PSSavedViewController *savedVc;
 @end
@@ -29,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        self.sections = @[@"Random", @"Search", @"Saved", @"About"];
+        self.sections = @[@"Random", @"Related", @"Search", @"Saved", @"About"];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(toggleMenu)
@@ -189,6 +191,19 @@
         
         self.currentVc = self.featuredVc;
     }
+    
+    if ([section isEqual:@"related"]){
+        if ([self.currentVc isEqual:self.relatedVc]){
+            [self toggleMenu];
+            return;
+        }
+        
+        if (self.relatedVc==nil)
+            self.relatedVc = [[PSRelatedViewController alloc] init];
+        
+        self.currentVc = self.relatedVc;
+    }
+
     
     if ([section isEqual:@"search"]){
         if ([self.currentVc isEqual:self.searchVc]){
