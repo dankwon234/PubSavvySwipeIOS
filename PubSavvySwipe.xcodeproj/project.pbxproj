@@ -41,6 +41,7 @@
 		0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE7D1B0DAEA1004B4D81 /* PSArticleView.m */; };
 		0CA2BE811B0DB608004B4D81 /* UIView+draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */; };
 		0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */; };
+		0CA3B8231B6FCB4A004F61DB /* PSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B8221B6FCB4A004F61DB /* PSProfile.m */; };
 		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,8 @@
 		0CA2BE801B0DB608004B4D81 /* UIView+draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+draggable.m"; sourceTree = "<group>"; };
 		0CA3B81D1B6FB209004F61DB /* PSRelatedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRelatedViewController.h; sourceTree = "<group>"; };
 		0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRelatedViewController.m; sourceTree = "<group>"; };
+		0CA3B8211B6FCB4A004F61DB /* PSProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSProfile.h; sourceTree = "<group>"; };
+		0CA3B8221B6FCB4A004F61DB /* PSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSProfile.m; sourceTree = "<group>"; };
 		0CB386841B4D01540036F072 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
 		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -214,6 +217,7 @@
 				0C64595F1B0D9EFA00D22151 /* AppDelegate.m */,
 				0CA2BE651B0DA2AA004B4D81 /* PSContainerViewController.h */,
 				0CA2BE661B0DA2AA004B4D81 /* PSContainerViewController.m */,
+				0CA3B8201B6FCA95004F61DB /* Profile */,
 				0C635EC11B28ED2900343157 /* Device */,
 				0CA2BE701B0DA578004B4D81 /* Articles */,
 				0C6459801B0DA0DF00D22151 /* BaseClasses */,
@@ -309,6 +313,15 @@
 				0C73B8C61B45FD4400D1099F /* PSSavedViewController.m */,
 			);
 			path = Articles;
+			sourceTree = "<group>";
+		};
+		0CA3B8201B6FCA95004F61DB /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0CA3B8211B6FCB4A004F61DB /* PSProfile.h */,
+				0CA3B8221B6FCB4A004F61DB /* PSProfile.m */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,6 +450,7 @@
 				0CA2BE7E1B0DAEA1004B4D81 /* PSArticleView.m in Sources */,
 				0C73B8C41B45F87700D1099F /* PSArticleViewController.m in Sources */,
 				0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */,
+				0CA3B8231B6FCB4A004F61DB /* PSProfile.m in Sources */,
 				0C635EBC1B28E4D800343157 /* AFSecurityPolicy.m in Sources */,
 				0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */,
 				0CA2BE731B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m in Sources */,
