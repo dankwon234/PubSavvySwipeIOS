@@ -14,6 +14,7 @@
 @synthesize lastName;
 @synthesize email;
 @synthesize device;
+@synthesize password;
 @synthesize isPopulated;
 
 
@@ -26,6 +27,7 @@
         self.lastName = @"";
         self.email = @"";
         self.device = @"";
+        self.password = @"";
         self.isPopulated = NO;
         
     }
@@ -83,7 +85,10 @@
     
     if (self.email)
         params[@"email"] = self.email;
-    
+
+    if (self.password)
+        params[@"password"] = self.password;
+
     return params;
 }
 
