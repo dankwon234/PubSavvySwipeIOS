@@ -13,7 +13,7 @@
 #import "PSWebViewController.h"
 
 @interface PSRelatedViewController ()
-@property (strong, nonatomic) NSMutableArray *featuredArticles;
+@property (strong, nonatomic) NSMutableArray *relatedArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @end
@@ -107,6 +107,16 @@
         NSDictionary *response = (NSDictionary *)result;
         NSLog(@"%@", [response description]);
         
+        self.relatedArticles = [NSMutableArray array];
+        NSArray *results = response[@"results"];
+        for (int i=0; i<results.count; i++) {
+            PSArticle *article = [PSArticle articleWithInfo:results[i]];
+            [self.relatedArticles addObject:article];
+        }
+        
+        int max = (self.relatedArticles.count >= kSetSize) ? kSetSize : (int)self.relatedArticles.count;
+        [self animateFeaturedArticles:max];
+        [self findCurrentArticle];
     }];
 }
 
@@ -134,14 +144,14 @@
             NSDictionary *response = (NSDictionary *)result;
             //            NSLog(@"%@", [response description]);
             
-            self.featuredArticles = [NSMutableArray array];
+            self.relatedArticles = [NSMutableArray array];
             NSArray *results = response[@"results"];
             for (int i=0; i<results.count; i++) {
                 PSArticle *article = [PSArticle articleWithInfo:results[i]];
-                [self.featuredArticles addObject:article];
+                [self.relatedArticles addObject:article];
             }
             
-            int max = (self.featuredArticles.count >= kSetSize) ? kSetSize : (int)self.featuredArticles.count;
+            int max = (self.relatedArticles.count >= kSetSize) ? kSetSize : (int)self.relatedArticles.count;
             [self animateFeaturedArticles:max];
             [self findCurrentArticle];
             
@@ -154,10 +164,10 @@
 {
     CGRect frame = self.view.frame;
     
-    for (int i=0; i<self.featuredArticles.count; i++) {
-        int idx = (int)self.featuredArticles.count-i-1; // adjust index to show articles in correct sequence
+    for (int i=0; i<self.relatedArticles.count; i++) {
+        int idx = (int)self.relatedArticles.count-i-1; // adjust index to show articles in correct sequence
         
-        PSArticle *article = self.featuredArticles[idx];
+        PSArticle *article = self.relatedArticles[idx];
         
         CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
@@ -198,22 +208,22 @@
 
 - (void)findCurrentArticle
 {
-    NSLog(@"Find Current Article: %d", (int)self.featuredArticles.count);
-    if (self.featuredArticles.count == 0)
+    NSLog(@"Find Current Article: %d", (int)self.relatedArticles.count);
+    if (self.relatedArticles.count == 0)
         return;
     
     if (self.currentArticle){
-        [self.featuredArticles removeObject:self.currentArticle];
+        [self.relatedArticles removeObject:self.currentArticle];
         self.currentArticle = nil;
     }
     
-    if (self.featuredArticles.count == 0){
+    if (self.relatedArticles.count == 0){
         NSLog(@"NO MORE ARTICLES!");
 //        [self searchRandomArticles];
         return;
     }
     
-    self.currentArticle = self.featuredArticles[0];
+    self.currentArticle = self.relatedArticles[0];
 }
 
 - (void)articleViewTapped:(NSInteger)tag
@@ -296,7 +306,7 @@
                          
                      }
                      completion:^(BOOL finished){
-                         if (self.featuredArticles.count > 0){
+                         if (self.relatedArticles.count > 0){
                              [self queueNextArticle];
                          }
                      }];
@@ -318,7 +328,7 @@
                          
                      }
                      completion:^(BOOL finished){
-                         if (self.featuredArticles.count > 0){
+                         if (self.relatedArticles.count > 0){
                              [self queueNextArticle];
                          }
                          
