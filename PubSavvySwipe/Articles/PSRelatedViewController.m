@@ -84,10 +84,25 @@
     [super viewDidLoad];
     [self addMenuButton];
     
-    NSMutableArray *saved = self.device.saved;
-    if (saved.count==0) // no saved articles
+    if (self.device.saved.count==0) // no saved articles
         return;
     
+    [self searchRelatedArticles:self.device.saved];
+}
+
+- (void)setCurrentArticle:(PSArticle *)currentArticle
+{
+    _currentArticle = currentArticle;
+    if (currentArticle==nil)
+        return;
+    
+    NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
+}
+
+
+
+- (void)searchRelatedArticles:(NSArray *)saved
+{
     NSMutableString *pmids = [NSMutableString stringWithString:@""];
     for (int i=0; i<saved.count; i++) {
         NSString *savedPmid = saved[i];
@@ -120,16 +135,7 @@
     }];
 }
 
-- (void)setCurrentArticle:(PSArticle *)currentArticle
-{
-    _currentArticle = currentArticle;
-    if (currentArticle==nil)
-        return;
-    
-    NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
-}
-
-
+/*
 - (void)searchArticles:(NSString *)term
 {
     [self.loadingIndicator startLoading];
@@ -158,7 +164,7 @@
         });
     }];
 }
-
+*/
 
 - (void)animateFeaturedArticles:(int)max
 {
@@ -219,7 +225,7 @@
     
     if (self.relatedArticles.count == 0){
         NSLog(@"NO MORE ARTICLES!");
-//        [self searchRandomArticles];
+        [self searchRelatedArticles:self.device.saved];
         return;
     }
     
