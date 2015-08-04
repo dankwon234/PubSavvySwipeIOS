@@ -20,8 +20,8 @@
 {
     self = [super init];
     if (self){
-        self.uniqueId = @"none";
-        self.deviceToken = @"none";
+        self.uniqueId = @"";
+        self.deviceToken = @"";
         self.saved = [NSMutableArray array];
         self.searchHistory = [NSMutableDictionary dictionary];
         if ([self populateFromCache])
