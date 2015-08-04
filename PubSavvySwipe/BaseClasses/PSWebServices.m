@@ -237,7 +237,7 @@
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [manager GET:kPathRelated
-      parameters:@{@"pmid":pmids}
+      parameters:@{@"pmid":pmids, @"limit":@"10"}
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
              NSString *confirmation = responseDictionary[@"confirmation"];
