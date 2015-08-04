@@ -14,6 +14,7 @@
 
 
 @interface PSSearchViewController() <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSNumberFormatter *numberFormatter;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSMutableArray *searchHistory;
@@ -35,6 +36,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
+        self.numberFormatter = [[NSNumberFormatter alloc] init];
+        [self.numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [self.numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [self.numberFormatter setGroupingSeparator:@","];
+
+        
         self.currentArticle = nil;
         
         self.searchHistory = [NSMutableArray array];
@@ -379,12 +386,17 @@
     static NSString *cellId = @"cellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         
     }
     
     NSString *searchTerm = self.searchHistory[indexPath.row];
+    NSDictionary *search = self.device.searchHistory[searchTerm];
+    
     cell.textLabel.text = searchTerm;
+    NSNumber *count = [NSNumber numberWithInteger:[search[@"count"] intValue]];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ results", [self.numberFormatter stringFromNumber:count]];
     return cell;
 }
 
