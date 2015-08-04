@@ -85,6 +85,9 @@
     [self addMenuButton];
     
     NSMutableArray *saved = self.device.saved;
+    if (saved.count==0) // no saved articles
+        return;
+    
     NSMutableString *pmids = [NSMutableString stringWithString:@""];
     for (int i=0; i<saved.count; i++) {
         NSString *savedPmid = saved[i];
