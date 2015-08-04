@@ -163,10 +163,10 @@
     self.profile.lastName = [parts[parts.count-1] stringByTrimmingCharactersInSet:whiteSpace];
     self.profile.email = [self.emailField.text stringByTrimmingCharactersInSet:whiteSpace];
     self.profile.password = [self.passwordField.text stringByTrimmingCharactersInSet:whiteSpace];
+    self.profile.device = self.device.uniqueId;
     
     
     [self.loadingIndicator startLoading];
-    
     [[PSWebServices sharedInstance] registerProfile:self.profile completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
@@ -175,11 +175,14 @@
         }
         
         NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
         [self.profile populate:results[@"profile"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            //            TVConfirmViewController *confirmVc = [[TVConfirmViewController alloc] init];
-            //            [self.navigationController pushViewController:confirmVc animated:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+            
         });
     }];
     
