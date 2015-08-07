@@ -147,6 +147,7 @@
         [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         [self.searchHistoryTable reloadData];
     }
+
     
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
@@ -157,7 +158,7 @@
         }
         
         NSDictionary *response = (NSDictionary *)result;
-        //        NSLog(@"%@", [response description]);
+        NSLog(@"%@", [response description]);
         NSDictionary *deviceInfo = response[@"device"];
         if (deviceInfo)
             [self.device populate:deviceInfo];
@@ -168,7 +169,13 @@
             [self.searchResults addObject:article];
         }
         
+        NSDictionary *searchQuery = response[@"query"]; // this object contains the number of results, frequency and timestamp
+        self.device.searchHistory[searchTerm] = searchQuery;
+        
+
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.searchHistoryTable reloadData];
             int max = (self.searchResults.count >= kSetSize) ? kSetSize : (int)self.searchResults.count;
             [self animateFeaturedArticles:max];
             [self findCurrentArticle];
@@ -391,10 +398,9 @@
     }
     
     NSString *searchTerm = self.searchHistory[indexPath.row];
-    NSDictionary *search = self.device.searchHistory[searchTerm];
-    
+    NSDictionary *searchQuery = self.device.searchHistory[searchTerm];
     cell.textLabel.text = searchTerm;
-    NSNumber *count = [NSNumber numberWithInteger:[search[@"count"] intValue]];
+    NSNumber *count = [NSNumber numberWithInteger:[searchQuery[@"count"] intValue]];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ results", [self.numberFormatter stringFromNumber:count]];
     return cell;
