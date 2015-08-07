@@ -105,6 +105,21 @@
     self.searchHistoryTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
     self.searchHistoryTable.alpha = 0.0f;
+    
+    UIView *cancel = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 64.0f)];
+    cancel.backgroundColor = [UIColor redColor];
+    self.searchHistoryTable.tableFooterView = cancel;
+    
+    UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnCancel.frame = CGRectMake(20.0f, 10.0f, frame.size.width-40.0f, 44.0f);
+    [btnCancel addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
+    [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
+    [cancel addSubview:btnCancel];
+    
+    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
+
+    
+    
     [view addSubview:self.searchHistoryTable];
     
 
@@ -138,15 +153,18 @@
     NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
 }
 
+- (void)cancelSearch:(UIButton *)btn
+{
+    [self dismissKeyboard];
+    [self hideSearchTable];
+    
+    
+}
+
 - (void)searchArticles:(NSString *)searchTerm
 {
     [self.loadingIndicator startLoading];
     
-    if ([self.searchHistory containsObject:searchTerm]==NO){
-        [self.searchHistory addObject:searchTerm];
-        [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-        [self.searchHistoryTable reloadData];
-    }
 
     
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
@@ -172,9 +190,12 @@
         NSDictionary *searchQuery = response[@"query"]; // this object contains the number of results, frequency and timestamp
         self.device.searchHistory[searchTerm] = searchQuery;
         
-
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.searchHistory containsObject:searchTerm]==NO){
+                [self.searchHistory addObject:searchTerm];
+                [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            }
+
             [self.searchHistoryTable reloadData];
             int max = (self.searchResults.count >= kSetSize) ? kSetSize : (int)self.searchResults.count;
             [self animateFeaturedArticles:max];
@@ -435,7 +456,7 @@
     return YES;
 }
 
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+- (void)hideSearchTable
 {
     [UIView animateWithDuration:0.25f
                           delay:0
@@ -446,6 +467,11 @@
                      completion:^(BOOL finished){
                          
                      }];
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    [self hideSearchTable];
 
     return YES;
 }
