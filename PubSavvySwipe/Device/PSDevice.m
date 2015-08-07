@@ -171,7 +171,7 @@
 {
     self.uniqueId = profileInfo[@"id"];
     self.deviceToken = profileInfo[@"deviceToken"];
-    self.searchHistory = profileInfo[@"searchHistory"];
+    self.searchHistory = [NSMutableDictionary dictionaryWithDictionary:profileInfo[@"searchHistory"]];
     
     if (profileInfo[@"saved"] != nil)
         self.saved = [NSMutableArray arrayWithArray:profileInfo[@"saved"]];
