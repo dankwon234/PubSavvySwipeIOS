@@ -110,13 +110,13 @@
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
-//    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu)];
-//    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-//    [self.navController.view addGestureRecognizer:swipeLeft];
-//    
-//    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showMenu)];
-//    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-//    [self.navController.view addGestureRecognizer:swipeRight];
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.navController.view addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showMenu)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.navController.view addGestureRecognizer:swipeRight];
     
 //    [self.welcomeView introAnimation];
 }
@@ -162,6 +162,32 @@
 - (void)toggleMenu
 {
     [self toggleMenu:0.85f];
+}
+
+- (void)hideMenu
+{
+    CGRect frame = self.view.frame;
+    CGFloat halfWidth = 0.50f*frame.size.width;
+
+    CGPoint center = self.navController.view.center;
+    if (center.x == halfWidth)
+        return;
+    
+    [self toggleMenu];
+    
+}
+
+- (void)showMenu
+{
+    CGRect frame = self.view.frame;
+    CGFloat halfWidth = 0.50f*frame.size.width;
+    
+    CGPoint center = self.navController.view.center;
+    if (center.x != halfWidth)
+        return;
+    
+    [self toggleMenu];
+    
 }
 
 
