@@ -28,16 +28,13 @@
 {
     self = [super initWithFrame:frame];
     if (self){
-        
-        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
-        
-        
         self.isMoving = NO;
         
-        self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        self.layer.borderWidth = 1.0f;
-        self.layer.cornerRadius = 3.0f;
-        self.layer.masksToBounds = YES;
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
+        self.base.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.base.layer.borderWidth = 1.0f;
+        self.base.layer.cornerRadius = 3.0f;
+        self.base.layer.masksToBounds = YES;
         
         CGFloat y = 6.0f;
         static CGFloat padding = 12.0f;
