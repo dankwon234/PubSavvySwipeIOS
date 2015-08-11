@@ -54,7 +54,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor darkGrayColor];
+    view.backgroundColor = kLightBlue;
     CGRect frame = view.frame;
 
     
@@ -65,12 +65,7 @@
     self.sectionsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.sectionsTable.dataSource = self;
     self.sectionsTable.delegate = self;
-    
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, kNavBarHeight)];
-    header.backgroundColor = kLightBlue;
-    self.sectionsTable.tableHeaderView = header;
-    
-    
+    self.sectionsTable.tableHeaderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner.png"]];
     [view addSubview:self.sectionsTable];
     
     
@@ -158,7 +153,7 @@
         cell.textLabel.font = [UIFont fontWithName:kBaseFontName size:16.0f];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 53.0f, tableView.frame.size.width, 0.5f)];
-        line.backgroundColor = [UIColor grayColor];
+        line.backgroundColor = [UIColor whiteColor];
         [cell.contentView addSubview:line];
         
     }
