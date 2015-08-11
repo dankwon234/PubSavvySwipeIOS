@@ -45,6 +45,16 @@
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
     
+    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, frame.size.width-2*kPadding, 44.0f)];
+    lblRandom.textColor = [UIColor whiteColor];
+    lblRandom.textAlignment = NSTextAlignmentCenter;
+    lblRandom.text = @"Random";
+    lblRandom.font = [UIFont fontWithName:kBaseFontName size:18.0f];
+    lblRandom.backgroundColor = kLightBlue;
+    lblRandom.layer.cornerRadius = 6.0f;
+    lblRandom.layer.masksToBounds = YES;
+    [view addSubview:lblRandom];
+    
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*kPadding);
     CGFloat y = frame.size.height-h-kPadding-20.0f;
@@ -145,7 +155,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *response = (NSDictionary *)result;
-//            NSLog(@"%@", [response description]);
             
             self.featuredArticles = [NSMutableArray array];
             NSArray *results = response[@"results"];
@@ -174,7 +183,7 @@
         
         CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding+kNavBarHeight, frame.size.width-2*kPadding, frame.size.height-160.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         articleView.backgroundColor = [UIColor whiteColor];
         
