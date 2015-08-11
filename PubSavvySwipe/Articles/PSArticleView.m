@@ -11,7 +11,6 @@
 
 @interface PSArticleView ()
 @property (strong, nonatomic) UIScrollView *base;
-@property (strong, nonatomic) UIView *line;
 @property (nonatomic) BOOL isMoving;
 @end
 
@@ -65,11 +64,6 @@
 
         y += self.lblJournal.frame.size.height+6.0f;
         width = frame.size.width-2*padding;
-        
-        self.line = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 1.0f)];
-        self.line.backgroundColor = [UIColor lightGrayColor];
-        [self.base addSubview:self.line];
-        y += self.line.frame.size.height+padding;
         
         self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 32.0f)];
         self.lblTitle.backgroundColor = [UIColor clearColor];
