@@ -16,6 +16,7 @@
 @interface PSContainerViewController()
 @property (strong, nonatomic) UITableView *sectionsTable;
 @property (strong, nonatomic) NSArray *sections;
+@property (strong, nonatomic) UILabel *lblName;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
@@ -68,6 +69,21 @@
     self.sectionsTable.tableHeaderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner.png"]];
     [view addSubview:self.sectionsTable];
     
+    
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height-kNavBarHeight, frame.size.width, kNavBarHeight)];
+    bottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    bottom.backgroundColor = kLightBlue;
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 4.0f)];
+    line.backgroundColor = [UIColor whiteColor];
+    self.lblName = [[UILabel alloc] initWithFrame:CGRectMake(16.0f, 16.0f, frame.size.width-48.0f, 36.0f)];
+    self.lblName.textColor = [UIColor whiteColor];
+    self.lblName.font = [UIFont fontWithName:kBaseFontName size:22.0f];
+    self.lblName.text = @"Log In";
+    
+    [bottom addSubview:self.lblName];
+    [bottom addSubview:line];
+    
+    [view addSubview:bottom];
     
     self.featuredVc = [[PSFeaturedArticlesViewController alloc] init];
     self.currentVc = self.featuredVc;
