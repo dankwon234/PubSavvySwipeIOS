@@ -89,7 +89,7 @@
     
     [bottom addSubview:self.lblName];
     [bottom addSubview:line];
-    
+    [bottom addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginOrViewAccount)]];
     [view addSubview:bottom];
     
     self.featuredVc = [[PSFeaturedArticlesViewController alloc] init];
@@ -165,6 +165,17 @@
 }
 
 
+- (void)loginOrViewAccount
+{
+    if (self.profile.isPopulated){
+        return;
+    }
+    
+    [self showLoginView:YES completion:^{
+        [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
+    }];
+}
+
 
 
 
@@ -206,14 +217,7 @@
 //    NSLog(@"SECTION = %@", section);
     
     if ([section isEqual:@"account"]){
-        if (self.profile.isPopulated){
-            return;
-        }
-        
-        [self showLoginView:YES completion:^{
-            [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
-        }];
-
+        [self loginOrViewAccount];
         return;
     }
 
