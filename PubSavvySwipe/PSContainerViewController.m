@@ -78,7 +78,14 @@
     self.lblName = [[UILabel alloc] initWithFrame:CGRectMake(16.0f, 16.0f, frame.size.width-48.0f, 36.0f)];
     self.lblName.textColor = [UIColor whiteColor];
     self.lblName.font = [UIFont fontWithName:kBaseFontName size:22.0f];
-    self.lblName.text = @"Log In";
+    
+    if (self.profile.isPopulated){
+        self.lblName.text = [NSString stringWithFormat:@"%@ %@", self.profile.firstName, self.profile.lastName];
+    }
+    else{
+        self.lblName.text = @"Log In";
+        [self.profile addObserver:self forKeyPath:@"isPopulated" options:0 context:nil];
+    }
     
     [bottom addSubview:self.lblName];
     [bottom addSubview:line];
@@ -112,6 +119,16 @@
 //    [self.navController.view addGestureRecognizer:swipeRight];
     
 //    [self.welcomeView introAnimation];
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"isPopulated"]==NO)
+        return;
+    
+    self.lblName.text = (self.profile.isPopulated) ? [NSString stringWithFormat:@"%@ %@", [self.profile.firstName capitalizedString], [self.profile.lastName capitalizedString]] : @"Log In";
+    
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
