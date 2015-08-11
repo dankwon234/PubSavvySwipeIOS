@@ -274,7 +274,7 @@
                      animations:^{
                          CGRect frame = self.topView.frame;
                          frame.origin.x = kPadding;
-                         frame.origin.y = kPadding;
+                         frame.origin.y = kPadding+kNavBarHeight;
                          self.topView.frame = frame;
 
                      }
