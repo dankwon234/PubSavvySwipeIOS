@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */; };
+		0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0892861B7A8D6B00D40207 /* banner@2x.png */; };
 		0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11D85C1B3497B600ED7C78 /* PSArticle.m */; };
 		0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4AE7741B309D0400EF5429 /* PSDevice.m */; };
 		0C5804641B6FDA7300D87F12 /* PSRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPadlock@2x.png"; sourceTree = "<group>"; };
+		0C0892861B7A8D6B00D40207 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		0C11D85B1B3497B600ED7C78 /* PSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticle.h; sourceTree = "<group>"; };
 		0C11D85C1B3497B600ED7C78 /* PSArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticle.m; sourceTree = "<group>"; };
 		0C4AE7731B309D0400EF5429 /* PSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDevice.h; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			children = (
 				0C5804651B6FDD1F00D87F12 /* backgrounds */,
 				0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */,
+				0C0892861B7A8D6B00D40207 /* banner@2x.png */,
 				0CA2BE761B0DAC8D004B4D81 /* iconHamburger@2x.png */,
 				0CA2BE771B0DAC8D004B4D81 /* backArrow@2x.png */,
 				0CA2BE7A1B0DACAA004B4D81 /* dots@2x.png */,
@@ -444,6 +447,7 @@
 				0C6459681B0D9EFA00D22151 /* Images.xcassets in Resources */,
 				0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */,
 				0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */,
+				0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */,
 				0CA2BE6F1B0DA458004B4D81 /* Default-568h@2x.png in Resources */,
 				0CA2BE7B1B0DACAA004B4D81 /* dots@2x.png in Resources */,
 				0C58046B1B6FDD1F00D87F12 /* background@2x.png in Resources */,
