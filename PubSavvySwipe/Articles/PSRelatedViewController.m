@@ -124,6 +124,12 @@
         
         self.relatedArticles = [NSMutableArray array];
         NSArray *results = response[@"results"];
+        if (results.count == 0){
+            [self.loadingIndicator stopLoading];
+            [self showAlertWithTitle:@"No Articles Found" message:@"There are no related articles."];
+            return;
+        }
+        
         for (int i=0; i<results.count; i++) {
             PSArticle *article = [PSArticle articleWithInfo:results[i]];
             [self.relatedArticles addObject:article];
