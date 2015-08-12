@@ -240,9 +240,8 @@
       parameters:@{@"pmid":pmids, @"limit":@"10"}
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
-             NSString *confirmation = responseDictionary[@"confirmation"];
              
-             if ([confirmation isEqualToString:@"success"]){
+             if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]){
                  if (completionBlock)
                      completionBlock(responseObject, nil);
                  
