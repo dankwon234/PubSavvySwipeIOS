@@ -16,7 +16,6 @@
 @interface PSContainerViewController()
 @property (strong, nonatomic) UITableView *sectionsTable;
 @property (strong, nonatomic) NSArray *sections;
-@property (strong, nonatomic) UILabel *lblName;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) PSViewController *currentVc;
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
@@ -70,27 +69,6 @@
     [view addSubview:self.sectionsTable];
     
     
-    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height-kNavBarHeight, frame.size.width, kNavBarHeight)];
-    bottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    bottom.backgroundColor = kLightBlue;
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 4.0f)];
-    line.backgroundColor = [UIColor whiteColor];
-    self.lblName = [[UILabel alloc] initWithFrame:CGRectMake(16.0f, 16.0f, frame.size.width-48.0f, 36.0f)];
-    self.lblName.textColor = [UIColor whiteColor];
-    self.lblName.font = [UIFont fontWithName:kBaseFontName size:22.0f];
-    
-    if (self.profile.isPopulated){
-        self.lblName.text = [NSString stringWithFormat:@"%@ %@", self.profile.firstName, self.profile.lastName];
-    }
-    else{
-        self.lblName.text = @"Log In";
-        [self.profile addObserver:self forKeyPath:@"isPopulated" options:0 context:nil];
-    }
-    
-    [bottom addSubview:self.lblName];
-    [bottom addSubview:line];
-    [bottom addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginOrViewAccount)]];
-    [view addSubview:bottom];
     
     self.featuredVc = [[PSFeaturedArticlesViewController alloc] init];
     self.currentVc = self.featuredVc;
@@ -127,7 +105,6 @@
     if ([keyPath isEqualToString:@"isPopulated"]==NO)
         return;
     
-    self.lblName.text = (self.profile.isPopulated) ? [NSString stringWithFormat:@"%@ %@", [self.profile.firstName capitalizedString], [self.profile.lastName capitalizedString]] : @"Log In";
     
 }
 
