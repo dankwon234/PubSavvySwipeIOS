@@ -8,6 +8,7 @@
 
 #import "PSArticleView.h"
 #import "UIView+draggable.h"
+#import "Config.h"
 
 @interface PSArticleView ()
 @property (strong, nonatomic) UIScrollView *base;
@@ -30,37 +31,35 @@
     if (self){
         self.isMoving = NO;
         
-        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
-        self.base.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        self.base.layer.borderWidth = 1.0f;
-        self.base.layer.cornerRadius = 3.0f;
-        self.base.layer.masksToBounds = YES;
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgBlue.png"]];
         
-        CGFloat y = 6.0f;
-        static CGFloat padding = 12.0f;
-        CGFloat width = (frame.size.width/3.0f);
-        CGFloat x = 0.0f;
+        CGFloat x = 16.0f;
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 32.0f, frame.size.width-2*x, frame.size.height-64.0f)];
+        self.base.backgroundColor = [UIColor whiteColor];
+        self.base.showsVerticalScrollIndicator = NO;
         
-        self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
-        self.lblJournal.textAlignment = NSTextAlignmentCenter;
-        self.lblJournal.textColor = [UIColor lightGrayColor];
+        CGFloat padding = 12.0f;
+        CGFloat y = padding+6.0f;
+        CGFloat width = frame.size.width-2*x;
+        
+        self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, padding, width, 12.0f)];
+        self.lblJournal.textAlignment = NSTextAlignmentLeft;
+        self.lblJournal.textColor = [UIColor whiteColor];
         self.lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
-        [self.base addSubview:self.lblJournal];
-        x += width;
+        [self addSubview:self.lblJournal];
 
-        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
-        self.lblDate.textAlignment = NSTextAlignmentCenter;
+        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, padding, width, 12.0f)];
+        self.lblDate.textAlignment = NSTextAlignmentRight;
         self.lblDate.textColor = self.lblJournal.textColor;
         self.lblDate.font = self.lblJournal.font;
-        [self.base addSubview:self.lblDate];
-        x += width;
+        [self addSubview:self.lblDate];
 
-        self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
+//        self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
         
         
 
-        y += self.lblJournal.frame.size.height+6.0f;
-        width = frame.size.width-2*padding;
+        y = padding;
+        width = self.base.frame.size.width-2*padding;
         
         self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 32.0f)];
         self.lblTitle.backgroundColor = [UIColor clearColor];
@@ -74,7 +73,7 @@
         y += self.lblTitle.frame.size.height;
         
         
-        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 18.0f)];
+        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(36, y, width-36, 18.0f)];
         self.lblAuthors.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
         self.lblAuthors.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAuthors.textColor = [UIColor lightGrayColor];
@@ -84,7 +83,7 @@
         y += self.lblAuthors.frame.size.height;
 
         
-        self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 18.0f)];
+        self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(24, y, width-24, 18.0f)];
         self.lblAbsratct.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
         self.lblAbsratct.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAbsratct.textColor = [UIColor lightGrayColor];
