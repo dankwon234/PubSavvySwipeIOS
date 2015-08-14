@@ -205,7 +205,9 @@
         
     }
     
-    cell.textLabel.text = self.sections[indexPath.row];
+    NSString *section = self.sections[indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon%@.png", section]];
+    cell.textLabel.text = section;
     return cell;
 }
 
