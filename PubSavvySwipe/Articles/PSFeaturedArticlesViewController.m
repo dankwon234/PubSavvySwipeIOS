@@ -183,9 +183,8 @@
         
         CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding+kNavBarHeight, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding+kNavBarHeight, frame.size.width-2*kPadding, frame.size.height-170.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        articleView.backgroundColor = [UIColor whiteColor];
         
         articleView.tag = 1000 + index;
         articleView.lblAbsratct.text = article.abstract;
