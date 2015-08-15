@@ -16,7 +16,6 @@
 		0C43D57D1B7E72CE00002820 /* iconSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D57C1B7E72CE00002820 /* iconSearch@2x.png */; };
 		0C43D57F1B7E735700002820 /* iconRandom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D57E1B7E735700002820 /* iconRandom@2x.png */; };
 		0C43D5811B7E73A800002820 /* iconAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5801B7E73A800002820 /* iconAbout@2x.png */; };
-		0C43D5831B7E766D00002820 /* bgBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5821B7E766D00002820 /* bgBlue@2x.png */; };
 		0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4AE7741B309D0400EF5429 /* PSDevice.m */; };
 		0C5804641B6FDA7300D87F12 /* PSRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */; };
 		0C58046B1B6FDD1F00D87F12 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804661B6FDD1F00D87F12 /* background@2x.png */; };
@@ -58,6 +57,7 @@
 		0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B81E1B6FB209004F61DB /* PSRelatedViewController.m */; };
 		0CA3B8231B6FCB4A004F61DB /* PSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B8221B6FCB4A004F61DB /* PSProfile.m */; };
 		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
+		0CBBE5081B7ED67B00F26A8C /* bgBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CBBE5071B7ED67B00F26A8C /* bgBlue@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,6 @@
 		0C43D57C1B7E72CE00002820 /* iconSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconSearch@2x.png"; sourceTree = "<group>"; };
 		0C43D57E1B7E735700002820 /* iconRandom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconRandom@2x.png"; sourceTree = "<group>"; };
 		0C43D5801B7E73A800002820 /* iconAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAbout@2x.png"; sourceTree = "<group>"; };
-		0C43D5821B7E766D00002820 /* bgBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgBlue@2x.png"; sourceTree = "<group>"; };
 		0C4AE7731B309D0400EF5429 /* PSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDevice.h; sourceTree = "<group>"; };
 		0C4AE7741B309D0400EF5429 /* PSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDevice.m; sourceTree = "<group>"; };
 		0C5804621B6FDA7300D87F12 /* PSRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRegistrationViewController.h; sourceTree = "<group>"; };
@@ -157,6 +156,7 @@
 		0CA3B8221B6FCB4A004F61DB /* PSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSProfile.m; sourceTree = "<group>"; };
 		0CB386841B4D01540036F072 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
 		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
+		0CBBE5071B7ED67B00F26A8C /* bgBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgBlue@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,9 +193,9 @@
 		0C5804651B6FDD1F00D87F12 /* backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				0C43D5821B7E766D00002820 /* bgBlue@2x.png */,
 				0C5804661B6FDD1F00D87F12 /* background@2x.png */,
 				0C5804671B6FDD1F00D87F12 /* backgroundBlue@2x.png */,
+				0CBBE5071B7ED67B00F26A8C /* bgBlue@2x.png */,
 				0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */,
 				0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */,
 				0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */,
@@ -480,7 +480,7 @@
 				0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */,
 				0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */,
 				0C43D5791B7E720C00002820 /* iconSaved@2x.png in Resources */,
-				0C43D5831B7E766D00002820 /* bgBlue@2x.png in Resources */,
+				0CBBE5081B7ED67B00F26A8C /* bgBlue@2x.png in Resources */,
 				0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */,
 				0CA2BE6F1B0DA458004B4D81 /* Default-568h@2x.png in Resources */,
 				0CA2BE7B1B0DACAA004B4D81 /* dots@2x.png in Resources */,
