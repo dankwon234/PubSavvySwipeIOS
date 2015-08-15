@@ -13,6 +13,7 @@
 @interface PSArticleView ()
 @property (strong, nonatomic) UIScrollView *base;
 @property (nonatomic) BOOL isMoving;
+@property (strong, nonatomic) UIView *line;
 @end
 
 @implementation PSArticleView
@@ -24,6 +25,7 @@
 @synthesize iconAccess;
 @synthesize lblAbsratct;
 
+#define kStandardWidth 254.5f
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -73,7 +75,7 @@
         y += self.lblTitle.frame.size.height;
         
         
-        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(36, y, width-36, 18.0f)];
+        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(36.0f, y, width-36.0f, 18.0f)];
         self.lblAuthors.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
         self.lblAuthors.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAuthors.textColor = [UIColor lightGrayColor];
@@ -81,9 +83,13 @@
         self.lblAuthors.numberOfLines = 0;
         [self.base addSubview:self.lblAuthors];
         y += self.lblAuthors.frame.size.height;
+        
+        self.line = [[UIView alloc] initWithFrame:CGRectMake(36.0f, y, width-36.0f, 1.0f)];
+        self.line.backgroundColor = kLightBlue;
+        [self.base addSubview:self.line];
 
         
-        self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(24, y, width-24, 18.0f)];
+        self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(24.0f, y, width-24.0f, 18.0f)];
         self.lblAbsratct.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
         self.lblAbsratct.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAbsratct.textColor = [UIColor lightGrayColor];
@@ -122,6 +128,11 @@
     return articleView;
 }
 
++ (CGFloat)standardWidth
+{
+    return kStandardWidth;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"text"]==NO)
@@ -150,6 +161,11 @@
     self.lblAuthors.frame = frame;
     y += frame.size.height+12.0f;
 
+    frame = self.line.frame;
+    frame.origin.y = y;
+    self.line.frame = frame;
+    y += 12.0f;
+    
     bounds = [self.lblAbsratct.text boundingRectWithSize:CGSizeMake(frame.size.width, 1000.0f)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:@{NSFontAttributeName:self.lblAbsratct.font}

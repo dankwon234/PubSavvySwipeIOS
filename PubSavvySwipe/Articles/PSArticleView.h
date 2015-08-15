@@ -23,4 +23,5 @@
 @property (strong, nonatomic) UILabel *lblAbsratct;
 @property (strong, nonatomic) UIImageView *iconAccess;
 + (PSArticleView *)articleViewWithFrame:(CGRect)frame;
++ (CGFloat)standardWidth;
 @end
