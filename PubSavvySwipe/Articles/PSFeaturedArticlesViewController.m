@@ -19,9 +19,9 @@
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @property (nonatomic) CGRect  baseFrame;
+@property (nonatomic) CGFloat  padding;
 @end
 
-#define kPadding 12.0f
 #define kSetSize 10
 
 @implementation PSFeaturedArticlesViewController
@@ -47,7 +47,9 @@
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
     
-    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, [PSArticleView standardWidth], 44.0f)];
+    self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
+    
+    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, self.padding, [PSArticleView standardWidth], 44.0f)];
     lblRandom.center = CGPointMake(0.5f*frame.size.width, lblRandom.center.y);
     lblRandom.textColor = [UIColor whiteColor];
     lblRandom.textAlignment = NSTextAlignmentCenter;
@@ -59,13 +61,13 @@
     [view addSubview:lblRandom];
     
     CGFloat h = 44.0f;
-    CGFloat w = 0.5f*(frame.size.width-3*kPadding);
-    CGFloat y = frame.size.height-h-kPadding-20.0f;
+    CGFloat w = 0.5f*(frame.size.width-3*self.padding);
+    CGFloat y = frame.size.height-h-self.padding-20.0f;
     
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
     NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
-    CGRect buttonFrame = CGRectMake(kPadding, y, w, h);
+    CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
     UIColor *darkGray = [UIColor darkGrayColor];
     UIColor *white = [UIColor whiteColor];
     
@@ -79,10 +81,11 @@
         btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
         btn.layer.cornerRadius = 4.0f;
         btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
         [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
         [btn setTitleColor:white forState:UIControlStateNormal];
         [view addSubview:btn];
-        buttonFrame.origin.x = frame.size.width-w-kPadding;
+        buttonFrame.origin.x = frame.size.width-w-self.padding;
     }
     
     [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
@@ -185,7 +188,7 @@
         PSArticle *article = self.featuredArticles[idx];
         
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, kPadding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-170.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
         articleView.tag = 1000+index;
