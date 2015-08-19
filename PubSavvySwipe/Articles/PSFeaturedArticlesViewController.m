@@ -26,6 +26,7 @@
 
 @implementation PSFeaturedArticlesViewController
 @synthesize currentArticle = _currentArticle;
+@synthesize topView = _topView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -184,10 +185,10 @@
         PSArticle *article = self.featuredArticles[idx];
         
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, kPadding+kNavBarHeight, [PSArticleView standardWidth], frame.size.height-170.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, kPadding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-170.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
-        articleView.tag = 1000 + index;
+        articleView.tag = 1000+index;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
@@ -302,24 +303,8 @@
 - (void)dislikeArticle:(BOOL)rotate
 {
     NSLog(@"DIS-LIKE Article");
-    if (rotate){
-        [UIView animateWithDuration:0.18f
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             self.topView.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI_4), CGAffineTransformMakeTranslation(-130, 0));
-                             
-                         }
-                         completion:^(BOOL finished){
-                             if (self.featuredArticles.count > 0){
-                                 [self queueNextArticle];
-                             }
-                         }];
-        return;
-    }
-    
     [UIView transitionWithView:self.topView
-                      duration:0.4f
+                      duration:0.6f
                        options:UIViewAnimationOptionTransitionFlipFromRight
                     animations:^{
                         CGRect frame = self.topView.frame;
@@ -339,25 +324,8 @@
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
     [self.device saveArticle:self.currentArticle];
-    
-    if (rotate){
-        [UIView animateWithDuration:0.18f
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             self.topView.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI_4), CGAffineTransformMakeTranslation(130.0f, 0.0f));
-                             
-                         }
-                         completion:^(BOOL finished){
-                             if (self.featuredArticles.count > 0){
-                                 [self queueNextArticle];
-                             }
-                         }];
-        return;
-    }
-
     [UIView transitionWithView:self.topView
-                      duration:0.4f
+                      duration:0.6f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
                         CGRect frame = self.topView.frame;
