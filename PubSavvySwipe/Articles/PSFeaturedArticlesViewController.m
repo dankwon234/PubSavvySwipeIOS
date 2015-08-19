@@ -46,7 +46,8 @@
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
     
-    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, frame.size.width-2*kPadding, 44.0f)];
+    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, [PSArticleView standardWidth], 44.0f)];
+    lblRandom.center = CGPointMake(0.5f*frame.size.width, lblRandom.center.y);
     lblRandom.textColor = [UIColor whiteColor];
     lblRandom.textAlignment = NSTextAlignmentCenter;
     lblRandom.text = @"Random";
@@ -242,7 +243,7 @@
 - (void)articleViewStoppedMoving
 {
     CGPoint center = self.topView.center;
-    CGFloat nuetral = 60.0f;
+    CGFloat nuetral = 75.0f;
     
     CGFloat screenCenter = self.view.center.x;
     
