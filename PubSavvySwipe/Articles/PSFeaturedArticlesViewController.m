@@ -63,32 +63,32 @@
     CGFloat y = frame.size.height-h-kPadding-20.0f;
     
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDislike.frame = CGRectMake(kPadding, y, w, h);
-    btnDislike.backgroundColor = [UIColor lightGrayColor];
-    btnDislike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnDislike.layer.borderWidth = 0.5f;
-    btnDislike.layer.cornerRadius = 2.0f;
-    btnDislike.layer.masksToBounds = YES;
-    btnDislike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    CGRect buttonFrame = CGRectMake(kPadding, y, w, h);
+    UIColor *darkGray = [UIColor darkGrayColor];
+    UIColor *white = [UIColor whiteColor];
+    
+    for (NSDictionary *btnInfo in buttons) {
+        UIButton *btn = btnInfo[@"button"];
+        btn.frame = buttonFrame;
+        btn.backgroundColor = btnInfo[@"color"];
+        btn.layer.shadowColor = [darkGray CGColor];
+        btn.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+        btn.layer.shadowOpacity = 2.0f;
+        btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
+        btn.layer.cornerRadius = 4.0f;
+        btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
+        [btn setTitleColor:white forState:UIControlStateNormal];
+        [view addSubview:btn];
+        buttonFrame.origin.x = frame.size.width-w-kPadding;
+    }
+    
     [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnDislike setTitle:@"SKIP" forState:UIControlStateNormal];
-    [btnDislike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnDislike];
+    [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
 
     
-    UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLike.frame = CGRectMake(frame.size.width-w-kPadding, y, w, h);
-    btnLike.backgroundColor = kGreen;
-    btnLike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnLike.layer.borderWidth = 0.5f;
-    btnLike.layer.cornerRadius = 2.0f;
-    btnLike.layer.masksToBounds = YES;
-    btnLike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnLike setTitle:@"KEEP" forState:UIControlStateNormal];
-    [btnLike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnLike];
-
     
     self.view = view;
 }
@@ -307,6 +307,7 @@
     // assign current article
     [self findCurrentArticle];
 }
+
 
 - (void)dislikeArticle
 {
