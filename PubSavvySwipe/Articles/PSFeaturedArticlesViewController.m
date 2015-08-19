@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
+@property (nonatomic) CGRect  baseFrame;
 @end
 
 #define kPadding 12.0f
@@ -181,9 +182,8 @@
         
         PSArticle *article = self.featuredArticles[idx];
         
-        CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding+kNavBarHeight, [PSArticleView standardWidth], frame.size.height-170.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, kPadding+kNavBarHeight, [PSArticleView standardWidth], frame.size.height-170.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
         articleView.tag = 1000 + index;
@@ -193,23 +193,15 @@
         articleView.lblDate.text = article.date;
         articleView.lblJournal.text = article.journal[@"iso"];
         
+        CGPoint center = articleView.center;
+        center.x = 0.5f*self.view.frame.size.width;
+        articleView.center = center;
+        self.baseFrame = articleView.frame;
+
         [self.view addSubview:articleView];
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
-        [UIView animateWithDuration:1.65f
-                              delay:(index*0.18f)
-             usingSpringWithDamping:0.5f
-              initialSpringVelocity:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = articleView.frame;
-                             frame.origin.x = kPadding;
-                             articleView.frame = frame;
-                         }
-                         completion:^(BOOL finished){
-                             
-                         }];
     }
     
     self.topView.delegate = self;
@@ -249,18 +241,18 @@
 
 - (void)articleViewStoppedMoving
 {
-    CGRect frame = self.topView.frame;
-//    NSLog(@"articleViewStoppedMoving: %.2f, %.2f", frame.origin.x, frame.origin.y);
+    CGPoint center = self.topView.center;
+    CGFloat nuetral = 60.0f;
     
-    CGFloat nuetral = 90.0f;
+    CGFloat screenCenter = self.view.center.x;
     
-    if (frame.origin.x > kPadding+nuetral){
-        [self likeArticle];
+    if (center.x > screenCenter+nuetral){
+        [self likeArticle:NO];
         return;
     }
     
-    if (frame.origin.x < kPadding-nuetral){
-        [self dislikeArticle];
+    if (center.x < screenCenter-nuetral){
+        [self dislikeArticle:NO];
         return;
     }
     
@@ -271,13 +263,11 @@
           initialSpringVelocity:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = kPadding;
-                         frame.origin.y = kPadding+kNavBarHeight;
-                         self.topView.frame = frame;
-
+                         self.topView.frame= self.baseFrame;
                      }
-                     completion:NULL];
+                     completion:^(BOOL finished){
+                         
+                     }];
 }
 
 
@@ -303,47 +293,87 @@
     [self findCurrentArticle];
 }
 
-
 - (void)dislikeArticle
 {
-//    NSLog(@"DIS-LIKE Article");
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = -self.view.frame.size.width-30.0f;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         if (self.featuredArticles.count > 0){
-                             [self queueNextArticle];
-                         }
-                     }];
+    [self dislikeArticle:YES];
 }
 
+- (void)dislikeArticle:(BOOL)rotate
+{
+    NSLog(@"DIS-LIKE Article");
+    if (rotate){
+        [UIView animateWithDuration:0.18f
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.topView.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI_4), CGAffineTransformMakeTranslation(-130, 0));
+                             
+                         }
+                         completion:^(BOOL finished){
+                             if (self.featuredArticles.count > 0){
+                                 [self queueNextArticle];
+                             }
+                         }];
+        return;
+    }
+    
+    [UIView transitionWithView:self.topView
+                      duration:0.4f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = -self.view.frame.size.width-30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.featuredArticles.count > 0){
+                            [self queueNextArticle];
+                        }
+                        
+                    }];
+    
+}
 
-- (void)likeArticle
+- (void)likeArticle:(BOOL)rotate
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
     [self.device saveArticle:self.currentArticle];
     
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = self.view.frame.size.width+30.0f;
-                         self.topView.frame = frame;
-
-                     }
-                     completion:^(BOOL finished){
-                         if (self.featuredArticles.count > 0){
-                             [self queueNextArticle];
+    if (rotate){
+        [UIView animateWithDuration:0.18f
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.topView.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI_4), CGAffineTransformMakeTranslation(130.0f, 0.0f));
+                             
                          }
-                         
-                     }];
+                         completion:^(BOOL finished){
+                             if (self.featuredArticles.count > 0){
+                                 [self queueNextArticle];
+                             }
+                         }];
+        return;
+    }
+
+    [UIView transitionWithView:self.topView
+                      duration:0.4f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = self.view.frame.size.width+30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.featuredArticles.count > 0){
+                            [self queueNextArticle];
+                        }
+                    }];
+
+}
+
+- (void)likeArticle
+{
+    [self likeArticle:YES];
 }
 
 @end
