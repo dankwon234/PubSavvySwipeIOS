@@ -204,6 +204,19 @@
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
+        
+//        [UIView animateWithDuration:1.2f
+//                              delay:0.1f*index
+//             usingSpringWithDamping:0.5f
+//              initialSpringVelocity:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^{
+//                             articleView.frame = CGRectMake(articleView.frame.origin.x, kPadding+kNavBarHeight-index, [PSArticleView standardWidth], articleView.frame.size.height);
+//                         }
+//                         completion:^(BOOL finished){
+//                             
+//                         }];
+        
     }
     
     self.topView.delegate = self;
