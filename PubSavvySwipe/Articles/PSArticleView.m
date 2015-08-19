@@ -25,7 +25,7 @@
 @synthesize iconAccess;
 @synthesize lblAbsratct;
 
-#define kStandardWidth 254.5f
+#define kStandardWidth 280.0f
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -33,7 +33,11 @@
     if (self){
         self.isMoving = NO;
         
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgBlue.png"]];
+        self.backgroundColor = kLightBlue;
+        self.layer.cornerRadius = 6.0f;
+        self.layer.masksToBounds = YES;
+        self.layer.borderColor = [[UIColor grayColor] CGColor];
+        self.layer.borderWidth = 0.5f;
         
         CGFloat x = 16.0f;
         self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 32.0f, frame.size.width-2*x, frame.size.height-64.0f)];
