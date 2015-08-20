@@ -222,6 +222,7 @@
         PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
+        articleView.backgroundColor = [UIColor grayColor];
         articleView.tag = 1000+index;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
