@@ -305,21 +305,21 @@
 
 - (void)dislikeArticle:(BOOL)rotate
 {
-    //    NSLog(@"DIS-LIKE Article");
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = -self.view.frame.size.width-30.0f;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         if (self.searchResults.count > 0){
-                             [self queueNextArticle];
-                         }
-                     }];
+    NSLog(@"DIS-LIKE Article");
+    [UIView transitionWithView:self.topView
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = -self.view.frame.size.width-30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.searchResults.count > 0){
+                            [self queueNextArticle];
+                        }
+                        
+                    }];
 }
 
 - (void)dislikeArticle
@@ -333,22 +333,19 @@
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
     [self.device saveArticle:self.currentArticle];
-    
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = self.view.frame.size.width+30.0f;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         if (self.searchResults.count > 0){
-                             [self queueNextArticle];
-                         }
-                         
-                     }];
+    [UIView transitionWithView:self.topView
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = self.view.frame.size.width+30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.searchResults.count > 0){
+                            [self queueNextArticle];
+                        }
+                    }];
 }
 
 - (void)likeArticle
