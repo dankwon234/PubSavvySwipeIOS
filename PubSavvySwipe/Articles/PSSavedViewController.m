@@ -8,6 +8,7 @@
 
 #import "PSSavedViewController.h"
 #import "PSArticleViewController.h"
+#import "PSArticleCell.h"
 
 
 @interface PSSavedViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -131,14 +132,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    PSArticleCell *cell = (PSArticleCell *)[tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell==nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[PSArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    PSArticle *article = self.saved[indexPath.row];
+    PSArticle *article = (PSArticle *)self.saved[indexPath.row];
     
-    cell.textLabel.text = article.title;
+    cell.lblTitle.text = article.title;
     return cell;
 }
 
@@ -175,6 +176,12 @@
     PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
     articleVc.article = article;
     [self.navigationController pushViewController:articleVc animated:YES];
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 112.0f;
     
 }
 
