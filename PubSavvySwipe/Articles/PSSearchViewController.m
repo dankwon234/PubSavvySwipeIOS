@@ -303,7 +303,7 @@
 }
 
 
-- (void)dislikeArticle
+- (void)dislikeArticle:(BOOL)rotate
 {
     //    NSLog(@"DIS-LIKE Article");
     [UIView animateWithDuration:0.20f
@@ -322,8 +322,14 @@
                      }];
 }
 
+- (void)dislikeArticle
+{
+    [self dislikeArticle:YES];
+}
 
-- (void)likeArticle
+
+
+- (void)likeArticle:(BOOL)rotate
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
     [self.device saveArticle:self.currentArticle];
@@ -345,6 +351,10 @@
                      }];
 }
 
+- (void)likeArticle
+{
+    [self likeArticle:YES];
+}
 
 - (void)reset
 {
@@ -375,16 +385,18 @@
 
 - (void)articleViewStoppedMoving
 {
-    CGRect frame = self.topView.frame;
-    CGFloat nuetral = 90.0f;
+    CGPoint center = self.topView.center;
+    CGFloat nuetral = 75.0f;
     
-    if (frame.origin.x > kPadding+nuetral){
-        [self likeArticle];
+    CGFloat screenCenter = self.view.center.x;
+    
+    if (center.x > screenCenter+nuetral){
+        [self likeArticle:NO];
         return;
     }
     
-    if (frame.origin.x < kPadding-nuetral){
-        [self dislikeArticle];
+    if (center.x < screenCenter-nuetral){
+        [self dislikeArticle:NO];
         return;
     }
     
@@ -395,13 +407,11 @@
           initialSpringVelocity:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = kPadding;
-                         frame.origin.y = kPadding+self.searchBar.frame.size.height;
-                         self.topView.frame = frame;
-                         
+                         self.topView.frame= self.baseFrame;
                      }
-                     completion:NULL];
+                     completion:^(BOOL finished){
+                         
+                     }];
 }
 
 
