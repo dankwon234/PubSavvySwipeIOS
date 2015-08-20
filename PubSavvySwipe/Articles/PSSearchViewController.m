@@ -21,6 +21,8 @@
 @property (strong, nonatomic) UITableView *searchHistoryTable;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
+@property (nonatomic) CGRect baseFrame;
+@property (nonatomic) CGFloat padding;
 @property (nonatomic) int index;
 @end
 
@@ -166,8 +168,8 @@
     [self.loadingIndicator startLoading];
     
 
-    
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
+    
     [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
@@ -215,36 +217,39 @@
         
         PSArticle *article = self.searchResults[idx];
         
-        CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
-        int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, self.searchBar.frame.size.height+kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+        int index = i % max;
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        articleView.backgroundColor = [UIColor whiteColor];
         
-        articleView.tag = 1000 + index;
+        articleView.tag = 1000+index;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
         articleView.lblJournal.text = article.journal[@"iso"];
         
+        CGPoint center = articleView.center;
+        center.x = 0.5f*self.view.frame.size.width;
+        articleView.center = center;
+        self.baseFrame = articleView.frame;
+        
         [self.view addSubview:articleView];
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
-        [UIView animateWithDuration:1.65f
-                              delay:(index*0.18f)
-             usingSpringWithDamping:0.5f
-              initialSpringVelocity:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = articleView.frame;
-                             frame.origin.x = kPadding;
-                             articleView.frame = frame;
-                         }
-                         completion:^(BOOL finished){
-                             
-                         }];
+//        [UIView animateWithDuration:1.65f
+//                              delay:(index*0.18f)
+//             usingSpringWithDamping:0.5f
+//              initialSpringVelocity:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^{
+//                             CGRect frame = articleView.frame;
+//                             frame.origin.x = kPadding;
+//                             articleView.frame = frame;
+//                         }
+//                         completion:^(BOOL finished){
+//                             
+//                         }];
     }
     
     self.topView.delegate = self;
@@ -264,14 +269,12 @@
     
     if (self.searchResults.count == 0){
         NSLog(@"NO MORE ARTICLES!");
-//        [self searchRandomArticles];
         [self searchArticles:self.searchBar.text];
         return;
     }
     
     self.currentArticle = self.searchResults[0];
     self.index++;
-//    NSLog(@"CURRENT INDEX: %d", self.index);
 }
 
 
