@@ -20,7 +20,6 @@
 @property (nonatomic) CGFloat padding;
 @end
 
-#define kPadding 12.0f
 #define kSetSize 10
 
 
@@ -225,18 +224,18 @@
 
 - (void)articleViewStoppedMoving
 {
-    CGRect frame = self.topView.frame;
-    //    NSLog(@"articleViewStoppedMoving: %.2f, %.2f", frame.origin.x, frame.origin.y);
+    CGPoint center = self.topView.center;
+    CGFloat nuetral = 75.0f;
     
-    CGFloat nuetral = 90.0f;
+    CGFloat screenCenter = self.view.center.x;
     
-    if (frame.origin.x > kPadding+nuetral){
-        [self likeArticle];
+    if (center.x > screenCenter+nuetral){
+        [self likeArticle:NO];
         return;
     }
     
-    if (frame.origin.x < kPadding-nuetral){
-        [self dislikeArticle];
+    if (center.x < screenCenter-nuetral){
+        [self dislikeArticle:NO];
         return;
     }
     
@@ -247,13 +246,11 @@
           initialSpringVelocity:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = kPadding;
-                         frame.origin.y = kPadding;
-                         self.topView.frame = frame;
-                         
+                         self.topView.frame= self.baseFrame;
                      }
-                     completion:NULL];
+                     completion:^(BOOL finished){
+                         
+                     }];
 }
 
 
@@ -280,46 +277,55 @@
 }
 
 
+- (void)dislikeArticle:(BOOL)rotate
+{
+    NSLog(@"DIS-LIKE Article");
+    [UIView transitionWithView:self.topView
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = -self.view.frame.size.width-30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.relatedArticles.count > 0){
+                            [self queueNextArticle];
+                        }
+                        
+                    }];
+    
+}
+
 - (void)dislikeArticle
 {
-    //    NSLog(@"DIS-LIKE Article");
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = -self.view.frame.size.width-30.0f;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         if (self.relatedArticles.count > 0){
-                             [self queueNextArticle];
-                         }
-                     }];
+    [self dislikeArticle:YES];
 }
 
 
-- (void)likeArticle
+- (void)likeArticle:(BOOL)rotate
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
     [self.device saveArticle:self.currentArticle];
+    [UIView transitionWithView:self.topView
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        CGRect frame = self.topView.frame;
+                        frame.origin.x = self.view.frame.size.width+30.0f;
+                        self.topView.frame = frame;
+                    }
+                    completion:^(BOOL finished){
+                        if (self.relatedArticles.count > 0){
+                            [self queueNextArticle];
+                        }
+                    }];
     
-    [UIView animateWithDuration:0.20f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGRect frame = self.topView.frame;
-                         frame.origin.x = self.view.frame.size.width+30.0f;
-                         self.topView.frame = frame;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         if (self.relatedArticles.count > 0){
-                             [self queueNextArticle];
-                         }
-                         
-                     }];
+}
+
+- (void)likeArticle
+{
+    [self likeArticle:YES];
 }
 
 
