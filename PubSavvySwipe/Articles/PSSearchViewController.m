@@ -62,7 +62,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = kLightBlue;
+    view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
     
     CGFloat h = 44.0f;
