@@ -28,8 +28,10 @@
         [self.contentView addSubview:self.lblTitle];
         y += self.lblTitle.frame.size.height;
         
-        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 16.0f)];
-        self.lblAuthors.backgroundColor = [UIColor redColor];
+        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 32.0f)];
+        self.lblAuthors.font = [UIFont systemFontOfSize:12.0f];
+        self.lblAuthors.numberOfLines = 2;
+        [self.lblAuthors addObserver:self forKeyPath:@"text" options:0 context:nil];
         [self.contentView addSubview:self.lblAuthors];
         
     }
@@ -40,29 +42,44 @@
 - (void)dealloc
 {
     [self.lblTitle removeObserver:self forKeyPath:@"text"];
+    [self.lblAuthors removeObserver:self forKeyPath:@"text"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isEqual:self.lblTitle]==NO)
-        return;
-    
     if ([keyPath isEqualToString:@"text"]==NO)
         return;
+
+    if ([object isEqual:self.lblTitle]){
+        CGRect frame = self.lblTitle.frame;
+        CGRect bounds = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 44.0f)
+                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                      attributes:@{NSFontAttributeName:self.lblTitle.font}
+                                                         context:nil];
+        
+        frame.size.height = bounds.size.height;
+        self.lblTitle.frame = frame;
+        CGFloat y = frame.origin.y+frame.size.height+4.0f;
+        
+        frame = self.lblAuthors.frame;
+        frame.origin.y = y;
+        self.lblAuthors.frame = frame;
+    }
     
-    CGRect frame = self.lblTitle.frame;
-    CGRect bounds = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 44.0f)
-                                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:self.lblTitle.font}
-                                                     context:nil];
+    if ([object isEqual:self.lblAuthors]){
+        CGRect frame = self.lblAuthors.frame;
+        CGRect bounds = [self.lblAuthors.text boundingRectWithSize:CGSizeMake(frame.size.width, 32.0f)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes:@{NSFontAttributeName:self.lblAuthors.font}
+                                                           context:nil];
+
+        frame.size.height = bounds.size.height;
+        self.lblAuthors.frame = frame;
+
+        
+    }
     
-    frame.size.height = bounds.size.height;
-    self.lblTitle.frame = frame;
-    CGFloat y = frame.origin.y+frame.size.height+4.0f;
     
-    frame = self.lblAuthors.frame;
-    frame.origin.y = y;
-    self.lblAuthors.frame = frame;
     
     
 }
