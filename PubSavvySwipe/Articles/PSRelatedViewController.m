@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSMutableArray *relatedArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
+@property (nonatomic) CGRect baseFrame;
+@property (nonatomic) CGFloat padding;
 @end
 
 #define kPadding 12.0f
@@ -43,38 +45,39 @@
     UIView *view = [self baseView];
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
-    
+
+    self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
+
     CGFloat h = 44.0f;
-    CGFloat w = 0.5f*(frame.size.width-3*kPadding);
-    CGFloat y = frame.size.height-h-kPadding-20.0f;
+    CGFloat w = 0.5f*(frame.size.width-3*self.padding);
+    CGFloat y = frame.size.height-h-self.padding-20.0f;
     
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDislike.frame = CGRectMake(kPadding, y, w, h);
-    btnDislike.backgroundColor = [UIColor lightGrayColor];
-    btnDislike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnDislike.layer.borderWidth = 0.5f;
-    btnDislike.layer.cornerRadius = 2.0f;
-    btnDislike.layer.masksToBounds = YES;
-    btnDislike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnDislike setTitle:@"SKIP" forState:UIControlStateNormal];
-    [btnDislike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnDislike];
-    
-    
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLike.frame = CGRectMake(frame.size.width-w-kPadding, y, w, h);
-    btnLike.backgroundColor = kGreen;
-    btnLike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnLike.layer.borderWidth = 0.5f;
-    btnLike.layer.cornerRadius = 2.0f;
-    btnLike.layer.masksToBounds = YES;
-    btnLike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnLike setTitle:@"KEEP" forState:UIControlStateNormal];
-    [btnLike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnLike];
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
+    UIColor *darkGray = [UIColor darkGrayColor];
+    UIColor *white = [UIColor whiteColor];
     
+    for (NSDictionary *btnInfo in buttons) {
+        UIButton *btn = btnInfo[@"button"];
+        btn.frame = buttonFrame;
+        btn.backgroundColor = btnInfo[@"color"];
+        btn.layer.shadowColor = [darkGray CGColor];
+        btn.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+        btn.layer.shadowOpacity = 2.0f;
+        btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
+        btn.layer.cornerRadius = 4.0f;
+        btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
+        [btn setTitleColor:white forState:UIControlStateNormal];
+        [view addSubview:btn];
+        buttonFrame.origin.x = frame.size.width-w-self.padding;
+    }
+    
+    [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
+    [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
     
     self.view = view;
 }
@@ -150,36 +153,39 @@
         
         PSArticle *article = self.relatedArticles[idx];
         
-        CGFloat x = (i%2 == 0) ? -frame.size.width : frame.size.width;
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(x, kPadding, frame.size.width-2*kPadding, frame.size.height-160.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
         articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        articleView.backgroundColor = [UIColor whiteColor];
         
-        articleView.tag = 1000 + index;
+        articleView.tag = 1000+index;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
         articleView.lblJournal.text = article.journal[@"iso"];
         
+        CGPoint center = articleView.center;
+        center.x = 0.5f*self.view.frame.size.width;
+        articleView.center = center;
+        self.baseFrame = articleView.frame;
+        
         [self.view addSubview:articleView];
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
-        [UIView animateWithDuration:1.65f
-                              delay:(index*0.18f)
-             usingSpringWithDamping:0.5f
-              initialSpringVelocity:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = articleView.frame;
-                             frame.origin.x = kPadding;
-                             articleView.frame = frame;
-                         }
-                         completion:^(BOOL finished){
-                             
-                         }];
+//        [UIView animateWithDuration:1.65f
+//                              delay:(index*0.18f)
+//             usingSpringWithDamping:0.5f
+//              initialSpringVelocity:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^{
+//                             CGRect frame = articleView.frame;
+//                             frame.origin.x = kPadding;
+//                             articleView.frame = frame;
+//                         }
+//                         completion:^(BOOL finished){
+//                             
+//                         }];
     }
     
     self.topView.delegate = self;
