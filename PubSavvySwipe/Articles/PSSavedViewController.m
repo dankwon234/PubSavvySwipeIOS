@@ -138,8 +138,8 @@
     }
     
     PSArticle *article = (PSArticle *)self.saved[indexPath.row];
-    
     cell.lblTitle.text = article.title;
+    cell.lblAuthors.text = article.authorsString;
     return cell;
 }
 
