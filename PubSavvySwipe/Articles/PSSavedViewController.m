@@ -48,6 +48,25 @@
     self.articlesTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
+    
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 64.0f)];
+    header.backgroundColor = [UIColor clearColor];
+    
+    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 20.0f, frame.size.width-40.0f, 44.0f)];
+    lblRelated.center = CGPointMake(0.5f*frame.size.width, lblRelated.center.y);
+    lblRelated.textColor = [UIColor whiteColor];
+    lblRelated.textAlignment = NSTextAlignmentCenter;
+    lblRelated.text = @"Saved Articles";
+    lblRelated.font = [UIFont fontWithName:kBaseFontName size:18.0f];
+    lblRelated.backgroundColor = kDarkBlue;
+    lblRelated.layer.cornerRadius = 6.0f;
+    lblRelated.layer.masksToBounds = YES;
+    [header addSubview:lblRelated];
+
+    
+    self.articlesTable.tableHeaderView = header;
+    
+    
     [view addSubview:self.articlesTable];
     
     
