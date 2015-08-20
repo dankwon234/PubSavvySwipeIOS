@@ -141,37 +141,6 @@
     }];
 }
 
-/*
-- (void)searchArticles:(NSString *)term
-{
-    [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10"} completionBlock:^(id result, NSError *error){
-        if (error){
-            [self.loadingIndicator stopLoading];
-            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary *response = (NSDictionary *)result;
-            //            NSLog(@"%@", [response description]);
-            
-            self.relatedArticles = [NSMutableArray array];
-            NSArray *results = response[@"results"];
-            for (int i=0; i<results.count; i++) {
-                PSArticle *article = [PSArticle articleWithInfo:results[i]];
-                [self.relatedArticles addObject:article];
-            }
-            
-            int max = (self.relatedArticles.count >= kSetSize) ? kSetSize : (int)self.relatedArticles.count;
-            [self animateFeaturedArticles:max];
-            [self findCurrentArticle];
-            
-        });
-    }];
-}
-*/
-
 - (void)animateFeaturedArticles:(int)max
 {
     CGRect frame = self.view.frame;
