@@ -14,12 +14,14 @@
 
 
 @interface PSFeaturedArticlesViewController ()
+@property (copy, nonatomic) NSString *currentTerm;
 @property (strong, nonatomic) NSMutableArray *randomTerms;
 @property (strong, nonatomic) NSMutableArray *featuredArticles;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
-@property (nonatomic) CGRect  baseFrame;
-@property (nonatomic) CGFloat  padding;
+@property (nonatomic) CGRect baseFrame;
+@property (nonatomic) CGFloat padding;
+@property (nonatomic) int offset;
 @end
 
 #define kSetSize 10
@@ -34,6 +36,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.currentArticle = nil;
+        self.currentTerm = nil;
+        self.offset = 0;
         
     }
     return self;
@@ -115,8 +119,15 @@
         self.randomTerms = [NSMutableArray arrayWithArray:autosearch[@"terms"]];
         NSLog(@"%@", [self.randomTerms description]);
         
+        if (self.randomTerms.count==0) // nothing there for some reason
+            return;
+        
+        int i = abs(arc4random());
+        i = i % self.randomTerms.count;
+        self.currentTerm = self.randomTerms[i];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self searchRandomArticles];
+            [self searchArticles:self.currentTerm];
         });
         
     }];
@@ -131,28 +142,10 @@
     NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
 }
 
-- (void)searchRandomArticles
-{
-    if (self.randomTerms.count==0){
-//        NSLog(@"SEARCH RANDOM ARTICLES: Out of Terms");
-        return;
-    }
-    
-    NSLog(@"SEARCH RANDOM ARTICLES: %@", [self.randomTerms description]);
-    
-    int i = abs(arc4random());
-    i = i % self.randomTerms.count;
-    
-    NSString *term = self.randomTerms[i];
-    [self searchArticles:term];
-    [self.randomTerms removeObject:term];
-    
-}
-
 - (void)searchArticles:(NSString *)term
 {
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10"} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10", @"offset":[NSString stringWithFormat:@"%d", self.offset]} completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
@@ -167,12 +160,12 @@
             for (int i=0; i<results.count; i++) {
                 PSArticle *article = [PSArticle articleWithInfo:results[i]];
                 [self.featuredArticles addObject:article];
+                self.offset++;
             }
             
             int max = (self.featuredArticles.count >= kSetSize) ? kSetSize : (int)self.featuredArticles.count;
             [self animateFeaturedArticles:max];
             [self findCurrentArticle];
-            
         });
     }];
 }
@@ -240,7 +233,8 @@
     
     if (self.featuredArticles.count == 0){
 //        NSLog(@"NO MORE ARTICLES!");
-        [self searchRandomArticles];
+//        [self searchRandomArticles];
+        [self searchArticles:self.currentTerm];
         return;
     }
     
