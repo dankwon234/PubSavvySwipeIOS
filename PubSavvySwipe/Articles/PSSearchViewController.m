@@ -65,41 +65,45 @@
     view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
     CGRect frame = view.frame;
     
+    self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
+
     CGFloat h = 44.0f;
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, h)];
     self.searchBar.delegate = self;
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
     [view addSubview:self.searchBar];
-    
-    CGFloat w = 0.5f*(frame.size.width-3*kPadding);
-    CGFloat y = frame.size.height-h-kPadding-20.0f;
-    
+
+    CGFloat w = 0.5f*(frame.size.width-3*self.padding);
+    CGFloat y = frame.size.height-h-self.padding-20.0f;
+
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDislike.frame = CGRectMake(kPadding, y, w, h);
-    btnDislike.backgroundColor = [UIColor lightGrayColor];
-    btnDislike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnDislike.layer.borderWidth = 0.5f;
-    btnDislike.layer.cornerRadius = 2.0f;
-    btnDislike.layer.masksToBounds = YES;
-    btnDislike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnDislike setTitle:@"SKIP" forState:UIControlStateNormal];
-    [btnDislike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnDislike];
-    
-    
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLike.frame = CGRectMake(frame.size.width-w-kPadding, y, w, h);
-    btnLike.backgroundColor = kGreen;
-    btnLike.layer.borderColor = [[UIColor grayColor] CGColor];
-    btnLike.layer.borderWidth = 0.5f;
-    btnLike.layer.cornerRadius = 2.0f;
-    btnLike.layer.masksToBounds = YES;
-    btnLike.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
+    UIColor *darkGray = [UIColor darkGrayColor];
+    UIColor *white = [UIColor whiteColor];
+    
+    for (NSDictionary *btnInfo in buttons) {
+        UIButton *btn = btnInfo[@"button"];
+        btn.frame = buttonFrame;
+        btn.backgroundColor = btnInfo[@"color"];
+        btn.layer.shadowColor = [darkGray CGColor];
+        btn.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+        btn.layer.shadowOpacity = 2.0f;
+        btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
+        btn.layer.cornerRadius = 4.0f;
+        btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
+        [btn setTitleColor:white forState:UIControlStateNormal];
+        [view addSubview:btn];
+        buttonFrame.origin.x = frame.size.width-w-self.padding;
+    }
+    
+    [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
     [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
-    [btnLike setTitle:@"KEEP" forState:UIControlStateNormal];
-    [btnLike setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:btnLike];
+    
+
     
     self.searchHistoryTable = [[UITableView alloc] initWithFrame:CGRectMake(0, h, frame.size.width, frame.size.height-h-20.0f) style:UITableViewStylePlain];
     self.searchHistoryTable.dataSource = self;
@@ -159,17 +163,13 @@
 {
     [self dismissKeyboard];
     [self hideSearchTable];
-    
-    
 }
 
 - (void)searchArticles:(NSString *)searchTerm
 {
     [self.loadingIndicator startLoading];
-    
 
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
-    
     [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
