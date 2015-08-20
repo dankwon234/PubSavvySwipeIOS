@@ -182,7 +182,7 @@
         NSDictionary *deviceInfo = response[@"device"];
         if (deviceInfo)
             [self.device populate:deviceInfo];
-        
+
         NSArray *results = response[@"results"];
         for (int i=0; i<results.count; i++) {
             PSArticle *article = [PSArticle articleWithInfo:results[i]];
@@ -190,7 +190,8 @@
         }
         
         NSDictionary *searchQuery = response[@"query"]; // this object contains the number of results, frequency and timestamp
-        self.device.searchHistory[searchTerm] = searchQuery;
+        if (searchQuery)
+            self.device.searchHistory[searchTerm] = searchQuery;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.searchHistory containsObject:searchTerm]==NO){
