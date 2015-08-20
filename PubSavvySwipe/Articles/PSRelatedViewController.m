@@ -47,6 +47,17 @@
 
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
 
+    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, self.padding, [PSArticleView standardWidth], 44.0f)];
+    lblRelated.center = CGPointMake(0.5f*frame.size.width, lblRelated.center.y);
+    lblRelated.textColor = [UIColor whiteColor];
+    lblRelated.textAlignment = NSTextAlignmentCenter;
+    lblRelated.text = @"Related";
+    lblRelated.font = [UIFont fontWithName:kBaseFontName size:18.0f];
+    lblRelated.backgroundColor = kLightBlue;
+    lblRelated.layer.cornerRadius = 6.0f;
+    lblRelated.layer.masksToBounds = YES;
+    [view addSubview:lblRelated];
+
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*self.padding);
     CGFloat y = frame.size.height-h-self.padding-20.0f;
