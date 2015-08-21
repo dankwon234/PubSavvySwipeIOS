@@ -146,7 +146,7 @@
     cell.lblTitle.text = article.title;
     cell.lblAuthors.text = article.authorsString;
     cell.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
-    cell.lblJournal.text = article.journal[@"iso"];
+    cell.lblJournal.text = [NSString stringWithFormat:@"%@ | %@", article.journal[@"iso"], article.date];
     
 //    NSLog(@"%@", [article.journal description]);
 //    {
