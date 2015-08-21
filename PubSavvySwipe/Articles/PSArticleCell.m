@@ -26,6 +26,7 @@
         CGFloat width = frame.size.width-2*x;
         self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 22.0f)];
         self.lblTitle.numberOfLines = 2;
+        self.lblTitle.textColor = kDarkBlue;
         [self.lblTitle addObserver:self forKeyPath:@"text" options:0 context:nil];
         [self.contentView addSubview:self.lblTitle];
         y += self.lblTitle.frame.size.height;
