@@ -80,6 +80,11 @@
     [self addMenuButton];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.articlesTable deselectRowAtIndexPath:[self.articlesTable indexPathForSelectedRow] animated:YES];
+}
 
 - (void)articleSaved:(NSNotification *)notification
 {
