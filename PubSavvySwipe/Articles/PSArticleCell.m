@@ -12,8 +12,8 @@
 @implementation PSArticleCell
 @synthesize lblTitle;
 @synthesize lblAuthors;
+@synthesize lblJournal;
 @synthesize lblPmid;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -30,11 +30,18 @@
         [self.contentView addSubview:self.lblTitle];
         y += self.lblTitle.frame.size.height;
         
-        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 16.0f)];
+        self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 14.0f)];
         self.lblAuthors.font = [UIFont systemFontOfSize:12.0f];
-        self.lblAuthors.textColor = kLightBlue;
+        self.lblAuthors.textColor = kDarkBlue;
         [self.contentView addSubview:self.lblAuthors];
         y += self.lblAuthors.frame.size.height;
+
+        self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 14.0f)];
+        self.lblJournal.font = [UIFont systemFontOfSize:12.0f];
+        self.lblJournal.textColor = kLightBlue;
+        self.lblJournal.text = @"Journal info";
+        [self.contentView addSubview:self.lblJournal];
+        y += self.lblJournal.frame.size.height;
 
         self.lblPmid = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.35f*width, 16.0f)];
         self.lblPmid.backgroundColor = kDarkBlue;
@@ -73,6 +80,11 @@
         frame.origin.y = y;
         self.lblAuthors.frame = frame;
         y += frame.size.height;
+        
+        frame = self.lblJournal.frame;
+        frame.origin.y = y;
+        self.lblJournal.frame = frame;
+        y += frame.size.height+4.0f;
         
         frame = self.lblPmid.frame;
         frame.origin.y = y;
