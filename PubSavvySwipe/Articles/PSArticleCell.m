@@ -39,15 +39,14 @@
         self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 14.0f)];
         self.lblJournal.font = [UIFont systemFontOfSize:12.0f];
         self.lblJournal.textColor = kLightBlue;
-        self.lblJournal.text = @"Journal info";
         [self.contentView addSubview:self.lblJournal];
         y += self.lblJournal.frame.size.height;
 
-        self.lblPmid = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.35f*width, 16.0f)];
+        self.lblPmid = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.40f*width, 16.0f)];
         self.lblPmid.backgroundColor = kDarkBlue;
         self.lblPmid.font = self.lblAuthors.font;
+        self.lblPmid.textAlignment = NSTextAlignmentCenter;
         self.lblPmid.textColor = [UIColor whiteColor];
-        self.lblPmid.text = @"PMID: 4235345";
         [self.contentView addSubview:self.lblPmid];
         
     }
