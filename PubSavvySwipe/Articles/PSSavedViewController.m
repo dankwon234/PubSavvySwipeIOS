@@ -140,6 +140,16 @@
     PSArticle *article = (PSArticle *)self.saved[indexPath.row];
     cell.lblTitle.text = article.title;
     cell.lblAuthors.text = article.authorsString;
+    cell.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
+    cell.lblJournal.text = article.journal[@"iso"];
+    
+//    NSLog(@"%@", [article.journal description]);
+//    {
+//        iso = "J Community Support Oncol";
+//        issn = "2330-7749";
+//        title = "The Journal of community and supportive oncology";
+//    }
+    
     return cell;
 }
 
