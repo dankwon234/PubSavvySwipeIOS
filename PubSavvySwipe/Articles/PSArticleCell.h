@@ -14,4 +14,5 @@
 @property (strong, nonatomic) UILabel *lblAuthors;
 @property (strong, nonatomic) UILabel *lblJournal;
 @property (strong, nonatomic) UILabel *lblPmid;
++ (CGFloat)standardCellHeight;
 @end

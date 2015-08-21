@@ -15,6 +15,8 @@
 @synthesize lblJournal;
 @synthesize lblPmid;
 
+#define kCellHeight 124.0f
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -74,7 +76,7 @@
         
         frame.size.height = bounds.size.height;
         self.lblTitle.frame = frame;
-        CGFloat y = frame.origin.y+frame.size.height+4.0f;
+        CGFloat y = frame.origin.y+frame.size.height+6.0f;
         
         frame = self.lblAuthors.frame;
         frame.origin.y = y;
@@ -89,10 +91,12 @@
         frame = self.lblPmid.frame;
         frame.origin.y = y;
         self.lblPmid.frame = frame;
-        
     }
-    
-    
+}
+
++ (CGFloat)standardCellHeight
+{
+    return kCellHeight;
     
 }
 
