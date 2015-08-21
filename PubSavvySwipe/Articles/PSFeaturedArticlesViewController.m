@@ -53,7 +53,7 @@
     
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
     
-    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, self.padding, [PSArticleView standardWidth], 44.0f)];
+    UILabel *lblRandom = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, 10.0f, [PSArticleView standardWidth], 28.0f)];
     lblRandom.center = CGPointMake(0.5f*frame.size.width, lblRandom.center.y);
     lblRandom.textColor = [UIColor whiteColor];
     lblRandom.textAlignment = NSTextAlignmentCenter;
