@@ -196,7 +196,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 112.0f;
+    return [PSArticleCell standardCellHeight];
     
 }
 
