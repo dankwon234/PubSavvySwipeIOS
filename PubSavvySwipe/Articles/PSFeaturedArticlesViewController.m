@@ -75,7 +75,7 @@
     
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kLightBlue, @"button":btnDislike}, @{@"title":@"KEEP", @"color":kDarkBlue, @"button":btnLike}];
     CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
     UIColor *darkGray = [UIColor darkGrayColor];
     UIColor *white = [UIColor whiteColor];
