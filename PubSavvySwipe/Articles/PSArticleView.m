@@ -38,21 +38,17 @@
         self.layer.masksToBounds = YES;
         
         CGFloat x = 12.0f;
-        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 24.0f, frame.size.width-2*x, frame.size.height-40.0f)];
-        self.base.backgroundColor = [UIColor whiteColor];
-        self.base.showsVerticalScrollIndicator = NO;
-        
         CGFloat padding = 12.0f;
-        CGFloat y = padding+6.0f;
+        CGFloat y = padding;
         CGFloat width = frame.size.width-2*x;
         
-        self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, padding, width, 12.0f)];
+        self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblJournal.textAlignment = NSTextAlignmentLeft;
         self.lblJournal.textColor = [UIColor whiteColor];
         self.lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
         [self addSubview:self.lblJournal];
 
-        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, padding, width, 12.0f)];
+        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblDate.textAlignment = NSTextAlignmentRight;
         self.lblDate.textColor = self.lblJournal.textColor;
         self.lblDate.font = self.lblJournal.font;
@@ -60,6 +56,9 @@
 
 //        self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
         
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 26.0f, frame.size.width-2*x, frame.size.height-40.0f)];
+        self.base.backgroundColor = [UIColor whiteColor];
+        self.base.showsVerticalScrollIndicator = NO;
         
 
         y = padding;
