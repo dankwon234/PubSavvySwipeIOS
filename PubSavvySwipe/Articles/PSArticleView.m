@@ -34,6 +34,7 @@
         self.isMoving = NO;
         
         self.backgroundColor = kLightBlue;
+        self.layer.cornerRadius = 6.0f;
         self.layer.masksToBounds = YES;
         
         CGFloat x = 16.0f;
