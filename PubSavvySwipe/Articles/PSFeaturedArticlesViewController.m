@@ -66,7 +66,7 @@
     
     UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCards.png"]];
     bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    bgCards.center = CGPointMake(0.5f*frame.size.width, 0.48f*frame.size.height);
+    bgCards.center = CGPointMake(0.5f*frame.size.width, 0.49f*frame.size.height);
     [view addSubview:bgCards];
     
     CGFloat h = 44.0f;
@@ -186,7 +186,7 @@
         PSArticle *article = self.featuredArticles[idx];
         
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-32.0f, [PSArticleView standardWidth], frame.size.height-180.0f)];
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-26.0f, [PSArticleView standardWidth], frame.size.height-180.0f)];
         articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
         articleView.tag = 1000+index;
