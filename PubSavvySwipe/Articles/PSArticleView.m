@@ -25,7 +25,7 @@
 @synthesize iconAccess;
 @synthesize lblAbsratct;
 
-#define kStandardWidth 280.0f
+#define kStandardWidth 250.0f
 
 - (id)initWithFrame:(CGRect)frame
 {
