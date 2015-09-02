@@ -37,8 +37,8 @@
         self.layer.cornerRadius = 6.0f;
         self.layer.masksToBounds = YES;
         
-        CGFloat x = 16.0f;
-        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 32.0f, frame.size.width-2*x, frame.size.height-64.0f)];
+        CGFloat x = 12.0f;
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 24.0f, frame.size.width-2*x, frame.size.height-40.0f)];
         self.base.backgroundColor = [UIColor whiteColor];
         self.base.showsVerticalScrollIndicator = NO;
         
