@@ -110,6 +110,9 @@
     [super viewDidLoad];
     [self addMenuButton];
     
+    CGPoint ctr = self.loadingIndicator.center;
+    ctr.y = 0.65f*self.view.frame.size.height;
+    self.loadingIndicator.center = ctr;
 
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] fetchRandomTerms:kAutoSearchId completionBlock:^(id result, NSError *error){
