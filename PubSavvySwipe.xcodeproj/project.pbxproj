@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C00BC741B976218009759DD /* bgCards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C00BC731B976218009759DD /* bgCards@2x.png */; };
 		0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */; };
 		0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0892861B7A8D6B00D40207 /* banner@2x.png */; };
 		0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11D85C1B3497B600ED7C78 /* PSArticle.m */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C00BC731B976218009759DD /* bgCards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCards@2x.png"; sourceTree = "<group>"; };
 		0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPadlock@2x.png"; sourceTree = "<group>"; };
 		0C0892861B7A8D6B00D40207 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		0C11D85B1B3497B600ED7C78 /* PSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticle.h; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */,
+				0C00BC731B976218009759DD /* bgCards@2x.png */,
 				0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */,
 				0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */,
 			);
@@ -478,6 +481,7 @@
 				0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */,
 				0CA2BE6F1B0DA458004B4D81 /* Default-568h@2x.png in Resources */,
 				0CA2BE7B1B0DACAA004B4D81 /* dots@2x.png in Resources */,
+				0C00BC741B976218009759DD /* bgCards@2x.png in Resources */,
 				0C43D57F1B7E735700002820 /* iconRandom@2x.png in Resources */,
 				0C43D5811B7E73A800002820 /* iconAbout@2x.png in Resources */,
 				0C58046F1B6FDD1F00D87F12 /* bgLosAngeles@2x.png in Resources */,
