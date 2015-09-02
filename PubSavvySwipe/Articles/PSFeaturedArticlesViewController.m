@@ -48,7 +48,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
+    view.backgroundColor = [UIColor whiteColor];
     CGRect frame = view.frame;
     
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
@@ -63,6 +63,11 @@
     lblRandom.layer.cornerRadius = 6.0f;
     lblRandom.layer.masksToBounds = YES;
     [view addSubview:lblRandom];
+    
+    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCards.png"]];
+    bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    bgCards.center = CGPointMake(0.5f*frame.size.width, 0.5f*frame.size.height);
+    [view addSubview:bgCards];
     
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*self.padding);
@@ -181,8 +186,8 @@
         PSArticle *article = self.featuredArticles[idx];
         
         int index = i%max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
-        articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-24.0f, [PSArticleView standardWidth], frame.size.height-180.0f)];
+        articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
         articleView.tag = 1000+index;
         articleView.lblAbsratct.text = article.abstract;
