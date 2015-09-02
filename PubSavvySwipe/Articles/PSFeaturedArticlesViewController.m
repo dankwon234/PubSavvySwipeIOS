@@ -208,18 +208,18 @@
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
-        
-//        [UIView animateWithDuration:1.2f
-//                              delay:0.1f*index
-//             usingSpringWithDamping:0.5f
-//              initialSpringVelocity:0
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             articleView.frame = CGRectMake(articleView.frame.origin.x, kPadding+kNavBarHeight-index, [PSArticleView standardWidth], articleView.frame.size.height);
-//                         }
-//                         completion:^(BOOL finished){
-//                             
-//                         }];
+        if (i == self.featuredArticles.count-1){
+            articleView.transform = CGAffineTransformMakeScale(0.7f, 0.7f);
+            [UIView animateWithDuration:0.16f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveLinear
+                             animations:^{
+                                 articleView.transform = CGAffineTransformIdentity;
+                             }
+                             completion:^(BOOL finished){
+                                 
+                             }];
+        }
         
     }
     
