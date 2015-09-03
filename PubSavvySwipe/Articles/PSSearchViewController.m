@@ -148,6 +148,12 @@
 {
     [super viewDidLoad];
     [self addMenuButton];
+    
+    CGPoint ctr = self.loadingIndicator.center;
+    ctr.y = 0.65f*self.view.frame.size.height;
+    self.loadingIndicator.center = ctr;
+    
+
 }
 
 - (void)dismissKeyboard
@@ -214,6 +220,8 @@
 
 
 
+
+
 - (void)animateFeaturedArticles:(int)max
 {
     CGRect frame = self.view.frame;
@@ -223,16 +231,17 @@
         
         PSArticle *article = self.searchResults[idx];
         
-        int index = i % max;
-        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-index, [PSArticleView standardWidth], frame.size.height-180.0f)];
-        articleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        int index = i%max;
+        PSArticleView *articleView = [PSArticleView articleViewWithFrame:CGRectMake(0, self.padding+kNavBarHeight-26.0f, [PSArticleView standardWidth], frame.size.height-180.0f)];
+        articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
-        articleView.backgroundColor = [UIColor grayColor];
         articleView.tag = 1000+index;
+        articleView.backgroundColor = kLightGray;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
+        articleView.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
         articleView.lblJournal.text = article.journal[@"iso"];
         
         CGPoint center = articleView.center;
@@ -244,19 +253,19 @@
         self.topView = articleView;
         [self.loadingIndicator stopLoading];
         
-//        [UIView animateWithDuration:1.65f
-//                              delay:(index*0.18f)
-//             usingSpringWithDamping:0.5f
-//              initialSpringVelocity:0
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             CGRect frame = articleView.frame;
-//                             frame.origin.x = kPadding;
-//                             articleView.frame = frame;
-//                         }
-//                         completion:^(BOOL finished){
-//                             
-//                         }];
+        if (i == self.searchResults.count-1){
+            articleView.transform = CGAffineTransformMakeScale(0.7f, 0.7f);
+            [UIView animateWithDuration:0.16f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveLinear
+                             animations:^{
+                                 articleView.transform = CGAffineTransformIdentity;
+                             }
+                             completion:^(BOOL finished){
+                                 
+                             }];
+        }
+        
     }
     
     self.topView.delegate = self;
