@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UILabel *lblTitle;
 @property (strong, nonatomic) UILabel *lblAuthors;
 @property (strong, nonatomic) UILabel *lblAbsratct;
+@property (strong, nonatomic) UILabel *lblPmid;
 @property (strong, nonatomic) UIImageView *iconAccess;
 + (PSArticleView *)articleViewWithFrame:(CGRect)frame;
 + (CGFloat)standardWidth;

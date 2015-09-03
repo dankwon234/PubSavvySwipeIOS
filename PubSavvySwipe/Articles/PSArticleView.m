@@ -24,6 +24,7 @@
 @synthesize lblTitle;
 @synthesize iconAccess;
 @synthesize lblAbsratct;
+@synthesize lblPmid;
 
 #define kStandardWidth 250.0f
 
@@ -56,7 +57,7 @@
 
 //        self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
         
-        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 26.0f, frame.size.width-2*x, frame.size.height-40.0f)];
+        self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 26.0f, frame.size.width-2*x, frame.size.height-42.0f)];
         self.base.backgroundColor = [UIColor whiteColor];
         self.base.showsVerticalScrollIndicator = NO;
         
@@ -102,6 +103,12 @@
         [self.base addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
         
         [self addSubview:self.base];
+        y = self.base.frame.origin.y+self.base.frame.size.height+2.0f;
+
+        self.lblPmid = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
+        self.lblPmid.textColor = [UIColor whiteColor];
+        self.lblPmid.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
+        [self addSubview:lblPmid];
 
         
         [self enableDragging];
