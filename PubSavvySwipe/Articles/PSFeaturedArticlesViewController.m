@@ -130,8 +130,7 @@
         if (self.randomTerms.count==0) // nothing there for some reason
             return;
         
-        int i = abs(arc4random());
-        i = i % self.randomTerms.count;
+        int i = arc4random() % self.randomTerms.count;
         self.currentTerm = self.randomTerms[i];
         
         dispatch_async(dispatch_get_main_queue(), ^{
