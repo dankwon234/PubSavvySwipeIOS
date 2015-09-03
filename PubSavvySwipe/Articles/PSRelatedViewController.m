@@ -42,12 +42,12 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
+    view.backgroundColor = [UIColor whiteColor];
     CGRect frame = view.frame;
 
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
 
-    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, self.padding, [PSArticleView standardWidth], 44.0f)];
+    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(self.padding, 16.0f, [PSArticleView standardWidth], 28.0f)];
     lblRelated.center = CGPointMake(0.5f*frame.size.width, lblRelated.center.y);
     lblRelated.textColor = [UIColor whiteColor];
     lblRelated.textAlignment = NSTextAlignmentCenter;
@@ -57,14 +57,48 @@
     lblRelated.layer.cornerRadius = 6.0f;
     lblRelated.layer.masksToBounds = YES;
     [view addSubview:lblRelated];
+    
+    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCards.png"]];
+    bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    bgCards.center = CGPointMake(0.5f*frame.size.width, 0.49f*frame.size.height);
+    [view addSubview:bgCards];
+    
+
+//    CGFloat h = 44.0f;
+//    CGFloat w = 0.5f*(frame.size.width-3*self.padding);
+//    CGFloat y = frame.size.height-h-self.padding-20.0f;
+//    
+//    UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
+//    UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
+//    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+//    CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
+//    UIColor *darkGray = [UIColor darkGrayColor];
+//    UIColor *white = [UIColor whiteColor];
+//    
+//    for (NSDictionary *btnInfo in buttons) {
+//        UIButton *btn = btnInfo[@"button"];
+//        btn.frame = buttonFrame;
+//        btn.backgroundColor = btnInfo[@"color"];
+//        btn.layer.shadowColor = [darkGray CGColor];
+//        btn.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+//        btn.layer.shadowOpacity = 2.0f;
+//        btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
+//        btn.layer.cornerRadius = 4.0f;
+//        btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+//        btn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+//        [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
+//        [btn setTitleColor:white forState:UIControlStateNormal];
+//        [view addSubview:btn];
+//        buttonFrame.origin.x = frame.size.width-w-self.padding;
+//    }
 
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*self.padding);
-    CGFloat y = frame.size.height-h-self.padding-20.0f;
+    CGFloat y = frame.size.height-h-self.padding;
     
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kLightBlue, @"button":btnDislike}, @{@"title":@"KEEP", @"color":kDarkBlue, @"button":btnLike}];
     CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
     UIColor *darkGray = [UIColor darkGrayColor];
     UIColor *white = [UIColor whiteColor];
@@ -85,7 +119,7 @@
         [view addSubview:btn];
         buttonFrame.origin.x = frame.size.width-w-self.padding;
     }
-    
+
     [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
     [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
     
