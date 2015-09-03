@@ -53,7 +53,7 @@
     lblRelated.textAlignment = NSTextAlignmentCenter;
     lblRelated.text = @"Related";
     lblRelated.font = [UIFont fontWithName:kBaseFontName size:18.0f];
-    lblRelated.backgroundColor = kLightBlue;
+    lblRelated.backgroundColor = kLightGray;
     lblRelated.layer.cornerRadius = 6.0f;
     lblRelated.layer.masksToBounds = YES;
     [view addSubview:lblRelated];
@@ -103,6 +103,10 @@
     [super viewDidLoad];
     [self addMenuButton];
     
+    CGPoint ctr = self.loadingIndicator.center;
+    ctr.y = 0.65f*self.view.frame.size.height;
+    self.loadingIndicator.center = ctr;
+
     if (self.device.saved.count==0) // no saved articles
         return;
     
