@@ -58,39 +58,11 @@
     lblRelated.layer.masksToBounds = YES;
     [view addSubview:lblRelated];
     
-    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCards.png"]];
+    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCardsGray.png"]];
     bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     bgCards.center = CGPointMake(0.5f*frame.size.width, 0.49f*frame.size.height);
     [view addSubview:bgCards];
     
-
-//    CGFloat h = 44.0f;
-//    CGFloat w = 0.5f*(frame.size.width-3*self.padding);
-//    CGFloat y = frame.size.height-h-self.padding-20.0f;
-//    
-//    UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
-//    UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-//    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
-//    CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
-//    UIColor *darkGray = [UIColor darkGrayColor];
-//    UIColor *white = [UIColor whiteColor];
-//    
-//    for (NSDictionary *btnInfo in buttons) {
-//        UIButton *btn = btnInfo[@"button"];
-//        btn.frame = buttonFrame;
-//        btn.backgroundColor = btnInfo[@"color"];
-//        btn.layer.shadowColor = [darkGray CGColor];
-//        btn.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-//        btn.layer.shadowOpacity = 2.0f;
-//        btn.layer.shadowPath = [UIBezierPath bezierPathWithRect:btnDislike.bounds].CGPath;
-//        btn.layer.cornerRadius = 4.0f;
-//        btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//        btn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
-//        [btn setTitle:btnInfo[@"title"] forState:UIControlStateNormal];
-//        [btn setTitleColor:white forState:UIControlStateNormal];
-//        [view addSubview:btn];
-//        buttonFrame.origin.x = frame.size.width-w-self.padding;
-//    }
 
     CGFloat h = 44.0f;
     CGFloat w = 0.5f*(frame.size.width-3*self.padding);
@@ -203,6 +175,7 @@
         articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
         articleView.tag = 1000+index;
+        articleView.backgroundColor = kLightGray;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
