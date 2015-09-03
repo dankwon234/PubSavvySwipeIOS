@@ -196,6 +196,7 @@
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;
         articleView.lblDate.text = article.date;
+        articleView.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
         articleView.lblJournal.text = article.journal[@"iso"];
         
         CGPoint center = articleView.center;
