@@ -62,7 +62,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
+    view.backgroundColor = [UIColor whiteColor];
     CGRect frame = view.frame;
     
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
@@ -73,12 +73,17 @@
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
     [view addSubview:self.searchBar];
 
+    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCardsGray.png"]];
+    bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    bgCards.center = CGPointMake(0.5f*frame.size.width, 0.49f*frame.size.height);
+    [view addSubview:bgCards];
+
     CGFloat w = 0.5f*(frame.size.width-3*self.padding);
-    CGFloat y = frame.size.height-h-self.padding-20.0f;
+    CGFloat y = frame.size.height-h-self.padding;
 
     UIButton *btnDislike = [UIButton buttonWithType:UIButtonTypeCustom];
     UIButton *btnLike = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kDarkBlue, @"button":btnDislike}, @{@"title":@"LIKE", @"color":kLightBlue, @"button":btnLike}];
+    NSArray *buttons = @[@{@"title":@"SKIP", @"color":kLightBlue, @"button":btnDislike}, @{@"title":@"KEEP", @"color":kDarkBlue, @"button":btnLike}];
     CGRect buttonFrame = CGRectMake(self.padding, y, w, h);
     UIColor *darkGray = [UIColor darkGrayColor];
     UIColor *white = [UIColor whiteColor];
