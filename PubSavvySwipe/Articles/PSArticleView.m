@@ -22,7 +22,7 @@
 @synthesize lblDate;
 @synthesize lblAuthors;
 @synthesize lblTitle;
-@synthesize iconAccess;
+@synthesize iconLock;
 @synthesize lblAbsratct;
 @synthesize lblPmid;
 
@@ -55,7 +55,6 @@
         self.lblDate.font = self.lblJournal.font;
         [self addSubview:self.lblDate];
 
-//        self.iconAccess = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPadlock.png"]];
         
         self.base = [[UIScrollView alloc] initWithFrame:CGRectMake(x, 26.0f, frame.size.width-2*x, frame.size.height-42.0f)];
         self.base.backgroundColor = [UIColor whiteColor];
@@ -109,6 +108,14 @@
         self.lblPmid.textColor = [UIColor whiteColor];
         self.lblPmid.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
         [self addSubview:lblPmid];
+
+        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+        CGRect iconFrame = self.iconLock.frame;
+        iconFrame.origin = CGPointMake(self.frame.size.width-self.iconLock.frame.size.width, self.frame.size.height-self.iconLock.frame.size.height);
+        self.iconLock.frame = iconFrame;
+        
+        
+        [self addSubview:self.iconLock];
 
         
         [self enableDragging];
