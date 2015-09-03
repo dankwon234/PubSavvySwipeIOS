@@ -58,6 +58,7 @@
 		0CA3B8231B6FCB4A004F61DB /* PSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B8221B6FCB4A004F61DB /* PSProfile.m */; };
 		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
 		0CF0C3221B97F8B100DF7EC0 /* lockOpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF0C3211B97F8B100DF7EC0 /* lockOpen@2x.png */; };
+		0CF0C3241B97FB9D00DF7EC0 /* lockClosed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF0C3231B97FB9D00DF7EC0 /* lockClosed@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		0CB386841B4D01540036F072 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
 		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 		0CF0C3211B97F8B100DF7EC0 /* lockOpen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lockOpen@2x.png"; sourceTree = "<group>"; };
+		0CF0C3231B97FB9D00DF7EC0 /* lockClosed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lockClosed@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 				0CA2BE761B0DAC8D004B4D81 /* iconHamburger@2x.png */,
 				0CA2BE771B0DAC8D004B4D81 /* backArrow@2x.png */,
 				0CF0C3211B97F8B100DF7EC0 /* lockOpen@2x.png */,
+				0CF0C3231B97FB9D00DF7EC0 /* lockClosed@2x.png */,
 				0CA2BE7A1B0DACAA004B4D81 /* dots@2x.png */,
 				0CA2BE741B0DABE6004B4D81 /* logo-white@2x.png */,
 				0CA2BE6E1B0DA458004B4D81 /* Default-568h@2x.png */,
@@ -472,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C43D57B1B7E725800002820 /* iconRelated@2x.png in Resources */,
+				0CF0C3241B97FB9D00DF7EC0 /* lockClosed@2x.png in Resources */,
 				0CA2BE791B0DAC8D004B4D81 /* backArrow@2x.png in Resources */,
 				0C58046D1B6FDD1F00D87F12 /* backgroundLights@2x.png in Resources */,
 				0C43D57D1B7E72CE00002820 /* iconSearch@2x.png in Resources */,
