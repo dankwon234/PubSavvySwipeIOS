@@ -154,7 +154,7 @@
         return;
     
     CGRect frame = self.lblTitle.frame;
-    CGRect bounds = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 100.0f)
+    CGRect bounds = [self.lblTitle.text boundingRectWithSize:CGSizeMake(frame.size.width, 460.0f)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:self.lblTitle.font}
                                                      context:nil];
