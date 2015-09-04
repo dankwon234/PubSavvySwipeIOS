@@ -45,7 +45,8 @@
     view.backgroundColor = [UIColor yellowColor];
     CGRect frame = view.frame;
     
-    self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height-20.0f) style:UITableViewStylePlain];
+    CGFloat padding = 20.0f;
+    self.articlesTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height-padding) style:UITableViewStylePlain];
     self.articlesTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
@@ -53,7 +54,7 @@
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 64.0f)];
     header.backgroundColor = [UIColor clearColor];
     
-    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 20.0f, frame.size.width-40.0f, 44.0f)];
+    UILabel *lblRelated = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-2*padding, 28.0f)];
     lblRelated.center = CGPointMake(0.5f*frame.size.width, lblRelated.center.y);
     lblRelated.textColor = [UIColor whiteColor];
     lblRelated.textAlignment = NSTextAlignmentCenter;
@@ -63,6 +64,7 @@
     lblRelated.layer.cornerRadius = 6.0f;
     lblRelated.layer.masksToBounds = YES;
     [header addSubview:lblRelated];
+    
 
     
     self.articlesTable.tableHeaderView = header;
