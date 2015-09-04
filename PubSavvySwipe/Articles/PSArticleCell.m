@@ -23,7 +23,7 @@
     if (self){
         CGRect frame = [UIScreen mainScreen].applicationFrame;
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 1.0f)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(20.0f, 0, frame.size.width-40.0f, 1.0f)];
         line.backgroundColor = [UIColor colorWithRed:0.75f green:0.75f blue:0.75f alpha:1];
         [self.contentView addSubview:line];
         
