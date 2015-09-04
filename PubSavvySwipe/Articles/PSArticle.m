@@ -58,12 +58,22 @@
     for (int i=0; i<self.authors.count; i++) {
         NSString *fullName = @"";
         NSDictionary *author = self.authors[i];
-        if (author[@"firstName"]!=nil)
-            fullName = author[@"firstName"];
-        
+
         if (author[@"lastName"] != nil)
-            fullName = [fullName stringByAppendingString:[NSString stringWithFormat:@" %@", author[@"lastName"]]];
+            fullName = author[@"lastName"];
+
+        if (author[@"firstName"] != nil){
+            NSString *firstName = author[@"firstName"];
+            NSString *initials = [firstName substringToIndex:1]; // first and middle initial
+            NSArray *parts = [firstName componentsSeparatedByString:@" "];
+            if (parts.count > 1)
+                initials = [initials stringByAppendingString:[NSString stringWithFormat:@" %@", [parts[1] substringToIndex:1]]];
+            
+            fullName = [fullName stringByAppendingString:[NSString stringWithFormat:@" %@", initials]];
+        }
         
+        
+
         self.authorsString = [self.authorsString stringByAppendingString:fullName];
         if (i != self.authors.count-1)
             self.authorsString = [self.authorsString stringByAppendingString:@", "];
