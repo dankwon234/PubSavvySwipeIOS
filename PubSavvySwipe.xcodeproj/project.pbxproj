@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0C00BC761B976805009759DD /* bgCards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C00BC751B976805009759DD /* bgCards@2x.png */; };
-		0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */; };
 		0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0892861B7A8D6B00D40207 /* banner@2x.png */; };
 		0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11D85C1B3497B600ED7C78 /* PSArticle.m */; };
 		0C43D5751B7E70B400002820 /* iconAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5741B7E70B400002820 /* iconAccount@2x.png */; };
@@ -74,7 +73,6 @@
 
 /* Begin PBXFileReference section */
 		0C00BC751B976805009759DD /* bgCards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCards@2x.png"; sourceTree = "<group>"; };
-		0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPadlock@2x.png"; sourceTree = "<group>"; };
 		0C0892861B7A8D6B00D40207 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		0C11D85B1B3497B600ED7C78 /* PSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticle.h; sourceTree = "<group>"; };
 		0C11D85C1B3497B600ED7C78 /* PSArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticle.m; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 			children = (
 				0C43D5731B7E70B400002820 /* icons */,
 				0C5804651B6FDD1F00D87F12 /* backgrounds */,
-				0C05FD391B29F3B100F84A3D /* iconPadlock@2x.png */,
 				0C0892861B7A8D6B00D40207 /* banner@2x.png */,
 				0CA2BE761B0DAC8D004B4D81 /* iconHamburger@2x.png */,
 				0CA2BE771B0DAC8D004B4D81 /* backArrow@2x.png */,
@@ -486,7 +483,6 @@
 				0CA2BE751B0DABE6004B4D81 /* logo-white@2x.png in Resources */,
 				0C6459681B0D9EFA00D22151 /* Images.xcassets in Resources */,
 				0CF0C3261B97FE8D00DF7EC0 /* bgCardsGray@2x.png in Resources */,
-				0C05FD3A1B29F3B100F84A3D /* iconPadlock@2x.png in Resources */,
 				0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */,
 				0C43D5791B7E720C00002820 /* iconSaved@2x.png in Resources */,
 				0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */,
