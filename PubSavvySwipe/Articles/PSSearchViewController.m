@@ -70,7 +70,8 @@
     CGFloat h = 44.0f;
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, h)];
     self.searchBar.delegate = self;
-    self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
+    self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.searchBar.spellCheckingType = UITextSpellCheckingTypeNo;
     [view addSubview:self.searchBar];
 
     UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCardsGray.png"]];
