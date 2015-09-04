@@ -14,5 +14,6 @@
 @property (strong, nonatomic) UILabel *lblAuthors;
 @property (strong, nonatomic) UILabel *lblJournal;
 @property (strong, nonatomic) UILabel *lblPmid;
+@property (strong, nonatomic) UIImageView *iconLock;
 + (CGFloat)standardCellHeight;
 @end

@@ -14,6 +14,8 @@
 @synthesize lblAuthors;
 @synthesize lblJournal;
 @synthesize lblPmid;
+@synthesize iconLock;
+
 
 #define kCellHeight 124.0f
 
@@ -56,6 +58,11 @@
         self.lblPmid.textColor = [UIColor whiteColor];
         [self.contentView addSubview:self.lblPmid];
         
+        CGFloat dimen = 20.0f;
+        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+        self.iconLock.frame = CGRectMake(frame.size.width-dimen-20.0f, y, dimen, dimen);
+        [self.contentView addSubview:self.iconLock];
+        
     }
     
     return self;
@@ -95,6 +102,10 @@
         frame = self.lblPmid.frame;
         frame.origin.y = y;
         self.lblPmid.frame = frame;
+        
+        frame = self.iconLock.frame;
+        frame.origin.y = y;
+        self.iconLock.frame = frame;
     }
 }
 
