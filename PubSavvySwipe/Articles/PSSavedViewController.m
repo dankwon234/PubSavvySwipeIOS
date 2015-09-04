@@ -50,6 +50,7 @@
     self.articlesTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.articlesTable.dataSource = self;
     self.articlesTable.delegate = self;
+    self.articlesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 64.0f)];
     header.backgroundColor = [UIColor clearColor];
