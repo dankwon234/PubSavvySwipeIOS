@@ -23,6 +23,10 @@
     if (self){
         CGRect frame = [UIScreen mainScreen].applicationFrame;
         
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 1.0f)];
+        line.backgroundColor = [UIColor colorWithRed:0.75f green:0.75f blue:0.75f alpha:1];
+        [self.contentView addSubview:line];
+        
         CGFloat y = 12.0f;
         CGFloat x = 20.0f;
         CGFloat width = frame.size.width-2*x;
