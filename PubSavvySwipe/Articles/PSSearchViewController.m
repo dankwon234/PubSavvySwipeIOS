@@ -68,11 +68,22 @@
     self.padding = 0.5f*(frame.size.width-[PSArticleView standardWidth]);
 
     CGFloat h = 44.0f;
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, h)];
+    UIView *bgSearchBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, h)];
+    double rgb = 0.78f;
+    bgSearchBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:204.0f/255.0f alpha:1.0f];
+    UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnCancel.frame = CGRectMake(frame.size.width-80, 0, 80, h);
+    [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
+    [btnCancel addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
+    [bgSearchBar addSubview:btnCancel];
+    [view addSubview:bgSearchBar];
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width-80.0f, h)];
     self.searchBar.delegate = self;
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.spellCheckingType = UITextSpellCheckingTypeNo;
     [view addSubview:self.searchBar];
+    
 
     UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCardsGray.png"]];
     bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -117,16 +128,6 @@
     self.searchHistoryTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
     self.searchHistoryTable.alpha = 0.0f;
-    
-    UIView *cancel = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 64.0f)];
-    cancel.backgroundColor = [UIColor redColor];
-    self.searchHistoryTable.tableFooterView = cancel;
-    
-    UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnCancel.frame = CGRectMake(20.0f, 10.0f, frame.size.width-40.0f, 44.0f);
-    [btnCancel addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
-    [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancel addSubview:btnCancel];
     
     [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 
