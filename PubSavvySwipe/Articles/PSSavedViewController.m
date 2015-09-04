@@ -68,7 +68,6 @@
     self.articlesTable.tableHeaderView = header;
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, 5.0f)];
-    footer.backgroundColor = [UIColor whiteColor];
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(padding, 0, frame.size.width-2*padding, 1.0f)];
     line.backgroundColor = [UIColor colorWithRed:0.75f green:0.75f blue:0.75f alpha:1];
     [footer addSubview:line];
