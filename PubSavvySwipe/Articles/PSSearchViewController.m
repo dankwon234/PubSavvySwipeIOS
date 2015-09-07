@@ -133,8 +133,6 @@
     [btnDislike addTarget:self action:@selector(dislikeArticle) forControlEvents:UIControlEventTouchUpInside];
     [btnLike addTarget:self action:@selector(likeArticle) forControlEvents:UIControlEventTouchUpInside];
     
-
-    
     self.searchHistoryTable = [[UITableView alloc] initWithFrame:CGRectMake(0, h, frame.size.width, frame.size.height-h-20.0f) style:UITableViewStylePlain];
     self.searchHistoryTable.dataSource = self;
     self.searchHistoryTable.delegate = self;
@@ -145,19 +143,25 @@
 
     h = 44.0f;
     self.customKeyboard = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height, frame.size.width, h)];
-    self.customKeyboard.backgroundColor = [UIColor redColor];
+    self.customKeyboard.backgroundColor = bgSearchBar.backgroundColor;
     self.customKeyboard.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     
     NSArray *customCharacters = @[@" [", @"]", @" (", @")", @" AND ", @" OR ", @" NOT "];
     CGFloat x = 6.0f;
     CGFloat height = h-2*x;
     CGFloat width = (frame.size.width-8*x) / customCharacters.count;
+    UIColor *gray = [UIColor grayColor];
+    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
     
     for (int i=0; i<customCharacters.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.backgroundColor = [UIColor whiteColor];
-        btn.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 3.0f;
+        btn.layer.masksToBounds = YES;
+        btn.layer.borderWidth = 0.5f;
+        btn.layer.borderColor = [gray CGColor];
+        btn.backgroundColor = white;
+        btn.titleLabel.font = font;
+        [btn setTitleColor:darkGray forState:UIControlStateNormal];
         [btn setTitle:customCharacters[i] forState:UIControlStateNormal];
         btn.frame = CGRectMake(x, 6.0f, width, height);
         [btn addTarget:self action:@selector(addCustomCharacter:) forControlEvents:UIControlEventTouchUpInside];
