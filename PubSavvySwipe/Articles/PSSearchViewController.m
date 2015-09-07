@@ -143,10 +143,28 @@
     self.searchHistoryTable.alpha = 0.0f;
     [view addSubview:self.searchHistoryTable];
 
-    
-    self.customKeyboard = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height, frame.size.width, 44.0f)];
+    h = 44.0f;
+    self.customKeyboard = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height, frame.size.width, h)];
     self.customKeyboard.backgroundColor = [UIColor redColor];
     self.customKeyboard.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    
+    NSArray *customCharacters = @[@"[", @"]", @"(", @")", @"AND", @"OR", @"NOT"];
+    CGFloat x = 6.0f;
+    CGFloat height = h-2*x;
+    CGFloat width = (frame.size.width-8*x) / customCharacters.count;
+    
+    for (int i=0; i<customCharacters.count; i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor whiteColor];
+        btn.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [btn setTitle:customCharacters[i] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(x, 6.0f, width, height);
+        [btn addTarget:self action:@selector(addCustomCharacter:) forControlEvents:UIControlEventTouchUpInside];
+        [self.customKeyboard addSubview:btn];
+        x += width+6.0f;
+    }
+    
     [view addSubview:self.customKeyboard];
     
     self.view = view;
@@ -419,6 +437,12 @@
     self.customKeyboard.frame = frame;
 }
 
+
+- (void)addCustomCharacter:(UIButton *)btn
+{
+    NSString *customCharacter = btn.titleLabel.text;
+    NSLog(@"addCustomCharacter: %@", customCharacter);
+}
 
 #pragma mark - PSArticleViewDelegate
 
