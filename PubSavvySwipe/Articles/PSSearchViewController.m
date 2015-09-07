@@ -11,6 +11,7 @@
 #import "PSArticle.h"
 #import "PSArticleView.h"
 #import "PSWebViewController.h"
+#import "PCSearchTermCell.h"
 
 
 @interface PSSearchViewController() <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -437,9 +438,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    PCSearchTermCell *cell = (PCSearchTermCell *)[tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell = [[PCSearchTermCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         
     }
     
