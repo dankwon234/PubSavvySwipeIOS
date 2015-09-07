@@ -73,13 +73,14 @@
     double rgb = 0.78f;
     bgSearchBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:204.0f/255.0f alpha:1.0f];
     UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnCancel.frame = CGRectMake(frame.size.width-80, 0, 80, h);
+    btnCancel.frame = CGRectMake(frame.size.width-80.0f, 0.0f, 80.0f, h);
     [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
+    btnCancel.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
     [btnCancel addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
     [bgSearchBar addSubview:btnCancel];
     [view addSubview:bgSearchBar];
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width-80.0f, h)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width-72.0f, h)];
     self.searchBar.delegate = self;
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.spellCheckingType = UITextSpellCheckingTypeNo;
