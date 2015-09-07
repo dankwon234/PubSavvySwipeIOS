@@ -446,10 +446,10 @@
     
     NSString *searchTerm = self.searchHistory[indexPath.row];
     NSDictionary *searchQuery = self.device.searchHistory[searchTerm];
-    cell.textLabel.text = searchTerm;
-    NSNumber *count = [NSNumber numberWithInteger:[searchQuery[@"count"] intValue]];
+    cell.lblTerm.text = searchTerm;
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ results", [self.numberFormatter stringFromNumber:count]];
+    NSNumber *count = [NSNumber numberWithInteger:[searchQuery[@"count"] intValue]];
+    cell.lblFrequency.text = [NSString stringWithFormat:@"%@ hits", [self.numberFormatter stringFromNumber:count]];
     return cell;
 }
 
