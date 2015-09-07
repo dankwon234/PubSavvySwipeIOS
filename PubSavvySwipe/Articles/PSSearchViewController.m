@@ -440,8 +440,7 @@
 
 - (void)addCustomCharacter:(UIButton *)btn
 {
-    NSString *customCharacter = btn.titleLabel.text;
-    NSLog(@"addCustomCharacter: %@", customCharacter);
+    self.searchBar.text = [self.searchBar.text stringByAppendingString:[NSString stringWithFormat:@" %@", btn.titleLabel.text]];
 }
 
 #pragma mark - PSArticleViewDelegate
@@ -514,7 +513,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tableView didSelectRowAtIndexPath:");
     [self.searchBar resignFirstResponder];
     [self reset];
 
