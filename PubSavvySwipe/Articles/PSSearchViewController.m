@@ -288,6 +288,8 @@
     if (self.searchResults.count == 0){
         NSLog(@"NO MORE ARTICLES!");
         [self searchArticles:self.searchBar.text];
+        [self.loadingIndicator stopLoading];
+        [self showAlertWithTitle:@"End of Results" message:@"There are no more search resutls."];
         return;
     }
     
