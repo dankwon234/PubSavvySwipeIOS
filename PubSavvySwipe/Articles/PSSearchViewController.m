@@ -129,12 +129,7 @@
     self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
     self.searchHistoryTable.alpha = 0.0f;
     
-    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
-
-    
-    
     [view addSubview:self.searchHistoryTable];
-    
 
     
     
@@ -459,6 +454,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"tableView didSelectRowAtIndexPath:");
     [self.searchBar resignFirstResponder];
     [self reset];
 
