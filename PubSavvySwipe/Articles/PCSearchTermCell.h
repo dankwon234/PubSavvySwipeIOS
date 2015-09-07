@@ -10,4 +10,6 @@
 
 @interface PCSearchTermCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *lblTerm;
+@property (strong, nonatomic) UILabel *lblFrequency;
 @end
