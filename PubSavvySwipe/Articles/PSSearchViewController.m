@@ -148,7 +148,7 @@
     self.customKeyboard.backgroundColor = [UIColor redColor];
     self.customKeyboard.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     
-    NSArray *customCharacters = @[@"[", @"]", @"(", @")", @"AND", @"OR", @"NOT"];
+    NSArray *customCharacters = @[@" [", @"]", @" (", @")", @" AND ", @" OR ", @" NOT "];
     CGFloat x = 6.0f;
     CGFloat height = h-2*x;
     CGFloat width = (frame.size.width-8*x) / customCharacters.count;
@@ -440,7 +440,7 @@
 
 - (void)addCustomCharacter:(UIButton *)btn
 {
-    self.searchBar.text = [self.searchBar.text stringByAppendingString:[NSString stringWithFormat:@" %@", btn.titleLabel.text]];
+    self.searchBar.text = [self.searchBar.text stringByAppendingString:[NSString stringWithFormat:@"%@", btn.titleLabel.text]];
 }
 
 #pragma mark - PSArticleViewDelegate
