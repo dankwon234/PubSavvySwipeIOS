@@ -22,6 +22,7 @@
 @property (strong, nonatomic) UITableView *searchHistoryTable;
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
+@property (strong, nonatomic) UIView *customKeyboard;
 @property (nonatomic) CGRect baseFrame;
 @property (nonatomic) CGFloat padding;
 @property (nonatomic) int index;
@@ -52,6 +53,16 @@
             [self.searchHistory addObject:searchTerm];
         
         [self.searchHistory sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardAppearNotification:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardHideNotification:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
         
     }
     
@@ -130,10 +141,13 @@
     self.searchHistoryTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
     self.searchHistoryTable.alpha = 0.0f;
-    
     [view addSubview:self.searchHistoryTable];
 
     
+    self.customKeyboard = [[UIView alloc] initWithFrame:CGRectMake(0.0f, frame.size.height, frame.size.width, 44.0f)];
+    self.customKeyboard.backgroundColor = [UIColor redColor];
+    self.customKeyboard.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [view addSubview:self.customKeyboard];
     
     self.view = view;
 }
@@ -386,6 +400,26 @@
 }
 
 
+- (void)keyboardAppearNotification:(NSNotification *)note
+{
+//    NSLog(@"keyboardNotification: %@", [note.userInfo description]);
+    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    CGRect frame = self.customKeyboard.frame;
+    frame.origin.y = keyboardFrame.origin.y-frame.size.height-kNavBarHeight;
+    self.customKeyboard.frame = frame;
+}
+
+
+- (void)keyboardHideNotification:(NSNotification *)note
+{
+//    NSLog(@"keyboardNotification: %@", [note.userInfo description]);
+    CGRect frame = self.customKeyboard.frame;
+    frame.origin.y = self.view.frame.size.height;
+    self.customKeyboard.frame = frame;
+}
+
+
 #pragma mark - PSArticleViewDelegate
 
 - (void)articleViewTapped:(NSInteger)tag
@@ -471,6 +505,7 @@
 {
     NSLog(@"searchBarShouldBeginEditing: %@", [self.device.searchHistory description]);
     [self.view bringSubviewToFront:self.searchHistoryTable];
+    [self.view bringSubviewToFront:self.customKeyboard];
     [UIView animateWithDuration:0.25f
                           delay:0
                         options:UIViewAnimationOptionCurveLinear
