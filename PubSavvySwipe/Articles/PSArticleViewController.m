@@ -44,6 +44,20 @@
     CGFloat padding = 12.0f;
     CGFloat width = frame.size.width-2*padding;
     
+    
+    UILabel *lblArticle = [[UILabel alloc] initWithFrame:CGRectMake(padding, 16.0f, width, 28.0f)];
+    lblArticle.center = CGPointMake(0.5f*frame.size.width, lblArticle.center.y);
+    lblArticle.textColor = [UIColor whiteColor];
+    lblArticle.textAlignment = NSTextAlignmentCenter;
+    lblArticle.text = @"Article";
+    lblArticle.font = [UIFont fontWithName:kBaseFontName size:18.0f];
+    lblArticle.backgroundColor = kDarkBlue;
+    lblArticle.layer.cornerRadius = 6.0f;
+    lblArticle.layer.masksToBounds = YES;
+    [view addSubview:lblArticle];
+    
+    
+    
     UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
     CGRect bounds = [self.article.title boundingRectWithSize:CGSizeMake(width, 250.0f)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
@@ -116,6 +130,8 @@
 {
     [super viewDidLoad];
     [self addCustomBackButton];
+    
+    
     
 }
 
