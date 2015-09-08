@@ -137,7 +137,7 @@
     self.searchHistoryTable.dataSource = self;
     self.searchHistoryTable.delegate = self;
     self.searchHistoryTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 250.0f, 0);
+    self.searchHistoryTable.contentInset = UIEdgeInsetsMake(0, 0, 260.0f, 0);
     self.searchHistoryTable.alpha = 0.0f;
     [view addSubview:self.searchHistoryTable];
 
