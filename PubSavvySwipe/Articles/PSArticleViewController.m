@@ -34,7 +34,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor colorWithRed:0.95f green:0.95f blue:0.95f alpha:1.0f];
+    view.backgroundColor = [UIColor whiteColor];
     CGRect frame = view.frame;
     
     self.container = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
@@ -110,14 +110,6 @@
     [self.container addSubview:self.lblAbstract];
     y += self.lblAbstract.frame.size.height+2*padding;
     
-    UIButton *btnShare = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnShare.frame = CGRectMake(20.0f, y, frame.size.width-40.0f, 44.0f);
-    btnShare.backgroundColor = kGreen;
-    [btnShare setTitle:@"Share" forState:UIControlStateNormal];
-    [btnShare addTarget:self action:@selector(shareArticle) forControlEvents:UIControlEventTouchUpInside];
-    [self.container addSubview:btnShare];
-    y += btnShare.frame.size.height;
-    
     self.container.contentSize = CGSizeMake(0, y+4*padding);
     
     [view addSubview:self.container];
@@ -130,6 +122,10 @@
 {
     [super viewDidLoad];
     [self addCustomBackButton];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                           target:self
+                                                                                           action:@selector(shareArticle)];
     
     
     
