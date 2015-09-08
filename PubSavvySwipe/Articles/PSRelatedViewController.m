@@ -107,8 +107,10 @@
     ctr.y = 0.65f*self.view.frame.size.height;
     self.loadingIndicator.center = ctr;
 
-    if (self.device.saved.count==0) // no saved articles
+    if (self.device.saved.count == 0) { // no saved articles
+        [self showAlertWithTitle:@"No Saved Articles" message:@"This page shows related articles based on your list of saved articles. To get started, save a few articles first!"];
         return;
+    }
     
     [self searchRelatedArticles:self.device.saved];
 }
