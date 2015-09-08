@@ -55,30 +55,36 @@
     lblArticle.layer.cornerRadius = 6.0f;
     lblArticle.layer.masksToBounds = YES;
     [view addSubview:lblArticle];
+    CGFloat y = lblArticle.frame.origin.y+lblArticle.frame.size.height+20.0f;
     
+    UIView *base = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 600)];
+    base.backgroundColor = kDarkBlue;
+    base.layer.cornerRadius = 6.0f;
+    base.layer.masksToBounds = YES;
+    [view addSubview:base];
     
-    
+    width = base.frame.size.width-2*padding;
     UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
     CGRect bounds = [self.article.title boundingRectWithSize:CGSizeMake(width, 250.0f)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:font}
                                                      context:nil];
     
-    CGFloat y = padding;
+    y = padding;
     self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, bounds.size.height)];
     self.lblTitle.text = self.article.title;
     self.lblTitle.font = font;
     self.lblTitle.textAlignment = NSTextAlignmentCenter;
     self.lblTitle.numberOfLines = 0;
     self.lblTitle.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.container addSubview:self.lblTitle];
+    [base addSubview:self.lblTitle];
     y += self.lblTitle.frame.size.height+12.0f;
     
     font = [UIFont fontWithName:@"Arial" size:14.0f];
     self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 24.0f)];
     self.lblDetails.text = [NSString stringWithFormat:@"%@ | %@", self.article.journal[@"iso"], self.article.date];
     self.lblDetails.font = font;
-    [self.container addSubview:self.lblDetails];
+    [base addSubview:self.lblDetails];
     y += self.lblDetails.frame.size.height+6.0f;
     
 
@@ -92,7 +98,7 @@
     self.lblAuthors.font = font;
     self.lblAuthors.numberOfLines = 0;
     self.lblAuthors.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.container addSubview:self.lblAuthors];
+    [base addSubview:self.lblAuthors];
     y += self.lblAuthors.frame.size.height+6.0f;
     
 
@@ -107,7 +113,7 @@
     self.lblAbstract.font = font;
     self.lblAbstract.lineBreakMode = NSLineBreakByWordWrapping;
     self.lblAbstract.text = self.article.abstract;
-    [self.container addSubview:self.lblAbstract];
+    [base addSubview:self.lblAbstract];
     y += self.lblAbstract.frame.size.height+2*padding;
     
     self.container.contentSize = CGSizeMake(0, y+4*padding);
