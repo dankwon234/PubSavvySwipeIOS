@@ -64,6 +64,22 @@
     [view addSubview:base];
     
     width = base.frame.size.width-2*padding;
+    UILabel *lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, 16.0f)];
+    lblJournal.textColor = [UIColor whiteColor];
+    lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
+    lblJournal.text = @"N Engl J Med";
+    [base addSubview:lblJournal];
+
+    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, 16.0f)];
+    lblDate.textColor = [UIColor whiteColor];
+    lblDate.font = lblJournal.font;
+    lblDate.text = @"July 3, 2015";
+    lblDate.textAlignment = NSTextAlignmentRight;
+    [base addSubview:lblDate];
+    
+    
+    
+
     UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
     CGRect bounds = [self.article.title boundingRectWithSize:CGSizeMake(width, 250.0f)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
