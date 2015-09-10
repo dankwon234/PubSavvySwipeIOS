@@ -11,6 +11,7 @@
 #import "PSSearchViewController.h"
 #import "PSSavedViewController.h"
 #import "PSRelatedViewController.h"
+#import "PSAboutViewController.h"
 
 
 @interface PSContainerViewController()
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) PSFeaturedArticlesViewController *featuredVc;
 @property (strong, nonatomic) PSRelatedViewController *relatedVc;
 @property (strong, nonatomic) PSSearchViewController *searchVc;
+@property (strong, nonatomic) PSAboutViewController *aboutVc;
 @property (strong, nonatomic) PSSavedViewController *savedVc;
 @end
 
@@ -226,13 +228,6 @@
         return;
     }
 
-    
-    if ([section isEqual:@"about"]){ // ignore for now
-        [self toggleMenu];
-        return;
-    }
-
-    
     if ([section isEqual:@"random"]){
         if ([self.currentVc isEqual:self.featuredVc]){
             [self toggleMenu];
@@ -241,6 +236,22 @@
         
         self.currentVc = self.featuredVc;
     }
+    
+    
+    if ([section isEqual:@"about"]){
+        if ([self.currentVc isEqual:self.aboutVc]){
+            [self toggleMenu];
+            return;
+        }
+        
+        if (self.aboutVc == nil)
+            self.aboutVc = [[PSAboutViewController alloc] init];
+        
+        self.currentVc = self.aboutVc;
+    }
+    
+    
+
     
     if ([section isEqual:@"related"]){
         if ([self.currentVc isEqual:self.relatedVc]){
