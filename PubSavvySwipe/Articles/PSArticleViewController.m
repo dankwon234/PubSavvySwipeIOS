@@ -150,6 +150,10 @@
     self.container.contentSize = CGSizeMake(0, base.frame.origin.y+base.frame.size.height+3*padding);
     [view addSubview:self.container];
     
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [view addGestureRecognizer:swipeRight];
+    
     self.view = view;
 }
 
