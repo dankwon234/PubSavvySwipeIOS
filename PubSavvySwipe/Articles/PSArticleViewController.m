@@ -44,7 +44,6 @@
     CGFloat padding = 12.0f;
     CGFloat width = frame.size.width-2*padding;
     
-    
     UILabel *lblArticle = [[UILabel alloc] initWithFrame:CGRectMake(padding, 16.0f, width, 28.0f)];
     lblArticle.center = CGPointMake(0.5f*frame.size.width, lblArticle.center.y);
     lblArticle.textColor = [UIColor whiteColor];
@@ -54,88 +53,102 @@
     lblArticle.backgroundColor = kDarkBlue;
     lblArticle.layer.cornerRadius = 6.0f;
     lblArticle.layer.masksToBounds = YES;
-    [view addSubview:lblArticle];
+    [self.container addSubview:lblArticle];
     CGFloat y = lblArticle.frame.origin.y+lblArticle.frame.size.height+20.0f;
-    
+
     UIView *base = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, 600)];
     base.backgroundColor = kDarkBlue;
     base.layer.cornerRadius = 6.0f;
     base.layer.masksToBounds = YES;
-    [view addSubview:base];
+    [self.container addSubview:base];
     
     width = base.frame.size.width-2*padding;
-    UILabel *lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, 16.0f)];
+    y = padding;
+    
+    UILabel *lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 16.0f)];
     lblJournal.textColor = [UIColor whiteColor];
-    lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
-    lblJournal.text = @"N Engl J Med";
+    lblJournal.font = [UIFont fontWithName:kBaseFontName size:10.0f];
+    lblJournal.text = [NSString stringWithFormat:@"%@", self.article.journal[@"iso"]];
     [base addSubview:lblJournal];
-
-    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, 16.0f)];
+    
+    UILabel *lblDate = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 16.0f)];
     lblDate.textColor = [UIColor whiteColor];
     lblDate.font = lblJournal.font;
-    lblDate.text = @"July 3, 2015";
+    lblDate.text = self.article.date;
     lblDate.textAlignment = NSTextAlignmentRight;
     [base addSubview:lblDate];
+    y += lblDate.frame.size.height;
     
-    
-    
+    width = base.frame.size.width-2*padding;
+    UIView *bgWhite = [[UIView alloc] initWithFrame:CGRectMake(padding, y, width, base.frame.size.height)];
+    bgWhite.backgroundColor = [UIColor whiteColor];
+    [base addSubview:bgWhite];
 
-    UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
+    UIFont *font = [UIFont fontWithName:kBaseFontName size:18.0f];
     CGRect bounds = [self.article.title boundingRectWithSize:CGSizeMake(width, 250.0f)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:font}
                                                      context:nil];
     
     y = padding;
-    self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, width, bounds.size.height)];
+    width = bgWhite.frame.size.width-2*padding;
+    self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, bounds.size.height)];
     self.lblTitle.text = self.article.title;
     self.lblTitle.font = font;
+    self.lblTitle.textColor = [UIColor darkGrayColor];
     self.lblTitle.textAlignment = NSTextAlignmentCenter;
     self.lblTitle.numberOfLines = 0;
     self.lblTitle.lineBreakMode = NSLineBreakByWordWrapping;
-    [base addSubview:self.lblTitle];
-    y += self.lblTitle.frame.size.height+12.0f;
-    
-    font = [UIFont fontWithName:@"Arial" size:14.0f];
-    self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, 24.0f)];
-    self.lblDetails.text = [NSString stringWithFormat:@"%@ | %@", self.article.journal[@"iso"], self.article.date];
-    self.lblDetails.font = font;
-    [base addSubview:self.lblDetails];
-    y += self.lblDetails.frame.size.height+6.0f;
+    [bgWhite addSubview:self.lblTitle];
+    y += self.lblTitle.frame.size.height+padding;
     
 
-    bounds = [self.article.authorsString boundingRectWithSize:CGSizeMake(width, 300.0f)
+    font = [UIFont fontWithName:kBaseFontName size:12.0];
+    bounds = [self.article.authorsString boundingRectWithSize:CGSizeMake(width-36.0f, 450.0f)
                                                       options:NSStringDrawingUsesLineFragmentOrigin
                                                    attributes:@{NSFontAttributeName:font}
                                                       context:nil];
-
-    self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, bounds.size.height)];
+    
+    self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(padding+18.0f, y, width-36.0f, bounds.size.height)];
     self.lblAuthors.text = self.article.authorsString;
     self.lblAuthors.font = font;
     self.lblAuthors.numberOfLines = 0;
     self.lblAuthors.lineBreakMode = NSLineBreakByWordWrapping;
-    [base addSubview:self.lblAuthors];
-    y += self.lblAuthors.frame.size.height+6.0f;
+    self.lblAuthors.textAlignment = NSTextAlignmentCenter;
+    self.lblAuthors.textColor = [UIColor lightGrayColor];
+    [bgWhite addSubview:self.lblAuthors];
+    y += self.lblAuthors.frame.size.height+12.0f;
     
-
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(self.lblAuthors.frame.origin.x, y, self.lblAuthors.frame.size.width, 0.5f)];
+    line.backgroundColor = kDarkBlue;
+    [bgWhite addSubview:line];
+    y += 12.0f;
+    
+    
     bounds = [self.article.abstract boundingRectWithSize:CGSizeMake(width, 2*frame.size.height)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:@{NSFontAttributeName:font}
                                                  context:nil];
 
-    
     self.lblAbstract = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, width, bounds.size.height)];
     self.lblAbstract.numberOfLines = 0;
     self.lblAbstract.font = font;
     self.lblAbstract.lineBreakMode = NSLineBreakByWordWrapping;
     self.lblAbstract.text = self.article.abstract;
-    [base addSubview:self.lblAbstract];
+    self.lblAbstract.textColor = self.lblAuthors.textColor;
+    [bgWhite addSubview:self.lblAbstract];
     y += self.lblAbstract.frame.size.height+2*padding;
     
-    self.container.contentSize = CGSizeMake(0, y+4*padding);
-    
+    frame = bgWhite.frame;
+    frame.size.height = y;
+    bgWhite.frame = frame;
+
+    frame = base.frame;
+    frame.size.height = y+padding+bgWhite.frame.origin.y;
+    base.frame = frame;
+
+    self.container.contentSize = CGSizeMake(0, base.frame.origin.y+base.frame.size.height+3*padding);
     [view addSubview:self.container];
-    
     
     self.view = view;
 }
