@@ -86,7 +86,7 @@
     UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
     btnCancel.frame = CGRectMake(frame.size.width-80.0f, 0.0f, 80.0f, h);
     [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
-    btnCancel.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
+    btnCancel.titleLabel.font = [UIFont fontWithName:kBaseFontName size:14.0f];
     [btnCancel addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
     [bgSearchBar addSubview:btnCancel];
     [view addSubview:bgSearchBar];
@@ -151,7 +151,7 @@
     CGFloat height = h-2*x;
     CGFloat width = (frame.size.width-8*x) / customCharacters.count;
     UIColor *gray = [UIColor grayColor];
-    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:14.0f];
+    UIFont *font = [UIFont fontWithName:kBaseFontName size:14.0f];
     
     for (int i=0; i<customCharacters.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

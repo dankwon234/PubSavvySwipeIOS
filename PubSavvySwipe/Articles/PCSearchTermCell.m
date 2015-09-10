@@ -23,7 +23,7 @@
         
         CGFloat padding = 10.0f;
         self.lblTerm = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-2*padding, 22.0f)];
-        self.lblTerm.font = [UIFont fontWithName:@"Heiti SC" size:12.0f];
+        self.lblTerm.font = [UIFont fontWithName:kBaseFontName size:12.0f];
         [self.contentView addSubview:self.lblTerm];
         
         self.lblFrequency = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-4*padding, 22.0f)];

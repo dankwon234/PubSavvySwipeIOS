@@ -46,7 +46,7 @@
         self.lblJournal = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblJournal.textAlignment = NSTextAlignmentLeft;
         self.lblJournal.textColor = [UIColor whiteColor];
-        self.lblJournal.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
+        self.lblJournal.font = [UIFont fontWithName:kBaseFontName size:10.0f];
         [self addSubview:self.lblJournal];
 
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
@@ -68,7 +68,7 @@
         self.lblTitle.backgroundColor = [UIColor clearColor];
         self.lblTitle.textAlignment = NSTextAlignmentCenter;
         self.lblTitle.textColor = [UIColor darkGrayColor];
-        self.lblTitle.font = [UIFont fontWithName:@"Heiti SC" size:18.0f];
+        self.lblTitle.font = [UIFont fontWithName:kBaseFontName size:18.0f];
         self.lblTitle.numberOfLines = 0;
         self.lblTitle.lineBreakMode = NSLineBreakByWordWrapping;
         [self.lblTitle addObserver:self forKeyPath:@"text" options:0 context:nil];
@@ -77,7 +77,7 @@
         
         
         self.lblAuthors = [[UILabel alloc] initWithFrame:CGRectMake(36.0f, y, width-36.0f, 18.0f)];
-        self.lblAuthors.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
+        self.lblAuthors.font = [UIFont fontWithName:kBaseFontName size:12.0];
         self.lblAuthors.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAuthors.textColor = [UIColor lightGrayColor];
         self.lblAuthors.backgroundColor = [UIColor clearColor];
@@ -91,7 +91,7 @@
 
         
         self.lblAbsratct = [[UILabel alloc] initWithFrame:CGRectMake(24.0f, y, width-24.0f, 18.0f)];
-        self.lblAbsratct.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
+        self.lblAbsratct.font = self.lblAuthors.font;
         self.lblAbsratct.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblAbsratct.textColor = [UIColor lightGrayColor];
         self.lblAbsratct.backgroundColor = [UIColor clearColor];
@@ -106,7 +106,7 @@
 
         self.lblPmid = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, 12.0f)];
         self.lblPmid.textColor = [UIColor whiteColor];
-        self.lblPmid.font = [UIFont fontWithName:@"Heiti SC" size:10.0f];
+        self.lblPmid.font = [UIFont fontWithName:kBaseFontName size:10.0f];
         [self addSubview:lblPmid];
 
         self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
