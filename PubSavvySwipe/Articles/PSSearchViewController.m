@@ -230,6 +230,11 @@
             [self.device populate:deviceInfo];
 
         NSArray *results = response[@"results"];
+        if (results.count == 0){
+            [self showAlertWithTitle:@"End of Results" message:@"There are no more search resutls."];
+            return;
+        }
+        
         for (int i=0; i<results.count; i++) {
             PSArticle *article = [PSArticle articleWithInfo:results[i]];
             [self.searchResults addObject:article];
@@ -319,10 +324,8 @@
     }
     
     if (self.searchResults.count == 0){
-        NSLog(@"NO MORE ARTICLES!");
         [self searchArticles:self.searchBar.text];
         [self.loadingIndicator stopLoading];
-        [self showAlertWithTitle:@"End of Results" message:@"There are no more search resutls."];
         return;
     }
     
