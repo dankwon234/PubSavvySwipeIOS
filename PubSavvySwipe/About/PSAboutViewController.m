@@ -24,7 +24,7 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgAbout.png"]];
     CGRect frame = view.frame;
 
     

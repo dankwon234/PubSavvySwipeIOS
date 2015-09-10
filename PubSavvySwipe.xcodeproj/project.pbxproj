@@ -58,6 +58,7 @@
 		0CA3B8231B6FCB4A004F61DB /* PSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3B8221B6FCB4A004F61DB /* PSProfile.m */; };
 		0CB386861B4D01540036F072 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB386851B4D01540036F072 /* PSWebViewController.m */; };
 		0CC13D151BA2487300DC0896 /* PSAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC13D141BA2487300DC0896 /* PSAboutViewController.m */; };
+		0CC13D171BA24A8400DC0896 /* bgAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CC13D161BA24A8400DC0896 /* bgAbout@2x.png */; };
 		0CF0C3221B97F8B100DF7EC0 /* lockOpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF0C3211B97F8B100DF7EC0 /* lockOpen@2x.png */; };
 		0CF0C3241B97FB9D00DF7EC0 /* lockClosed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF0C3231B97FB9D00DF7EC0 /* lockClosed@2x.png */; };
 		0CF0C3261B97FE8D00DF7EC0 /* bgCardsGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF0C3251B97FE8D00DF7EC0 /* bgCardsGray@2x.png */; };
@@ -163,6 +164,7 @@
 		0CB386851B4D01540036F072 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 		0CC13D131BA2487300DC0896 /* PSAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAboutViewController.h; sourceTree = "<group>"; };
 		0CC13D141BA2487300DC0896 /* PSAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAboutViewController.m; sourceTree = "<group>"; };
+		0CC13D161BA24A8400DC0896 /* bgAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgAbout@2x.png"; sourceTree = "<group>"; };
 		0CF0C3211B97F8B100DF7EC0 /* lockOpen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lockOpen@2x.png"; sourceTree = "<group>"; };
 		0CF0C3231B97FB9D00DF7EC0 /* lockClosed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lockClosed@2x.png"; sourceTree = "<group>"; };
 		0CF0C3251B97FE8D00DF7EC0 /* bgCardsGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCardsGray@2x.png"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */,
+				0CC13D161BA24A8400DC0896 /* bgAbout@2x.png */,
 				0C00BC751B976805009759DD /* bgCards@2x.png */,
 				0CF0C3251B97FE8D00DF7EC0 /* bgCardsGray@2x.png */,
 				0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */,
@@ -500,6 +503,7 @@
 				0C43D5751B7E70B400002820 /* iconAccount@2x.png in Resources */,
 				0CA2BE751B0DABE6004B4D81 /* logo-white@2x.png in Resources */,
 				0C6459681B0D9EFA00D22151 /* Images.xcassets in Resources */,
+				0CC13D171BA24A8400DC0896 /* bgAbout@2x.png in Resources */,
 				0CF0C3261B97FE8D00DF7EC0 /* bgCardsGray@2x.png in Resources */,
 				0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */,
 				0C43D5791B7E720C00002820 /* iconSaved@2x.png in Resources */,
