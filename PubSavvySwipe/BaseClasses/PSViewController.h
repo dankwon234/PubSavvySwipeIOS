@@ -23,6 +23,7 @@
 - (UIAlertView *)showAlertWithTitle:(NSString *)title message:(NSString *)msg;
 - (void)shiftUp:(CGFloat)distance;
 - (void)shiftBack:(CGFloat)origin;
+- (void)back;
 - (void)addNavigationTitleView;
 - (void)addCustomBackButton;
 - (void)viewMenu:(id)sender;
@@ -30,5 +31,4 @@
 - (void)showLoginView:(BOOL)animated completion:(void (^)(void))completion;
 - (void)showRegistrationView:(BOOL)animated completion:(void (^)(void))completion;
 - (void)showAccountView:(void (^)(void))completion;
-
 @end

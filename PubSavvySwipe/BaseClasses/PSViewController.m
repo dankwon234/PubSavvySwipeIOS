@@ -145,6 +145,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)showLoginView:(BOOL)animated completion:(void (^)(void))completion
 {
