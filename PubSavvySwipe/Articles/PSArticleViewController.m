@@ -148,6 +148,13 @@
     base.frame = frame;
 
     self.container.contentSize = CGSizeMake(0, base.frame.origin.y+base.frame.size.height+3*padding);
+    
+    UIImageView *iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+    CGRect iconFrame = iconLock.frame;
+    iconFrame.origin = CGPointMake(self.container.frame.size.width-iconLock.frame.size.width-16.0f, self.container.contentSize.height-iconLock.frame.size.height-42.0f);
+    iconLock.frame = iconFrame;
+    [self.container addSubview:iconLock];
+
     [view addSubview:self.container];
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
