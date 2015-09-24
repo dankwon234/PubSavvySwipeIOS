@@ -25,6 +25,7 @@
 @synthesize authorsString;
 @synthesize related;
 @synthesize links;
+@synthesize doi;
 @synthesize isFree;
 
 

@@ -15,6 +15,7 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *date;
 @property (copy, nonatomic) NSString *abstract;
+@property (copy, nonatomic) NSString *doi;
 @property (copy, nonatomic) NSString *language;
 @property (copy, nonatomic) NSString *authorsString;
 @property (strong, nonatomic) NSArray *keywords;
