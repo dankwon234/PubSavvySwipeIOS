@@ -7,6 +7,7 @@
 
 
 #import "PSArticle.h"
+#import "PSWebServices.h"
 
 @interface PSArticle ()
 @property (strong, nonatomic) NSArray *keys;
@@ -23,11 +24,15 @@
 @synthesize keywords;
 @synthesize authorsString;
 @synthesize related;
+@synthesize links;
+@synthesize isFree;
+
 
 - (id)init
 {
     self = [super init];
     if (self){
+        self.isFree = NO;
         self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date", @"keywords"];
         self.related = [NSMutableArray array];
     }
@@ -79,6 +84,27 @@
             self.authorsString = [self.authorsString stringByAppendingString:@", "];
     }
     
+    [self fetchArticleLinks];
+}
+
+- (void)fetchArticleLinks
+{
+    [[PSWebServices sharedInstance] fetchArticleLinks:@{@"meta":@"links", @"pmid":self.pmid} completionBlock:^(id result, NSError *error){
+        if (error){
+            return;
+        }
+        
+        NSDictionary *results = result;
+//        NSLog(@"FETCH ARTICLE LINKS: %@", [results description]);
+        self.links = results[@"links"];
+        
+        if (self.links[@"Attribute"] == nil)
+            return;
+        
+        self.isFree = ([self.links[@"Attribute"] isEqualToString:@"free resource"]);
+        if (self.isFree)
+            NSLog(@"FREE ARTICLE: %@", self.title);
+    }];
 }
 
 - (NSDictionary *)parametersDictionary

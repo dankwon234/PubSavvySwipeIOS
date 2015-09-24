@@ -21,7 +21,10 @@
 @property (strong, nonatomic) NSArray *authors;
 @property (strong, nonatomic) NSDictionary *journal;
 @property (strong, nonatomic) NSMutableArray *related;
+@property (strong, nonatomic) NSDictionary *links;
+@property (nonatomic) BOOL isFree;
 + (PSArticle *)articleWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)articleInfo;
 - (NSDictionary *)parametersDictionary;
+- (void)fetchArticleLinks;
 @end
