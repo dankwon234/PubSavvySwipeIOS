@@ -149,7 +149,8 @@
 
     self.container.contentSize = CGSizeMake(0, base.frame.origin.y+base.frame.size.height+3*padding);
     
-    UIImageView *iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+    NSString *imgLock = (self.article.isFree) ? @"lockOpen.png" : @"lockClosed.png";
+    UIImageView *iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgLock]];
     CGRect iconFrame = iconLock.frame;
     iconFrame.origin = CGPointMake(self.container.frame.size.width-iconLock.frame.size.width-16.0f, self.container.contentSize.height-iconLock.frame.size.height-42.0f);
     iconLock.frame = iconFrame;
