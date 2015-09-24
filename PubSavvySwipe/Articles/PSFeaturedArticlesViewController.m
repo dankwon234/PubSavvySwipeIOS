@@ -149,6 +149,26 @@
     NSLog(@"CURRENT ARTICLE: %@", currentArticle.title);
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"isFree"] == NO)
+        return;
+    
+    PSArticle *article = (PSArticle *)object;
+    if (article.isFree == NO)
+        return;
+    
+    NSUInteger index = [self.featuredArticles indexOfObject:article];
+    index = self.featuredArticles.count-index-1;
+    
+    PSArticleView *articleView = (PSArticleView *)[self.view viewWithTag:1000+index];
+    if (articleView == nil)
+        return;
+    
+    articleView.iconLock.image = [UIImage imageNamed:@"lockOpen.png"];
+    
+}
+
 - (void)searchArticles:(NSString *)term
 {
     [self.loadingIndicator startLoading];
@@ -166,6 +186,7 @@
             NSArray *results = response[@"results"];
             for (int i=0; i<results.count; i++) {
                 PSArticle *article = [PSArticle articleWithInfo:results[i]];
+                [article addObserver:self forKeyPath:@"isFree" options:0 context:nil];
                 [self.featuredArticles addObject:article];
                 self.offset++;
             }
@@ -235,6 +256,7 @@
         return;
     
     if (self.currentArticle){
+        [self.currentArticle removeObserver:self forKeyPath:@"isFree"];
         [self.featuredArticles removeObject:self.currentArticle];
         self.currentArticle = nil;
     }
