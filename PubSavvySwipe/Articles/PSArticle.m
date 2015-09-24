@@ -34,7 +34,7 @@
     self = [super init];
     if (self){
         self.isFree = NO;
-        self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date", @"keywords"];
+        self.keys = @[@"pmid", @"title", @"abstract", @"language", @"journal", @"authors", @"date", @"keywords", @"doi"];
         self.related = [NSMutableArray array];
     }
     
