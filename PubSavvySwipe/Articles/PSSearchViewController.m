@@ -187,8 +187,26 @@
     CGPoint ctr = self.loadingIndicator.center;
     ctr.y = 0.65f*self.view.frame.size.height;
     self.loadingIndicator.center = ctr;
-    
+}
 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"isFree"] == NO)
+        return;
+    
+    PSArticle *article = (PSArticle *)object;
+    if (article.isFree == NO)
+        return;
+    
+    NSUInteger index = [self.searchResults indexOfObject:article];
+    index = self.searchResults.count-index-1;
+    
+    PSArticleView *articleView = (PSArticleView *)[self.view viewWithTag:1000+index];
+    if (articleView == nil)
+        return;
+    
+    articleView.iconLock.image = [UIImage imageNamed:@"lockOpen.png"];
 }
 
 - (void)dismissKeyboard
@@ -237,6 +255,7 @@
         
         for (int i=0; i<results.count; i++) {
             PSArticle *article = [PSArticle articleWithInfo:results[i]];
+            [article addObserver:self forKeyPath:@"isFree" options:0 context:nil];
             [self.searchResults addObject:article];
         }
         
@@ -319,6 +338,7 @@
         return;
     
     if (self.currentArticle){
+        [self.currentArticle removeObserver:self forKeyPath:@"isFree"];
         [self.searchResults removeObject:self.currentArticle];
         self.currentArticle = nil;
     }
