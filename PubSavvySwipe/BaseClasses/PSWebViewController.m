@@ -56,6 +56,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSLog(@"webView shouldStartLoadWithRequest: %@", request.URL.absoluteString);
+    [self.loadingIndicator startLoading];
     return YES;
 }
 
