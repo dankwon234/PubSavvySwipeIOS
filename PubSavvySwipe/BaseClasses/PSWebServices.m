@@ -18,6 +18,7 @@
 #define kPathImages           @"/site/image/"
 #define kPathProfile          @"/api/profile/"
 #define kPathDevice           @"/api/device/"
+#define kPathArticle          @"/api/article/"
 #define kPathLogin            @"/api/login/"
 #define kPathRandomTerms      @"/api/autosearch/"
 
@@ -258,7 +259,30 @@
          }];
 }
 
-
+- (void)fetchArticleLinks:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [manager GET:kPathArticle
+      parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+             
+             if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]){
+                 if (completionBlock)
+                     completionBlock(responseObject, nil);
+                 
+                 return;
+             }
+             
+             if (completionBlock)
+                 completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
 
 
 
