@@ -150,12 +150,18 @@
 - (void)searchRelatedArticles:(NSArray *)saved
 {
     NSMutableString *pmids = [NSMutableString stringWithString:@""];
-    for (int i=0; i<saved.count; i++) {
+    int multiple = 3;
+    for (int i=0; i<saved.count; i++){
+        if (i % multiple != 0)
+            continue;
+        
         NSString *savedPmid = saved[i];
         [pmids appendString:savedPmid];
-        if (i != saved.count-1)
-            [pmids appendString:@","];
+        [pmids appendString:@","];
     }
+    
+    NSLog(@"PMIDS: %@", pmids);
+
     
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] searchRelatedArticles:pmids completionBlock:^(id result, NSError *error){
