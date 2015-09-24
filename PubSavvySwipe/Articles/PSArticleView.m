@@ -109,7 +109,7 @@
         self.lblPmid.font = [UIFont fontWithName:kBaseFontName size:10.0f];
         [self addSubview:lblPmid];
 
-        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockClosed.png"]];
         CGRect iconFrame = self.iconLock.frame;
         iconFrame.origin = CGPointMake(self.frame.size.width-self.iconLock.frame.size.width, self.frame.size.height-self.iconLock.frame.size.height);
         self.iconLock.frame = iconFrame;
