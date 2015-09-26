@@ -59,7 +59,7 @@
         [self.contentView addSubview:self.lblPmid];
         
         CGFloat dimen = 20.0f;
-        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockOpen.png"]];
+        self.iconLock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lockClosed.png"]];
         self.iconLock.frame = CGRectMake(frame.size.width-dimen-20.0f, y, dimen, dimen);
         [self.contentView addSubview:self.iconLock];
         
