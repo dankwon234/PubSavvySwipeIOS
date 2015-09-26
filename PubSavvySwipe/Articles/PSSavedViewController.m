@@ -155,13 +155,8 @@
     cell.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
     cell.lblJournal.text = [NSString stringWithFormat:@"%@ | %@", article.journal[@"iso"], article.date];
     
-//    NSLog(@"%@", [article.journal description]);
-//    {
-//        iso = "J Community Support Oncol";
-//        issn = "2330-7749";
-//        title = "The Journal of community and supportive oncology";
-//    }
-    
+    NSString *lockImage = (article.isFree) ? @"lockOpen.png" : @"lockClosed.png";
+    cell.iconLock.image = [UIImage imageNamed:lockImage];
     return cell;
 }
 
