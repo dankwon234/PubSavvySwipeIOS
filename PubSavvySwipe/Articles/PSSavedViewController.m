@@ -87,9 +87,10 @@
     [self addMenuButton];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidDisappear:animated];
     [self.articlesTable deselectRowAtIndexPath:[self.articlesTable indexPathForSelectedRow] animated:YES];
 }
 
