@@ -130,6 +130,13 @@
     if (self.journal)
         params[@"journal"] = self.journal;
     
+    if (self.doi)
+        params[@"doi"] = self.doi;
+
+    if (self.links)
+        params[@"links"] = self.links;
+
+    
     return params;
 }
 
