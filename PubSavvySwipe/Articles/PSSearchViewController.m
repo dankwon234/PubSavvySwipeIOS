@@ -431,6 +431,9 @@
 
 - (void)reset
 {
+    for (PSArticle *article in self.searchResults)
+        [article removeObserver:self forKeyPath:@"isFree"];
+        
     self.searchResults = [NSMutableArray array];
     self.currentArticle = nil;
     self.index = 0;
