@@ -285,6 +285,25 @@
 }
 
 
+#pragma mark - MISC
+- (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:address]];
+    [manager GET:@""
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"FETCH HTML: %@", responseObject);
+             if (completionBlock)
+                 completionBlock(responseObject, nil);
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
 
 
 - (AFHTTPRequestOperationManager *)requestManagerForJSONSerializiation
