@@ -289,12 +289,14 @@
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:address]];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:@""
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"FETCH HTML: %@", responseObject);
-             if (completionBlock)
-                 completionBlock(responseObject, nil);
+             
+//             if (completionBlock)
+//                 completionBlock(responseObject, nil);
              
              
          }
