@@ -9,6 +9,7 @@
 #import "PSSavedViewController.h"
 #import "PSArticleViewController.h"
 #import "PSArticleCell.h"
+#import "PSWebViewController.h"
 
 
 @interface PSSavedViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -191,6 +192,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PSArticle *article = self.saved[indexPath.row];
+    
+    if (article.isFree){
+//        NSString *url = [NSString stringWithFormat:@"http://dx.plos.org/%@", article.doi];
+        NSString *url = article.links[@"Url"];
+        [self.loadingIndicator startLoading];
+        [[PSWebServices sharedInstance] fetchHtml:url completionBlock:^(id result, NSError *error){
+            if (error){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.loadingIndicator stopLoading];
+                    PSWebViewController *webVc = [[PSWebViewController alloc] init];
+                    webVc.url = url;
+                    [self.navigationController pushViewController:webVc animated:YES];
+                });
+                return;
+            }
+            
+            [self.loadingIndicator stopLoading];
+            // TODO: scrape html results for .pdf extension. if found, segue directly to that.
+            
+            
+            
+        }];
+        
+        
+//        PSWebViewController *webVc = [[PSWebViewController alloc] init];
+//        webVc.url = [NSString stringWithFormat:@"http://dx.plos.org/%@", article.doi];
+//        [self.navigationController pushViewController:webVc animated:YES];
+        return;
+    }
+
+    
     PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
     articleVc.article = article;
     [self.navigationController pushViewController:articleVc animated:YES];
