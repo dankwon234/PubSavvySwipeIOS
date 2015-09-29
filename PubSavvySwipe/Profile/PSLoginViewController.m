@@ -34,20 +34,40 @@
 - (void)loadView
 {
     UIView *view = [self baseView];
-    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundLights.png"]];
+    view.backgroundColor = [UIColor blackColor];
     CGRect frame = view.frame;
     
-    CGFloat y = 110.0f;
+    CGFloat y = 100.0f;
     CGFloat width = frame.size.width;
     
-    static CGFloat x = 20.0f;
-    UILabel *lblLogin = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width-2*x, 32.0f)];
+    CGFloat x = 36.0f;
+    UILabel *lblLogin = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width-2*x, 64.0f)];
     lblLogin.textColor = [UIColor whiteColor];
     lblLogin.textAlignment = NSTextAlignmentCenter;
-    lblLogin.font = [UIFont fontWithName:kBaseFontName size:24.0f];
-    lblLogin.text = @"Log In";
+    lblLogin.font = [UIFont fontWithName:kBaseFontName size:16.0f];
+    lblLogin.numberOfLines = 0;
+    lblLogin.lineBreakMode = NSLineBreakByWordWrapping;
+    lblLogin.text = @"Create a free account to access your search history and saved articles on the web";
     [view addSubview:lblLogin];
-    y += lblLogin.frame.size.height+32.0f;
+    y += lblLogin.frame.size.height+24.0f;
+    
+    x = 48.0f;
+    UIButton *btnRegister = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnRegister.frame = CGRectMake(x, y, 0.5f*frame.size.width-x, 32.0f);
+    btnRegister.backgroundColor = [UIColor darkGrayColor];
+    [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnRegister setTitle:@"Register" forState:UIControlStateNormal];
+    [btnRegister addTarget:self action:@selector(btnRegisterAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btnRegister];
+
+    UIButton *btnSignin = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSignin.frame = CGRectMake(0.5f*frame.size.width, y, 0.5f*frame.size.width-x, 32.0f);
+    btnSignin.backgroundColor = [UIColor grayColor];
+    [btnSignin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnSignin setTitle:@"Sign In" forState:UIControlStateNormal];
+    [btnSignin addTarget:self action:@selector(btnSigninAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btnSignin];
+    y += btnRegister.frame.size.height+16.0f;
     
     self.emailField = [[UITextField alloc] init];
     self.passwordField = [[UITextField alloc] init];
@@ -57,7 +77,7 @@
     UIFont *font = [UIFont fontWithName:kBaseFontName size:14.0];
     UIColor *white = [UIColor whiteColor];
     CGFloat h = 44.0f;
-    x = 36.0f;
+    x = 32.0f;
     for (int i=0; i<fields.count; i++) {
         UITextField *field = fields[i];
         field.frame = CGRectMake(0.0f, y, width, 44.0f);
@@ -86,22 +106,14 @@
     y += 24.0f;
     
     
-    UILabel *lblOr = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width-2*x, 32.0f)];
-    lblOr.textColor = [UIColor whiteColor];
-    lblOr.textAlignment = NSTextAlignmentCenter;
-    lblOr.font = [UIFont fontWithName:kBaseFontName size:16.0f];
-    lblOr.text = @"Don't have an account?";
-    [view addSubview:lblOr];
-    y += lblOr.frame.size.height;
-    
-    UIButton *btnRegister = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnRegister.frame = CGRectMake(x, y, width-2*x, 24.0f);
-    btnRegister.backgroundColor = [UIColor clearColor];
-    [btnRegister addTarget:self action:@selector(signUp:) forControlEvents:UIControlEventTouchUpInside];
-    [btnRegister setTitle:@"SIGN UP" forState:UIControlStateNormal];
-    [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btnRegister.titleLabel.font = lblOr.font;
-    [view addSubview:btnRegister];
+    UIButton *btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnLogin.frame = CGRectMake(x, y, width-2*x, 24.0f);
+    btnLogin.backgroundColor = [UIColor clearColor];
+    [btnLogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [btnLogin setTitle:@"SIGN IN" forState:UIControlStateNormal];
+    [btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btnLogin.titleLabel.font = [UIFont fontWithName:kBaseFontName size:16.0f];
+    [view addSubview:btnLogin];
     
     
     [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
@@ -115,6 +127,12 @@
     [super viewDidLoad];
     [self addCustomBackButton];
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (void)back:(id)sender
 {
@@ -137,27 +155,20 @@
     [self.navigationController pushViewController:registerVc animated:YES];
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (void)login
 {
-    if ([textField isEqual:self.emailField]){
-        [self.passwordField becomeFirstResponder];
-        return YES;
-    }
-    
-    // login
     if (self.emailField.text.length==0){
         [self showAlertWithTitle:@"Missing Email" message:@"Please enter your email."];
-        return YES;
+        return;
     }
     
     if (self.passwordField.text.length==0){
         [self showAlertWithTitle:@"Missing Password" message:@"Please enter your password."];
-        return YES;
+        return;
     }
     
-    
-    [textField resignFirstResponder];
+    [self dismissKeyboard];
+
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] login:@{@"email":self.emailField.text, @"password":self.passwordField.text} completion:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
@@ -168,6 +179,7 @@
         }
         
         NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
         [self.profile populate:results[@"profile"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -178,7 +190,29 @@
         });
         
     }];
+}
+
+- (void)btnRegisterAction:(UIButton *)btn
+{
+    NSLog(@"btnRegisterAction: ");
+
     
+}
+
+- (void)btnSigninAction:(UIButton *)btn
+{
+    NSLog(@"btnSigninAction: ");
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isEqual:self.emailField]){
+        [self.passwordField becomeFirstResponder];
+        return YES;
+    }
+    
+    [self login];
     return YES;
 }
 
