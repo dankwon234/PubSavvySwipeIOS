@@ -154,7 +154,9 @@
 - (void)showLoginView:(BOOL)animated completion:(void (^)(void))completion
 {
     PSLoginViewController *loginVc = [[PSLoginViewController alloc] init];
-    UINavigationController *navController = [self clearNavigationControllerWithRoot:loginVc];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    navController.navigationBar.barTintColor = kDarkBlue;
+
     [self presentViewController:navController animated:animated completion:^{
         if (completion)
             completion();
