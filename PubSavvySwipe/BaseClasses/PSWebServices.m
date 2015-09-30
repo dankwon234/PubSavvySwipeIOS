@@ -288,23 +288,25 @@
 #pragma mark - MISC
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:address]];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:@""
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"FETCH HTML: %@", responseObject);
-             
-//             if (completionBlock)
-//                 completionBlock(responseObject, nil);
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
-             if (completionBlock)
-                 completionBlock(nil, error);
-         }];
+//    NSLog(@"FETCH HTML: %@", address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", string);
+        if (completionBlock)
+            completionBlock(string, nil);
+
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        if (completionBlock)
+            completionBlock(nil, error);
+        
+    }];
+    
+    [op start];
 }
 
 
