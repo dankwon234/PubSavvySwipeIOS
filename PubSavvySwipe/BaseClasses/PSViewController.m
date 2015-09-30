@@ -7,7 +7,7 @@
 
 
 #import "PSViewController.h"
-#import "PSRegistrationViewController.h"
+//#import "PSRegistrationViewController.h"
 #import "PSLoginViewController.h"
 
 
@@ -165,16 +165,7 @@
     
 }
 
-- (void)showRegistrationView:(BOOL)animated completion:(void (^)(void))completion
-{
-    PSRegistrationViewController *registerVc = [[PSRegistrationViewController alloc] init];
-    UINavigationController *navController = [self clearNavigationControllerWithRoot:registerVc];
-    [self presentViewController:navController animated:animated completion:^{
-        if (completion)
-            completion();
-    }];
 
-}
 
 - (void)showAccountView:(void (^)(void))completion
 {

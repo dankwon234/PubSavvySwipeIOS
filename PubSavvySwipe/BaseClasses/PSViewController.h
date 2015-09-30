@@ -29,6 +29,5 @@
 - (void)viewMenu:(id)sender;
 - (void)addMenuButton;
 - (void)showLoginView:(BOOL)animated completion:(void (^)(void))completion;
-- (void)showRegistrationView:(BOOL)animated completion:(void (^)(void))completion;
 - (void)showAccountView:(void (^)(void))completion;
 @end

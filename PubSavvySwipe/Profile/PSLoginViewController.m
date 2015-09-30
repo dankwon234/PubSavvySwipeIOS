@@ -7,7 +7,7 @@
 
 
 #import "PSLoginViewController.h"
-#import "PSRegistrationViewController.h"
+//#import "PSRegistrationViewController.h"
 #import "PSWebServices.h"
 
 
@@ -172,12 +172,12 @@
     [self.passwordField resignFirstResponder];
 }
 
-- (void)signUp:(UIButton *)btn
-{
-    NSLog(@"signUp: ");
-    PSRegistrationViewController *registerVc = [[PSRegistrationViewController alloc] init];
-    [self.navigationController pushViewController:registerVc animated:YES];
-}
+//- (void)signUp:(UIButton *)btn
+//{
+//    NSLog(@"signUp: ");
+//    PSRegistrationViewController *registerVc = [[PSRegistrationViewController alloc] init];
+//    [self.navigationController pushViewController:registerVc animated:YES];
+//}
 
 - (void)btnRegisterAction:(UIButton *)btn
 {
