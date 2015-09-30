@@ -17,7 +17,6 @@
 		0C43D57F1B7E735700002820 /* iconRandom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D57E1B7E735700002820 /* iconRandom@2x.png */; };
 		0C43D5811B7E73A800002820 /* iconAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5801B7E73A800002820 /* iconAbout@2x.png */; };
 		0C4AE7751B309D0400EF5429 /* PSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4AE7741B309D0400EF5429 /* PSDevice.m */; };
-		0C5804641B6FDA7300D87F12 /* PSRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */; };
 		0C58046D1B6FDD1F00D87F12 /* backgroundLights@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */; };
 		0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */; };
 		0C58046F1B6FDD1F00D87F12 /* bgLosAngeles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */; };
@@ -87,8 +86,6 @@
 		0C43D5801B7E73A800002820 /* iconAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAbout@2x.png"; sourceTree = "<group>"; };
 		0C4AE7731B309D0400EF5429 /* PSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDevice.h; sourceTree = "<group>"; };
 		0C4AE7741B309D0400EF5429 /* PSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDevice.m; sourceTree = "<group>"; };
-		0C5804621B6FDA7300D87F12 /* PSRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRegistrationViewController.h; sourceTree = "<group>"; };
-		0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRegistrationViewController.m; sourceTree = "<group>"; };
 		0C5804681B6FDD1F00D87F12 /* backgroundLights@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundLights@2x.png"; sourceTree = "<group>"; };
 		0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCoffee@2x.png"; sourceTree = "<group>"; };
 		0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgLosAngeles@2x.png"; sourceTree = "<group>"; };
@@ -398,8 +395,6 @@
 			children = (
 				0CA3B8211B6FCB4A004F61DB /* PSProfile.h */,
 				0CA3B8221B6FCB4A004F61DB /* PSProfile.m */,
-				0C5804621B6FDA7300D87F12 /* PSRegistrationViewController.h */,
-				0C5804631B6FDA7300D87F12 /* PSRegistrationViewController.m */,
 				0C5804701B6FDEAC00D87F12 /* PSLoginViewController.h */,
 				0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */,
 			);
@@ -540,7 +535,6 @@
 				0C64595D1B0D9EFA00D22151 /* main.m in Sources */,
 				0C7C59E51B86828000B3793F /* PSArticleCell.m in Sources */,
 				0C635EC01B28E4D800343157 /* AFURLSessionManager.m in Sources */,
-				0C5804641B6FDA7300D87F12 /* PSRegistrationViewController.m in Sources */,
 				0C635EBA1B28E4D800343157 /* AFHTTPSessionManager.m in Sources */,
 				0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */,
 				0CC13D151BA2487300DC0896 /* PSAboutViewController.m in Sources */,
