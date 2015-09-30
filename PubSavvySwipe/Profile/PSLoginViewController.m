@@ -14,9 +14,12 @@
 @interface PSLoginViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) UITextField *emailField;
 @property (strong, nonatomic) UITextField *passwordField;
+@property (strong, nonatomic) UIButton *btnSelected;
+@property (strong, nonatomic) UIButton *btnLogin;
 @end
 
 @implementation PSLoginViewController
+@synthesize btnSelected = _btnSelected;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,7 +57,7 @@
     x = 48.0f;
     UIButton *btnRegister = [UIButton buttonWithType:UIButtonTypeCustom];
     btnRegister.frame = CGRectMake(x, y, 0.5f*frame.size.width-x, 32.0f);
-    btnRegister.backgroundColor = [UIColor darkGrayColor];
+    btnRegister.backgroundColor = [UIColor grayColor];
     [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnRegister setTitle:@"Register" forState:UIControlStateNormal];
     [btnRegister addTarget:self action:@selector(btnRegisterAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -62,11 +65,12 @@
 
     UIButton *btnSignin = [UIButton buttonWithType:UIButtonTypeCustom];
     btnSignin.frame = CGRectMake(0.5f*frame.size.width, y, 0.5f*frame.size.width-x, 32.0f);
-    btnSignin.backgroundColor = [UIColor grayColor];
+    btnSignin.backgroundColor = [UIColor darkGrayColor];
     [btnSignin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnSignin setTitle:@"Sign In" forState:UIControlStateNormal];
     [btnSignin addTarget:self action:@selector(btnSigninAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btnSignin];
+    self.btnSelected = btnSignin;
     y += btnRegister.frame.size.height+16.0f;
     
     self.emailField = [[UITextField alloc] init];
@@ -106,14 +110,14 @@
     y += 24.0f;
     
     
-    UIButton *btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLogin.frame = CGRectMake(x, y, width-2*x, 24.0f);
-    btnLogin.backgroundColor = [UIColor clearColor];
-    [btnLogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    [btnLogin setTitle:@"SIGN IN" forState:UIControlStateNormal];
-    [btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btnLogin.titleLabel.font = [UIFont fontWithName:kBaseFontName size:16.0f];
-    [view addSubview:btnLogin];
+    self.btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.btnLogin.frame = CGRectMake(x, y, width-2*x, 24.0f);
+    self.btnLogin.backgroundColor = [UIColor clearColor];
+    [self.btnLogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnLogin setTitle:@"SIGN IN" forState:UIControlStateNormal];
+    [self.btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.btnLogin.titleLabel.font = [UIFont fontWithName:kBaseFontName size:16.0f];
+    [view addSubview:self.btnLogin];
     
     
     [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
@@ -133,6 +137,26 @@
     return UIStatusBarStyleLightContent;
 }
 
+
+- (void)setBtnSelected:(UIButton *)btnSelected
+{
+    if ([btnSelected isEqual:_btnSelected])
+        return;
+    
+    _btnSelected.backgroundColor = [UIColor grayColor];
+    _btnSelected = btnSelected;
+    btnSelected.backgroundColor = [UIColor darkGrayColor];
+    
+    NSString *btnTitle = [btnSelected.titleLabel.text lowercaseString];
+    if ([btnTitle isEqualToString:@"register"]){
+        [self.btnLogin setTitle:@"Sign Up" forState:UIControlStateNormal];
+        return;
+    }
+    
+    [self.btnLogin setTitle:@"Sign In" forState:UIControlStateNormal];
+
+    
+}
 
 - (void)back:(id)sender
 {
@@ -155,19 +179,26 @@
     [self.navigationController pushViewController:registerVc animated:YES];
 }
 
+- (void)btnRegisterAction:(UIButton *)btn
+{
+    NSLog(@"btnRegisterAction: ");
+    self.btnSelected = btn;
+    
+    
+}
+
+- (void)btnSigninAction:(UIButton *)btn
+{
+    NSLog(@"btnSigninAction: ");
+    self.btnSelected = btn;
+    
+}
+
+
 - (void)login
 {
-    if (self.emailField.text.length==0){
-        [self showAlertWithTitle:@"Missing Email" message:@"Please enter your email."];
+    if ([self checkInputFields] == NO)
         return;
-    }
-    
-    if (self.passwordField.text.length==0){
-        [self showAlertWithTitle:@"Missing Password" message:@"Please enter your password."];
-        return;
-    }
-    
-    [self dismissKeyboard];
 
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] login:@{@"email":self.emailField.text, @"password":self.passwordField.text} completion:^(id result, NSError *error){
@@ -192,23 +223,68 @@
     }];
 }
 
-- (void)btnRegisterAction:(UIButton *)btn
-{
-    NSLog(@"btnRegisterAction: ");
 
+- (void)registerProfile:(UIButton *)btn
+{
+    if ([self checkInputFields] == NO)
+        return;
+    
+    NSCharacterSet *whiteSpace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    self.profile.email = [self.emailField.text stringByTrimmingCharactersInSet:whiteSpace];
+    self.profile.password = [self.passwordField.text stringByTrimmingCharactersInSet:whiteSpace];
+    self.profile.device = self.device.uniqueId;
+    
+    
+    [self.loadingIndicator startLoading];
+    [[PSWebServices sharedInstance] registerProfile:self.profile completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+            return;
+        }
+        
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        [self.profile populate:results[@"profile"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kLoggedInNotification object:nil]];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        });
+    }];
     
 }
 
-- (void)btnSigninAction:(UIButton *)btn
+- (BOOL)checkInputFields
 {
-    NSLog(@"btnSigninAction: ");
+    if (self.emailField.text.length==0){
+        [self showAlertWithTitle:@"Missing Email" message:@"PLease enter your email."];
+        return NO;
+    }
+    
+    if (self.passwordField.text.length==0){
+        [self showAlertWithTitle:@"Missing Password" message:@"PLease enter your password."];
+        return NO;
+    }
+    
+    [self dismissKeyboard];
+    return YES;
 }
+
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([textField isEqual:self.emailField]){
         [self.passwordField becomeFirstResponder];
+        return YES;
+    }
+    
+    NSString *btnTitle = [self.btnSelected.titleLabel.text lowercaseString];
+    if ([btnTitle isEqualToString:@"register"]){
+        [self registerProfile:nil];
         return YES;
     }
     
