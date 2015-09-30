@@ -288,7 +288,7 @@
 #pragma mark - MISC
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
-//    NSLog(@"FETCH HTML: %@", address);
+    NSLog(@"FETCH HTML: %@", address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
