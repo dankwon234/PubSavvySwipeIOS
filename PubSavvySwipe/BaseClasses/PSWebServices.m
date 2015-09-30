@@ -294,7 +294,7 @@
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", string);
+//        NSLog(@"%@", string);
         if (completionBlock)
             completionBlock(string, nil);
 
