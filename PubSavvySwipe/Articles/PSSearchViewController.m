@@ -488,7 +488,75 @@
     PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
     articleVc.article = self.currentArticle;
     [self.navigationController pushViewController:articleVc animated:YES];
+    
 }
+
+/*
+- (void)articleViewTapped:(NSInteger)tag
+{
+    NSLog(@"articleViewTapped: %@", self.currentArticle.title);
+    if (self.currentArticle.isFree == NO){
+        PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+        articleVc.article = self.currentArticle;
+        [self.navigationController pushViewController:articleVc animated:YES];
+        return;
+    }
+    
+    
+    NSString *url = self.currentArticle.links[@"Url"];
+    [self.loadingIndicator startLoading];
+    [[PSWebServices sharedInstance] fetchHtml:url completionBlock:^(id result, NSError *error){
+        if (error){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.loadingIndicator stopLoading];
+                PSWebViewController *webVc = [[PSWebViewController alloc] init];
+                webVc.url = url;
+                [self.navigationController pushViewController:webVc animated:YES];
+            });
+            return;
+        }
+        
+        [self.loadingIndicator stopLoading];
+        // TODO: scrape html results for .pdf extension. if found, segue directly to that.
+        NSString *html = (NSString *)result;
+        NSArray *parts = [html componentsSeparatedByString:@" "];
+        NSString *url = nil;
+        for (NSString *text in parts) {
+            if ([text rangeOfString:@".pdf"].location != NSNotFound){
+                url = text;
+                break;
+            }
+        }
+        
+        if (url != nil){
+            NSArray *p = [url componentsSeparatedByString:@".pdf"];
+            url = p[0];
+            
+            NSString *http = @"http";
+            p = [url componentsSeparatedByString:http];
+            url = p[p.count-1];
+            url = [http stringByAppendingString:[NSString stringWithFormat:@"%@.pdf", url]];
+            NSLog(@"PDF: %@", url);
+        }
+        
+        if (url == nil)
+            url = self.currentArticle.links[@"Url"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            PSWebViewController *webVc = [[PSWebViewController alloc] init];
+            webVc.url = url;
+            [self.navigationController pushViewController:webVc animated:YES];
+        });
+        
+
+        
+        return;
+        
+    }];
+    
+    
+}
+ */
 
 
 - (void)articleViewStoppedMoving
