@@ -480,7 +480,7 @@
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
     if (self.currentArticle.isFree){
         PSWebViewController *webVc = [[PSWebViewController alloc] init];
-        webVc.url = [NSString stringWithFormat:@"http://dx.plos.org/%@", self.currentArticle.doi];
+        webVc.url = self.currentArticle.links[@"Url"];
         [self.navigationController pushViewController:webVc animated:YES];
         return;
     }
