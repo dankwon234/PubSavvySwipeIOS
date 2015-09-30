@@ -39,11 +39,11 @@
                                                  selector:@selector(toggleMenu)
                                                      name:kViewMenuNotification
                                                    object:nil];
-
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(showWelcomeView)
-//                                                     name:kExitBoardNotification
-//                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refresh)
+                                                     name:kLoggedInNotification
+                                                   object:nil];
         
     }
     return self;
@@ -98,7 +98,6 @@
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.navController.view addGestureRecognizer:swipeRight];
     
-//    [self.welcomeView introAnimation];
 }
 
 
@@ -106,7 +105,12 @@
 {
     if ([keyPath isEqualToString:@"isPopulated"]==NO)
         return;
-    
+}
+
+- (void)refresh
+{
+    NSLog(@"refresh");
+    [self.sectionsTable reloadData];
     
 }
 
@@ -205,6 +209,18 @@
         line.backgroundColor = [UIColor whiteColor];
         [cell.contentView addSubview:line];
         
+    }
+    
+    // Account Row
+    if (indexPath.row == self.sections.count-1){
+        cell.imageView.image = [UIImage imageNamed:@"iconAccount.png"];
+        if (self.profile.isPopulated){ // logged in
+            cell.textLabel.text = self.profile.email;
+            return cell;
+        }
+        
+        cell.textLabel.text = @"Account";
+        return cell;
     }
     
     NSString *section = self.sections[indexPath.row];
