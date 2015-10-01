@@ -7,6 +7,8 @@
 
 
 #import "PSProfile.h"
+#import "PSWebServices.h"
+#import "Config.h"
 
 @implementation PSProfile
 @synthesize uniqueId;
@@ -41,6 +43,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shared = [[PSProfile alloc] init];
+        if ([shared populateFromCache])
+            [shared refreshProfileInfo];
         
     });
     
@@ -69,6 +73,26 @@
     
 }
 
+- (void)refreshProfileInfo
+{
+    //    NSLog(@"REFRESH PROFILE INFO: %@", self.uniqueId);
+    if ([self.uniqueId isEqualToString:@"none"])
+        return;
+    
+    [[PSWebServices sharedInstance] fetchProfileInfo:self completionBlock:^(id result, NSError *error){
+        if (error)
+            return;
+        
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"REFRESH PROFILE INFO: %@", [results description]);
+        if ([results[@"confirmation"] isEqualToString:@"success"] == NO)
+            return;
+        
+        [self populate:results[@"profile"]]; //update profile with most refreshed data
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kLoggedInNotification object:nil]];
+        
+    }];
+}
 
 - (NSDictionary *)parametersDictionary
 {
