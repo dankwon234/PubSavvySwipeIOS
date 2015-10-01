@@ -181,9 +181,18 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *response = (NSDictionary *)result;
-            
-            self.featuredArticles = [NSMutableArray array];
+            NSLog(@"searchArticles: %@", [response description]);
             NSArray *results = response[@"results"];
+            if (results.count == 0){ // no more results, move on to next search term
+                [self.randomTerms removeObject:self.currentTerm];
+                
+                int i = arc4random() % self.randomTerms.count;
+                self.currentTerm = self.randomTerms[i];
+                [self searchArticles:self.currentTerm];
+                return;
+            }
+
+            self.featuredArticles = [NSMutableArray array];
             for (int i=0; i<results.count; i++) {
                 PSArticle *article = [PSArticle articleWithInfo:results[i]];
                 [article addObserver:self forKeyPath:@"isFree" options:0 context:nil];
