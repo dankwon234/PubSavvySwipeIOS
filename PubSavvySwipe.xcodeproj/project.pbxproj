@@ -663,9 +663,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Diana Frame (H9HTDCWYUK)";
 				INFOPLIST_FILE = PubSavvySwipe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3e391e5e-d9ef-42d3-8a13-7a31a06b4c8b";
 			};
 			name = Debug;
 		};
@@ -673,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Diana Frame (H9HTDCWYUK)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Frame Research (UXC3NFHQX3)";
 				INFOPLIST_FILE = PubSavvySwipe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
