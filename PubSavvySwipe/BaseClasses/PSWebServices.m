@@ -205,6 +205,32 @@
           }];
 }
 
+- (void)fetchProfileInfo:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [self requestManagerForJSONSerializiation];
+    [manager GET:[kPathProfile stringByAppendingString:profile.uniqueId]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+             
+             if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]){ // profile successfully registered
+                 if (completionBlock)
+                     completionBlock(responseDictionary, nil);
+                 return ;
+             }
+             
+             if (completionBlock){
+                 NSLog(@"fetchProfileInfo: UPDATE FAILED");
+                 completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+             }
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
 
 #pragma mark - Search
 - (void)searchArticles:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock

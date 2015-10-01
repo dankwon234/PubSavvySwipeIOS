@@ -39,6 +39,8 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 // PROFILE
 - (void)registerProfile:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 - (void)login:(NSDictionary *)credentials completion:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchProfileInfo:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+
 
 // MISC
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
