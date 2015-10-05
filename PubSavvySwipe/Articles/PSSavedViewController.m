@@ -88,11 +88,20 @@
     [self addMenuButton];
 }
 
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [self.articlesTable deselectRowAtIndexPath:[self.articlesTable indexPathForSelectedRow] animated:YES];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"isFree"]==NO)
+        return;
+    
+    [object removeObserver:self forKeyPath:@"isFree"];
+    [self.articlesTable reloadData];
+    
 }
 
 - (void)articleSaved:(NSNotification *)notification
@@ -129,6 +138,7 @@
             continue;
         
         PSArticle *article = [PSArticle articleWithInfo:articleInfo];
+        [article addObserver:self forKeyPath:@"isFree" options:0 context:nil];
         [self.saved addObject:article];
     }
     
