@@ -270,10 +270,17 @@
 - (void)articleViewTapped:(NSInteger)tag
 {
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
+    if (self.currentArticle.isFree){
+        PSWebViewController *webVc = [[PSWebViewController alloc] init];
+        webVc.url = self.currentArticle.links[@"Url"];
+        [self.navigationController pushViewController:webVc animated:YES];
+        return;
+    }
+    
     PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
     articleVc.article = self.currentArticle;
-    //    articleVc.url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
     [self.navigationController pushViewController:articleVc animated:YES];
+    
     
 }
 
