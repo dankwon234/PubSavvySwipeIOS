@@ -231,9 +231,16 @@
 
 - (void)searchArticles:(NSString *)searchTerm
 {
-    [self.loadingIndicator startLoading];
+    if (self.index % kMaxArticles != 0){
+        [self showAlertWithTitle:@"End of Results" message:@"There are no more articles in the current search results."];
+        return;
+    }
 
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
+//    NSLog(@"OFFSET: %@", offset);
+
+    
+    [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":[NSString stringWithFormat:@"%d", kMaxArticles], @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){

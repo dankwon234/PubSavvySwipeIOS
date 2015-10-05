@@ -171,6 +171,11 @@
 
 - (void)searchArticles:(NSString *)term
 {
+    if (self.offset % kMaxArticles != 0){
+        [self showAlertWithTitle:@"End of Results" message:@"There are no more articles in the current search results."];
+        return;
+    }
+
     [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":[NSString stringWithFormat:@"%d", kMaxArticles], @"offset":[NSString stringWithFormat:@"%d", self.offset]} completionBlock:^(id result, NSError *error){
         if (error){
