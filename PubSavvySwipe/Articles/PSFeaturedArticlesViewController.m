@@ -172,7 +172,7 @@
 - (void)searchArticles:(NSString *)term
 {
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":@"10", @"offset":[NSString stringWithFormat:@"%d", self.offset]} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":term, @"limit":[NSString stringWithFormat:@"%d", kMaxArticles], @"offset":[NSString stringWithFormat:@"%d", self.offset]} completionBlock:^(id result, NSError *error){
         if (error){
             [self.loadingIndicator stopLoading];
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];

@@ -234,7 +234,7 @@
     [self.loadingIndicator startLoading];
 
     NSString *offset = [NSString stringWithFormat:@"%d", self.index];
-    [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":@"10", @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] searchArticles:@{@"term":searchTerm, @"offset":offset, @"limit":[NSString stringWithFormat:@"%d", kMaxArticles], @"device":self.device.uniqueId} completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
             [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
