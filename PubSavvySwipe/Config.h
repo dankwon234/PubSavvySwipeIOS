@@ -18,6 +18,8 @@
 #define kArticleSavedNotification   @"articleSavedNotification"
 #define kLoggedInNotification       @"loggedInNotification"
 
+#define kMaxArticles                10
+
 
 //#define kAutoSearchId @"55986a4717af620b2d1676d4" // DEV
 #define kAutoSearchId @"5591a7ed6092181100f9fe79" // PRODUCTION
