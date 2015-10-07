@@ -73,7 +73,8 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    
+    NSLog(@"webView didFailLoadWithError:");
+    [self.loadingIndicator stopLoading];
 }
 
 
