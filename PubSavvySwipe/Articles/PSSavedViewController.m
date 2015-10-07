@@ -210,10 +210,13 @@
         return;
     }
 
+    PSWebViewController *webVc = [[PSWebViewController alloc] init];
+    webVc.url = [NSString stringWithFormat:@"http://dx.doi.org/%@", article.doi];
+    [self.navigationController pushViewController:webVc animated:YES];
     
-    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
-    articleVc.article = article;
-    [self.navigationController pushViewController:articleVc animated:YES];
+//    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+//    articleVc.article = article;
+//    [self.navigationController pushViewController:articleVc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

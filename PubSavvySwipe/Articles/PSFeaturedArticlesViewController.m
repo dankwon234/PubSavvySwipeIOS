@@ -295,9 +295,9 @@
         return;
     }
     
-    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
-    articleVc.article = self.currentArticle;
-    [self.navigationController pushViewController:articleVc animated:YES];
+    PSWebViewController *webVc = [[PSWebViewController alloc] init];
+    webVc.url = [NSString stringWithFormat:@"http://dx.doi.org/%@", self.currentArticle.doi];
+    [self.navigationController pushViewController:webVc animated:YES];
     
 }
 
