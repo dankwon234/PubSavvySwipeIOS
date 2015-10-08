@@ -7,7 +7,8 @@
 //
 
 #import "PSViewController.h"
+#import <MessageUI/MessageUI.h> 
 
-@interface PSAboutViewController : PSViewController
+@interface PSAboutViewController : PSViewController <MFMailComposeViewControllerDelegate>
 
 @end
