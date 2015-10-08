@@ -55,7 +55,26 @@
     lblComment.font = lblFrameResearch.font;
     lblComment.text = @"Have a Comment?";
     [view addSubview:lblComment];
+    y += lblComment.frame.size.height+12.0f;
     
+    CGFloat h = 32.0f;
+    UIButton *btnSendFeedback = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSendFeedback.frame = CGRectMake(20.0f, y, frame.size.width-40.0f, h);
+    btnSendFeedback.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [btnSendFeedback setTitle:@"Send Feedback" forState:UIControlStateNormal];
+    [btnSendFeedback setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnSendFeedback addTarget:self action:@selector(sendFeedback:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btnSendFeedback];
+    y += btnSendFeedback.frame.size.height;
+
+    UIButton *btnReview = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnReview.frame = CGRectMake(20.0f, y, frame.size.width-40.0f, h);
+    btnReview.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [btnReview setTitle:@"Review in App Store" forState:UIControlStateNormal];
+    [btnReview setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnReview addTarget:self action:@selector(reviewInAppstore:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btnReview];
+
     
     self.view = view;
 }
@@ -66,8 +85,16 @@
     [super viewDidLoad];
     [self addMenuButton];
     
+}
 
-    
+- (void)sendFeedback:(UIButton *)btn
+{
+    NSLog(@"sendFeedback: ");
+}
+
+- (void)reviewInAppstore:(UIButton *)btn
+{
+    NSLog(@"reviewInAppstore: ");
 }
 
 @end
