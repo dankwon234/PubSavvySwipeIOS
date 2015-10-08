@@ -98,7 +98,7 @@
     MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
     [mailController setMailComposeDelegate:self];
     [mailController setSubject:@"PubSavvy Swipe"];
-    [mailController setToRecipients:[NSArray arrayWithObject:@"dan.kwon234@gmail.com"]];
+    [mailController setToRecipients:[NSArray arrayWithObject:@"info@frameresearch.com"]];
     [self presentViewController:mailController animated:YES completion:NULL];
     
 }
