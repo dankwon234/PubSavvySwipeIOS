@@ -165,7 +165,7 @@
     if (articleView == nil)
         return;
     
-    articleView.iconLock.image = [UIImage imageNamed:@"lockOpen.png"];
+    [articleView.iconLock setImage:[UIImage imageNamed:@"lockOpen.png"] forState:UIControlStateNormal];
     
 }
 
