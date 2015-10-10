@@ -24,7 +24,6 @@
 @property (nonatomic) int offset;
 @end
 
-#define kSetSize 10
 
 @implementation PSFeaturedArticlesViewController
 @synthesize currentArticle = _currentArticle;

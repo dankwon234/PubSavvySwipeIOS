@@ -19,6 +19,7 @@
 #define kLoggedInNotification       @"loggedInNotification"
 
 #define kMaxArticles                10
+#define kSetSize                    10
 
 
 //#define kAutoSearchId @"55986a4717af620b2d1676d4" // DEV

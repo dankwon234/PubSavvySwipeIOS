@@ -20,7 +20,6 @@
 @property (nonatomic) CGFloat padding;
 @end
 
-#define kSetSize 10
 
 
 @implementation PSRelatedViewController

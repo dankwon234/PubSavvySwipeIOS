@@ -29,7 +29,6 @@
 @end
 
 #define kPadding 12.0f
-#define kSetSize 10
 
 
 @implementation PSSearchViewController
