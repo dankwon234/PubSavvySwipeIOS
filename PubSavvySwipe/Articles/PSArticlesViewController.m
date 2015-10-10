@@ -50,12 +50,15 @@
     self.lblHeader.textAlignment = NSTextAlignmentCenter;
     self.lblHeader.text = @"HEADER";
     self.lblHeader.font = [UIFont fontWithName:kBaseFontName size:18.0f];
-    self.lblHeader.backgroundColor = kLightBlue;
+    self.lblHeader.backgroundColor = self.colorTheme;
     self.lblHeader.layer.cornerRadius = 6.0f;
     self.lblHeader.layer.masksToBounds = YES;
     [view addSubview:self.lblHeader];
     
-    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgCards.png"]];
+    NSString *cardColor = ([self.colorTheme isEqual:kLightBlue]) ? @"bgCards.png" : @"bgCardsGray.png";
+    UIImageView *bgCards = [[UIImageView alloc] initWithImage:[UIImage imageNamed:cardColor]];
+    
+    
     bgCards.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     bgCards.center = CGPointMake(0.5f*frame.size.width, 0.49f*frame.size.height);
     [view addSubview:bgCards];
@@ -156,6 +159,7 @@
         articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
         articleView.tag = 1000+index;
+        articleView.backgroundColor = ([self.colorTheme isEqual:kLightBlue]) ? kLightBlue : kLightGray;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
         articleView.lblTitle.text = article.title;

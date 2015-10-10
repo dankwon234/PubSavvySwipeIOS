@@ -18,6 +18,7 @@
 @property (strong, nonatomic) PSArticle *currentArticle;
 @property (strong, nonatomic) PSArticleView *topView;
 @property (strong, nonatomic) UILabel *lblHeader;
+@property (strong, nonatomic) UIColor *colorTheme;
 @property (nonatomic) CGRect baseFrame;
 @property (nonatomic) CGFloat padding;
 - (void)searchArticles:(NSString *)term;
