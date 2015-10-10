@@ -22,7 +22,7 @@
 @property (strong, nonatomic) UILabel *lblAuthors;
 @property (strong, nonatomic) UILabel *lblAbsratct;
 @property (strong, nonatomic) UILabel *lblPmid;
-@property (strong, nonatomic) UIImageView *iconLock;
+@property (strong, nonatomic) UIButton *iconLock;
 + (PSArticleView *)articleViewWithFrame:(CGRect)frame;
 + (CGFloat)standardWidth;
 @end
