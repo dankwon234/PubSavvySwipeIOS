@@ -21,6 +21,7 @@
 		0C58046E1B6FDD1F00D87F12 /* bgCoffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5804691B6FDD1F00D87F12 /* bgCoffee@2x.png */; };
 		0C58046F1B6FDD1F00D87F12 /* bgLosAngeles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */; };
 		0C5804721B6FDEAC00D87F12 /* PSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */; };
+		0C5EC4DD1BC98DEA00C6ED95 /* PSArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EC4DC1BC98DEA00C6ED95 /* PSArticlesViewController.m */; };
 		0C635EA21B28E4A000343157 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635E9F1B28E4A000343157 /* Reachability.m */; };
 		0C635EA31B28E4A000343157 /* SignalCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA11B28E4A000343157 /* SignalCheck.m */; };
 		0C635EB81B28E4D800343157 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C635EA61B28E4D800343157 /* AFHTTPRequestOperation.m */; };
@@ -91,6 +92,8 @@
 		0C58046A1B6FDD1F00D87F12 /* bgLosAngeles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgLosAngeles@2x.png"; sourceTree = "<group>"; };
 		0C5804701B6FDEAC00D87F12 /* PSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSLoginViewController.h; sourceTree = "<group>"; };
 		0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSLoginViewController.m; sourceTree = "<group>"; };
+		0C5EC4DB1BC98DEA00C6ED95 /* PSArticlesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticlesViewController.h; sourceTree = "<group>"; };
+		0C5EC4DC1BC98DEA00C6ED95 /* PSArticlesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticlesViewController.m; sourceTree = "<group>"; };
 		0C635E9E1B28E4A000343157 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0C635E9F1B28E4A000343157 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0C635EA01B28E4A000343157 /* SignalCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalCheck.h; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 			children = (
 				0C11D85B1B3497B600ED7C78 /* PSArticle.h */,
 				0C11D85C1B3497B600ED7C78 /* PSArticle.m */,
+				0C5EC4DB1BC98DEA00C6ED95 /* PSArticlesViewController.h */,
+				0C5EC4DC1BC98DEA00C6ED95 /* PSArticlesViewController.m */,
 				0CA2BE711B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.h */,
 				0CA2BE721B0DA5A9004B4D81 /* PSFeaturedArticlesViewController.m */,
 				0CA2BE7C1B0DAEA1004B4D81 /* PSArticleView.h */,
@@ -542,6 +547,7 @@
 				0C73B8C71B45FD4400D1099F /* PSSavedViewController.m in Sources */,
 				0C635EBB1B28E4D800343157 /* AFNetworkReachabilityManager.m in Sources */,
 				0C635EA21B28E4A000343157 /* Reachability.m in Sources */,
+				0C5EC4DD1BC98DEA00C6ED95 /* PSArticlesViewController.m in Sources */,
 				0C75EE4C1B9E0B0F0044920A /* PCSearchTermCell.m in Sources */,
 				0CA3B81F1B6FB209004F61DB /* PSRelatedViewController.m in Sources */,
 				0C635EBF1B28E4D800343157 /* AFURLResponseSerialization.m in Sources */,
