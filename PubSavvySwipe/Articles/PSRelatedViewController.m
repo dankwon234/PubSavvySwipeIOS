@@ -276,12 +276,15 @@
         [self.navigationController pushViewController:webVc animated:YES];
         return;
     }
+
+    PSWebViewController *webVc = [[PSWebViewController alloc] init];
+    webVc.url = (self.currentArticle.doi) ? [NSString stringWithFormat:@"http://dx.doi.org/%@", self.currentArticle.doi] : [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
+    [self.navigationController pushViewController:webVc animated:YES];
     
-    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
-    articleVc.article = self.currentArticle;
-    [self.navigationController pushViewController:articleVc animated:YES];
     
-    
+//    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+//    articleVc.article = self.currentArticle;
+//    [self.navigationController pushViewController:articleVc animated:YES];
 }
 
 - (void)articleViewStoppedMoving

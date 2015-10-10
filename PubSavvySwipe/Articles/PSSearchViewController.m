@@ -493,7 +493,7 @@
     }
 
     PSWebViewController *webVc = [[PSWebViewController alloc] init];
-    webVc.url = [NSString stringWithFormat:@"http://dx.doi.org/%@", self.currentArticle.doi];
+    webVc.url = (self.currentArticle.doi) ? [NSString stringWithFormat:@"http://dx.doi.org/%@", self.currentArticle.doi] : [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
     [self.navigationController pushViewController:webVc animated:YES];
 
 //    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
