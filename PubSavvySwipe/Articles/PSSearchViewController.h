@@ -7,7 +7,9 @@
 
 
 #import "PSViewController.h"
+#import "PSArticlesViewController.h"
 
-@interface PSSearchViewController : PSViewController
+
+@interface PSSearchViewController : PSArticlesViewController
 
 @end
