@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIColor *colorTheme;
 @property (nonatomic) CGRect baseFrame;
 @property (nonatomic) CGFloat padding;
+@property (nonatomic) int offset;
 - (void)searchArticles:(NSString *)term;
 - (void)animateArticleSet:(int)max;
 - (void)findCurrentArticle;

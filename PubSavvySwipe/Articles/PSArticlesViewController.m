@@ -28,6 +28,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
+        self.offset = 0;
         self.currentArticle = nil;
         self.currentTerm = nil;
         
