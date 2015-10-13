@@ -160,6 +160,7 @@
         articleView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
         
         articleView.tag = 1000+index;
+        articleView.iconLock.tag = 1000+index;
         articleView.backgroundColor = ([self.colorTheme isEqual:kLightBlue]) ? kLightBlue : kLightGray;
         articleView.lblAbsratct.text = article.abstract;
         articleView.lblAuthors.text = article.authorsString;
@@ -167,6 +168,7 @@
         articleView.lblDate.text = article.date;
         articleView.lblPmid.text = [NSString stringWithFormat:@"PMID: %@", article.pmid];
         articleView.lblJournal.text = article.journal[@"iso"];
+        [articleView.iconLock addTarget:self action:@selector(viewArticleOnWeb:) forControlEvents:UIControlEventTouchUpInside];
         
         CGPoint center = articleView.center;
         center.x = 0.5f*self.view.frame.size.width;
@@ -222,6 +224,16 @@
 - (void)articleViewTapped:(NSInteger)tag
 {
     NSLog(@"articleViewTapped: %@", self.currentArticle.title);
+    PSArticleViewController *articleVc = [[PSArticleViewController alloc] init];
+    articleVc.article = self.currentArticle;
+    [self.navigationController pushViewController:articleVc animated:YES];
+    return;
+    
+    
+}
+
+- (void)viewArticleOnWeb:(UIButton *)btn
+{
     if (self.currentArticle.isFree){
         PSWebViewController *webVc = [[PSWebViewController alloc] init];
         webVc.url = self.currentArticle.links[@"Url"];
@@ -232,7 +244,6 @@
     PSWebViewController *webVc = [[PSWebViewController alloc] init];
     webVc.url = (self.currentArticle.doi) ? [NSString stringWithFormat:@"http://dx.doi.org/%@", self.currentArticle.doi] : [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.currentArticle.pmid];
     [self.navigationController pushViewController:webVc animated:YES];
-    
 }
 
 /*
