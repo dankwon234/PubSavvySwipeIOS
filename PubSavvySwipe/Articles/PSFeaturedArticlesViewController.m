@@ -10,7 +10,7 @@
 
 
 @interface PSFeaturedArticlesViewController ()
-@property (nonatomic) int offset;
+
 @end
 
 
@@ -21,7 +21,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        self.offset = 0;
         self.colorTheme = kLightBlue;
 
     }
