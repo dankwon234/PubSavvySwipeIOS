@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.lblHeader.text = @"Related";
 
     if (self.device.saved.count == 0) { // no saved articles
         [self showAlertWithTitle:@"No Saved Articles" message:@"This page shows related articles based on your list of saved articles. To get started, save a few articles first!"];
