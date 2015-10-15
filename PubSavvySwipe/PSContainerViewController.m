@@ -177,6 +177,10 @@
 - (void)loginOrViewAccount
 {
     if (self.profile.isPopulated){
+        [self showAccountView:^{
+            [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
+        }];
+        
         return;
     }
     
