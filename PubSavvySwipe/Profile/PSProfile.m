@@ -24,13 +24,7 @@
 {
     self = [super init];
     if (self){
-        self.uniqueId = @"";
-        self.firstName = @"";
-        self.lastName = @"";
-        self.email = @"";
-        self.device = @"";
-        self.password = @"";
-        self.isPopulated = NO;
+        [self clear];
         
     }
     
@@ -50,6 +44,18 @@
     
     return shared;
 }
+
+- (void)clear
+{
+    self.uniqueId = @"";
+    self.firstName = @"";
+    self.lastName = @"";
+    self.email = @"";
+    self.device = @"";
+    self.password = @"";
+    self.isPopulated = NO;
+}
+
 
 
 - (void)populate:(NSDictionary *)profileInfo

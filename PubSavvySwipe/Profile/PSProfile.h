@@ -25,5 +25,5 @@
 - (void)updateProfile;
 - (void)fetchImage;
 - (void)cacheProfile;
-
+- (void)clear;
 @end
