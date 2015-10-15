@@ -397,6 +397,7 @@
 - (void)likeArticle:(BOOL)rotate
 {
     NSLog(@"LIKE Article: %@", self.currentArticle.title);
+    BOOL isFirst = (self.device.saved.count==0);
     [self.device saveArticle:self.currentArticle];
     [UIView transitionWithView:self.topView
                       duration:0.6f
@@ -409,6 +410,12 @@
                     completion:^(BOOL finished){
                         if (self.articles.count > 0){
                             [self queueNextArticle];
+                            if (isFirst==NO)
+                                return;
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self showAlertWithTitle:@"Article Saved" message:@"To view your saved articles, navigate to the 'saved' section in the main menu."];
+                            });
                         }
                     }];
     
