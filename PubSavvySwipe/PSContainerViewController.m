@@ -44,7 +44,12 @@
                                                  selector:@selector(refresh)
                                                      name:kLoggedInNotification
                                                    object:nil];
-        
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refresh)
+                                                     name:kLoggedOutNotification
+                                                   object:nil];
+
     }
     return self;
 }
