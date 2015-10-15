@@ -17,6 +17,7 @@
 #define kHideCellNotification       @"hideCellNotification"
 #define kArticleSavedNotification   @"articleSavedNotification"
 #define kLoggedInNotification       @"loggedInNotification"
+#define kLoggedOutNotification      @"loggedOutNotification"
 
 #define kMaxArticles                10
 #define kSetSize                    10
