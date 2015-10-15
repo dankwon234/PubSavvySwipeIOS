@@ -7,8 +7,8 @@
 
 
 #import "PSViewController.h"
-//#import "PSRegistrationViewController.h"
 #import "PSLoginViewController.h"
+#import "PSAccountViewController.h"
 
 
 @implementation PSViewController
@@ -161,14 +161,20 @@
         if (completion)
             completion();
     }];
-
-    
 }
 
 
 
 - (void)showAccountView:(void (^)(void))completion
 {
+    PSAccountViewController *accountVc = [[PSAccountViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountVc];
+    navController.navigationBar.barTintColor = kDarkBlue;
+    
+    [self presentViewController:navController animated:YES completion:^{
+        if (completion)
+            completion();
+    }];
     
 }
 
