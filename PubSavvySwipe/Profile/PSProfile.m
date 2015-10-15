@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self){
-        [self clear];
+        [self clear:NO];
         
     }
     
@@ -45,7 +45,7 @@
     return shared;
 }
 
-- (void)clear
+- (void)clear:(BOOL)notify
 {
     self.uniqueId = @"";
     self.firstName = @"";
@@ -54,6 +54,10 @@
     self.device = @"";
     self.password = @"";
     self.isPopulated = NO;
+    if (notify == NO)
+        return;
+    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kLoggedOutNotification object:nil]];
 }
 
 
