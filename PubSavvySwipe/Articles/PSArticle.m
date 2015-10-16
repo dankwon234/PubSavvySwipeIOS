@@ -73,7 +73,7 @@
             NSString *initials = [firstName substringToIndex:1]; // first and middle initial
             NSArray *parts = [firstName componentsSeparatedByString:@" "];
             if (parts.count > 1)
-                initials = [initials stringByAppendingString:[NSString stringWithFormat:@" %@", [parts[1] substringToIndex:1]]];
+                initials = [initials stringByAppendingString:[NSString stringWithFormat:@"%@", [parts[1] substringToIndex:1]]];
             
             fullName = [fullName stringByAppendingString:[NSString stringWithFormat:@" %@", initials]];
         }
