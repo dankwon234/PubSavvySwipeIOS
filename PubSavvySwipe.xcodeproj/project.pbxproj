@@ -10,6 +10,7 @@
 		0C00BC761B976805009759DD /* bgCards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C00BC751B976805009759DD /* bgCards@2x.png */; };
 		0C0892871B7A8D6B00D40207 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0892861B7A8D6B00D40207 /* banner@2x.png */; };
 		0C11D85D1B3497B600ED7C78 /* PSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11D85C1B3497B600ED7C78 /* PSArticle.m */; };
+		0C1D7CB21BCF5DB6009E33FE /* PSAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1D7CB11BCF5DB6009E33FE /* PSAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
 		0C43D5751B7E70B400002820 /* iconAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5741B7E70B400002820 /* iconAccount@2x.png */; };
 		0C43D5791B7E720C00002820 /* iconSaved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D5781B7E720C00002820 /* iconSaved@2x.png */; };
 		0C43D57B1B7E725800002820 /* iconRelated@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D57A1B7E725800002820 /* iconRelated@2x.png */; };
@@ -79,6 +80,8 @@
 		0C0892861B7A8D6B00D40207 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		0C11D85B1B3497B600ED7C78 /* PSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSArticle.h; sourceTree = "<group>"; };
 		0C11D85C1B3497B600ED7C78 /* PSArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSArticle.m; sourceTree = "<group>"; };
+		0C1D7CB01BCF5DB6009E33FE /* PSAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAccountViewController.h; sourceTree = "<group>"; };
+		0C1D7CB11BCF5DB6009E33FE /* PSAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAccountViewController.m; sourceTree = "<group>"; };
 		0C43D5741B7E70B400002820 /* iconAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAccount@2x.png"; sourceTree = "<group>"; };
 		0C43D5781B7E720C00002820 /* iconSaved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconSaved@2x.png"; sourceTree = "<group>"; };
 		0C43D57A1B7E725800002820 /* iconRelated@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconRelated@2x.png"; sourceTree = "<group>"; };
@@ -402,6 +405,8 @@
 				0CA3B8221B6FCB4A004F61DB /* PSProfile.m */,
 				0C5804701B6FDEAC00D87F12 /* PSLoginViewController.h */,
 				0C5804711B6FDEAC00D87F12 /* PSLoginViewController.m */,
+				0C1D7CB01BCF5DB6009E33FE /* PSAccountViewController.h */,
+				0C1D7CB11BCF5DB6009E33FE /* PSAccountViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 				0C6459601B0D9EFA00D22151 /* AppDelegate.m in Sources */,
 				0CA2BE641B0DA277004B4D81 /* PSViewController.m in Sources */,
 				0C64595D1B0D9EFA00D22151 /* main.m in Sources */,
+				0C1D7CB21BCF5DB6009E33FE /* PSAccountViewController.m in Sources */,
 				0C7C59E51B86828000B3793F /* PSArticleCell.m in Sources */,
 				0C635EC01B28E4D800343157 /* AFURLSessionManager.m in Sources */,
 				0C635EBA1B28E4D800343157 /* AFHTTPSessionManager.m in Sources */,
@@ -625,6 +631,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "3e391e5e-d9ef-42d3-8a13-7a31a06b4c8b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
