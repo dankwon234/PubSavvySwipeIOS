@@ -90,17 +90,20 @@
 - (void)sendFeedback:(UIButton *)btn
 {
     NSLog(@"sendFeedback: ");
-    
-    if([MFMailComposeViewController canSendMail]==NO){
+    if([MFMailComposeViewController canSendMail]==NO)
         return;
-    }
 
     MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
     [mailController setMailComposeDelegate:self];
     [mailController setSubject:@"PubSavvy Swipe"];
     [mailController setToRecipients:[NSArray arrayWithObject:@"info@frameresearch.com"]];
     [self presentViewController:mailController animated:YES completion:NULL];
-    
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+    NSLog(@"controller didFinishWithResult:");
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)reviewInAppstore:(UIButton *)btn
