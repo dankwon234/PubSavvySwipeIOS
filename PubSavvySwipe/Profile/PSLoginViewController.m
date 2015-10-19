@@ -48,10 +48,12 @@
     CGFloat width = frame.size.width;
     
     CGFloat x = 36.0f;
+    UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
+    
     UILabel *lblLogin = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width-2*x, 64.0f)];
     lblLogin.textColor = [UIColor whiteColor];
     lblLogin.textAlignment = NSTextAlignmentCenter;
-    lblLogin.font = [UIFont fontWithName:kBaseFontName size:16.0f];
+    lblLogin.font = font;
     lblLogin.numberOfLines = 0;
     lblLogin.lineBreakMode = NSLineBreakByWordWrapping;
     lblLogin.text = @"Create a free account to access your search history and saved articles on the web";
@@ -64,6 +66,7 @@
     btnRegister.backgroundColor = [UIColor grayColor];
     [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnRegister setTitle:@"Register" forState:UIControlStateNormal];
+    btnRegister.titleLabel.font = font;
     [btnRegister addTarget:self action:@selector(btnRegisterAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btnRegister];
 
@@ -73,6 +76,7 @@
     [btnSignin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnSignin setTitle:@"Sign In" forState:UIControlStateNormal];
     [btnSignin addTarget:self action:@selector(btnSigninAction:) forControlEvents:UIControlEventTouchUpInside];
+    btnSignin.titleLabel.font = font;
     [view addSubview:btnSignin];
     self.btnSelected = btnSignin;
     y += btnRegister.frame.size.height+16.0f;
@@ -82,7 +86,6 @@
     
     NSArray *fields = @[self.emailField, self.passwordField];
     NSArray *placeholders = @[@"Email", @"Password"];
-    UIFont *font = [UIFont fontWithName:kBaseFontName size:14.0];
     UIColor *white = [UIColor whiteColor];
     CGFloat h = 44.0f;
     x = 32.0f;
