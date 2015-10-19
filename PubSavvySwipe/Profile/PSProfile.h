@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *lastName;
 @property (copy, nonatomic) NSString *email;
 @property (copy, nonatomic) NSString *password;
+@property (copy, nonatomic) NSString *image;
 @property (copy, nonatomic) NSString *device;
 @property (nonatomic)BOOL isPopulated;
 + (PSProfile *)sharedProfile;

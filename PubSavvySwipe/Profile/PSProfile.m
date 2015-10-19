@@ -15,6 +15,7 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize email;
+@synthesize image;
 @synthesize device;
 @synthesize password;
 @synthesize isPopulated;
@@ -51,6 +52,7 @@
     self.firstName = @"";
     self.lastName = @"";
     self.email = @"";
+    self.image = @"";
     self.device = @"";
     self.password = @"";
     self.isPopulated = NO;
@@ -69,6 +71,10 @@
     self.lastName = profileInfo[@"lastName"];
     self.email = profileInfo[@"email"];
     self.device = profileInfo[@"device"];
+    
+    if (profileInfo[@"image"] != nil)
+        self.device = profileInfo[@"image"];
+    
     self.isPopulated = YES;
     [self cacheProfile];
 }
