@@ -115,17 +115,16 @@
     
     
     self.btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btnLogin.frame = CGRectMake(x, y, width-2*x, 24.0f);
-    self.btnLogin.backgroundColor = kGreen;
+    self.btnLogin.frame = CGRectMake(80, y, width-160, 36.0f);
+    self.btnLogin.layer.cornerRadius = 3.0f;
+    self.btnLogin.backgroundColor = kDarkBlue;
     [self.btnLogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnLogin setTitle:@"SIGN IN" forState:UIControlStateNormal];
+    [self.btnLogin setTitle:@"Sign In" forState:UIControlStateNormal];
     [self.btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.btnLogin.titleLabel.font = [UIFont fontWithName:kBaseFontName size:16.0f];
+    self.btnLogin.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
     [view addSubview:self.btnLogin];
     
-    
     [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
-    
     
     self.view = view;
 }
@@ -149,7 +148,7 @@
     
     _btnSelected.backgroundColor = [UIColor grayColor];
     _btnSelected = btnSelected;
-    btnSelected.backgroundColor = [UIColor darkGrayColor];
+    btnSelected.backgroundColor = kDarkBlue;
     
     NSString *btnTitle = [btnSelected.titleLabel.text lowercaseString];
     if ([btnTitle isEqualToString:@"register"]){
