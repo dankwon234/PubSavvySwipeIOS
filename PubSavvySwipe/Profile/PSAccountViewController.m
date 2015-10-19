@@ -37,10 +37,15 @@
     imgOwl.frame = CGRectMake(0, 0, frame.size.width, frame.size.height+20);
     [view addSubview:imgOwl];
     
-    UIImageView *profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 72, 64, 64)];
+    CGFloat dimen = 72.0f;
+    UIImageView *profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 72.0f, dimen, dimen)];
     profileIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     profileIcon.backgroundColor = [UIColor blueColor];
     profileIcon.center = CGPointMake(0.5f*frame.size.width, profileIcon.center.y);
+    profileIcon.userInteractionEnabled = YES;
+    [profileIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectImage:)]];
+    profileIcon.layer.cornerRadius = 0.5f*dimen;
+    profileIcon.layer.masksToBounds = YES;
     [view addSubview:profileIcon];
     
     
@@ -132,6 +137,11 @@
 - (void)updateProfile:(UIButton *)btn
 {
     NSLog(@"updateProfile: ");
+}
+
+- (void)selectImage:(UIGestureRecognizer *)tap
+{
+    NSLog(@"selectImage: ");
 }
 
 
