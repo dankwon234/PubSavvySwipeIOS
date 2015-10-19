@@ -8,6 +8,6 @@
 
 #import "PSViewController.h"
 
-@interface PSAccountViewController : PSViewController
+@interface PSAccountViewController : PSViewController <UITextFieldDelegate>
 
 @end
