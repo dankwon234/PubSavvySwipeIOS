@@ -11,6 +11,7 @@
 @interface PSAccountViewController ()
 @property (strong, nonatomic) UITextField *firstNameField;
 @property (strong, nonatomic) UITextField *lastNameField;
+@property (strong, nonatomic) UITextField *passwordField;
 @end
 
 @implementation PSAccountViewController
@@ -32,6 +33,10 @@
     view.backgroundColor = [UIColor lightGrayColor];
     CGRect frame = view.frame;
     
+    UIImageView *imgOwl = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgOwl.png"]];
+    imgOwl.frame = CGRectMake(0, 0, frame.size.width, frame.size.height+20);
+    [view addSubview:imgOwl];
+    
     UIImageView *profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 72, 64, 64)];
     profileIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     profileIcon.backgroundColor = [UIColor blueColor];
@@ -40,38 +45,51 @@
     
     
     CGFloat y = profileIcon.frame.origin.y+profileIcon.frame.size.height+48.0f;
-    CGFloat x = 20.0f;
-    CGFloat h = 32.0f;
+    CGFloat x = 32.0f;
+    CGFloat h = 44.0f;
     CGFloat width = frame.size.width;
     
-    self.firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, width-2*x, h)];
-    self.firstNameField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12.0f, h)];
-    self.firstNameField.leftViewMode = UITextFieldViewModeAlways;
-    self.firstNameField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.firstNameField.backgroundColor = [UIColor redColor];
-    self.firstNameField.text = self.profile.firstName;
-    self.firstNameField.placeholder = @"First Name";
-    [view addSubview:self.firstNameField];
-    y += self.firstNameField.frame.size.height+16.0f;
+    self.firstNameField = [[UITextField alloc] init];
+    self.lastNameField = [[UITextField alloc] init];
+    self.passwordField = [[UITextField alloc] init];
 
-    self.lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, width-2*x, h)];
-    self.lastNameField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12.0f, h)];
-    self.lastNameField.leftViewMode = UITextFieldViewModeAlways;
-    self.lastNameField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.lastNameField.backgroundColor = [UIColor redColor];
-    self.lastNameField.text = self.profile.lastName;
-    self.lastNameField.placeholder = @"Last Name";
-    [view addSubview:self.lastNameField];
+    NSArray *fields = @[self.firstNameField, self.lastNameField, self.passwordField];
+    NSArray *placeholders = @[@"First Name", @"Last Name", @"Password"];
+    UIColor *white = [UIColor whiteColor];
+    UIFont *font = [UIFont boldSystemFontOfSize:16.0f];
+    
+    for (int i=0; i<fields.count; i++) {
+        UITextField *field = fields[i];
+        field.frame = CGRectMake(0.0f, y, width, 44.0f);
+        field.delegate = self;
+        field.leftView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 36.0f, h)];
+        field.leftViewMode = UITextFieldViewModeAlways;
+        field.backgroundColor = [UIColor clearColor];
+        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholders[i] attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+        field.alpha = 0.8f;
+        field.textColor = [UIColor darkGrayColor];
+        field.placeholder = placeholders[i];
+        field.returnKeyType = UIReturnKeyNext;
+        field.font = font;
+        field.textColor = white;
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(x, h-6.0f, width-2*x, 1.0f)];
+        line.backgroundColor = white;
+        [field addSubview:line];
+        
+        [view addSubview:field];
+        y += field.frame.size.height+4.0f;
+    }
     
     y = frame.size.height - 64.0f;
     UIButton *btnUpdate = [UIButton buttonWithType:UIButtonTypeCustom];
     btnUpdate.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    btnUpdate.frame = CGRectMake(20, y, width-40, 44);
-    btnUpdate.backgroundColor = [UIColor redColor];
+    btnUpdate.frame = CGRectMake(20.0f, y, width-40.0f, 44.0f);
+    btnUpdate.backgroundColor = kDarkBlue;
+    [btnUpdate setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnUpdate setTitle:@"Update Profile" forState:UIControlStateNormal];
+    [btnUpdate addTarget:self action:@selector(updateProfile:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btnUpdate];
-
-    
-    
 
     self.view = view;
 }
@@ -111,7 +129,10 @@
     [defaults synchronize];
 }
 
-
+- (void)updateProfile:(UIButton *)btn
+{
+    NSLog(@"updateProfile: ");
+}
 
 
 
