@@ -39,7 +39,11 @@
     UIView *view = [self baseView];
     view.backgroundColor = [UIColor blackColor];
     CGRect frame = view.frame;
-    
+
+    UIImageView *imgOwl = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgOwl.png"]];
+    imgOwl.frame = CGRectMake(0, 0, frame.size.width, frame.size.height+20);
+    [view addSubview:imgOwl];
+
     CGFloat y = 100.0f;
     CGFloat width = frame.size.width;
     
@@ -112,7 +116,7 @@
     
     self.btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
     self.btnLogin.frame = CGRectMake(x, y, width-2*x, 24.0f);
-    self.btnLogin.backgroundColor = [UIColor clearColor];
+    self.btnLogin.backgroundColor = kGreen;
     [self.btnLogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.btnLogin setTitle:@"SIGN IN" forState:UIControlStateNormal];
     [self.btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
