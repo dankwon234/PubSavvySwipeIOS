@@ -86,6 +86,11 @@
         y += field.frame.size.height+4.0f;
     }
     
+    self.firstNameField.text = [self.profile.firstName capitalizedString];
+    self.lastNameField.text = [self.profile.lastName capitalizedString];
+    
+    
+    
     y = frame.size.height - 64.0f;
     UIButton *btnUpdate = [UIButton buttonWithType:UIButtonTypeCustom];
     btnUpdate.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -137,15 +142,95 @@
 - (void)updateProfile:(UIButton *)btn
 {
     NSLog(@"updateProfile: ");
+    NSCharacterSet *trim = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    self.profile.firstName = [self.firstNameField.text stringByTrimmingCharactersInSet:trim];
+    self.profile.lastName = [self.lastNameField.text stringByTrimmingCharactersInSet:trim];
+    
+    [self.loadingIndicator startLoading];
+    [[PSWebServices sharedInstance] updateProfile:self.profile completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+            return;
+        }
+        
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        [self showAlertWithTitle:@"Profile Updated" message:nil];
+        
+    }];
+    
 }
 
 - (void)selectImage:(UIGestureRecognizer *)tap
 {
-    NSLog(@"selectImage: ");
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:@"Select Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Library", @"Camera", nil];
+    actionsheet.frame = CGRectMake(0, 150.0f, self.view.frame.size.width, 100.0f);
+    actionsheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionsheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 
 
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"actionSheet clickedButtonAtIndex: %d", (int)buttonIndex);
+    if (buttonIndex==0){
+        [self launchImageSelector:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    if (buttonIndex==1){
+        [self launchImageSelector:UIImagePickerControllerSourceTypeCamera];
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"imagePickerController: didFinishPickingMediaWithInfo: %@", [info description]);
+    
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    CGFloat w = image.size.width;
+    CGFloat h = image.size.height;
+    if (w != h){
+        CGFloat dimen = (w < h) ? w : h;
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(0.5*(image.size.width-dimen), 0.5*(image.size.height-dimen), dimen, dimen));
+        image = [UIImage imageWithData:UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 0.5f)];
+        CGImageRelease(imageRef);
+    }
+    
+    self.profile.imageData = image;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
+
+
+
+
+- (void)launchImageSelector:(UIImagePickerControllerSourceType)sourceType
+{
+    [self.loadingIndicator startLoading];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = sourceType;
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:^{
+        [self.loadingIndicator stopLoading];
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
