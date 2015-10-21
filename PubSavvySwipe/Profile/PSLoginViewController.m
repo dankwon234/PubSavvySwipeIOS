@@ -266,12 +266,12 @@
 - (BOOL)checkInputFields
 {
     if (self.emailField.text.length==0){
-        [self showAlertWithTitle:@"Missing Email" message:@"PLease enter your email."];
+        [self showAlertWithTitle:@"Missing Email" message:@"Please enter your email."];
         return NO;
     }
     
     if (self.passwordField.text.length==0){
-        [self showAlertWithTitle:@"Missing Password" message:@"PLease enter your password."];
+        [self showAlertWithTitle:@"Missing Password" message:@"Please enter your password."];
         return NO;
     }
     
