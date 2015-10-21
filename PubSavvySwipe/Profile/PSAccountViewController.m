@@ -183,6 +183,8 @@
     NSCharacterSet *trim = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     self.profile.firstName = [self.firstNameField.text stringByTrimmingCharactersInSet:trim];
     self.profile.lastName = [self.lastNameField.text stringByTrimmingCharactersInSet:trim];
+    if (self.passwordField.text.length > 0)
+        self.profile.password = self.passwordField.text;
     
     [[PSWebServices sharedInstance] updateProfile:self.profile completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
