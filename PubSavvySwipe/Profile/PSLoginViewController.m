@@ -207,7 +207,7 @@
         return;
 
     [self.loadingIndicator startLoading];
-    [[PSWebServices sharedInstance] login:@{@"email":self.emailField.text, @"password":self.passwordField.text} completion:^(id result, NSError *error){
+    [[PSWebServices sharedInstance] login:@{@"email":[self.emailField.text lowercaseString], @"password":self.passwordField.text} completion:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         
         if (error){
