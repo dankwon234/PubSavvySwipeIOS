@@ -380,16 +380,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSDictionary *responseDictionary = (NSDictionary *)responseObject;
-              NSDictionary *results = responseDictionary[@"results"];
               
-              if ([results[@"confirmation"] isEqualToString:@"success"]){
+              if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]){
                   if (completionBlock)
-                      completionBlock(results, nil);
+                      completionBlock(responseDictionary, nil);
                   return;
               }
               
               if (completionBlock)
-                  completionBlock(results, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:results[@"message"]}]);
+                  completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               completionBlock(nil, error);
