@@ -72,6 +72,7 @@
     self.lastName = profileInfo[@"lastName"];
     self.email = profileInfo[@"email"];
     self.device = profileInfo[@"device"];
+    self.image = profileInfo[@"image"];
     
     if (profileInfo[@"image"] != nil)
         self.device = profileInfo[@"image"];
