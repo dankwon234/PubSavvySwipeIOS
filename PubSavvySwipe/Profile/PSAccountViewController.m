@@ -114,13 +114,11 @@
                                                                              target:self
                                                                              action:@selector(logout:)];
     
-    if (self.profile.image.length == 0){
-        NSLog(@"NO IMAGE!");
+    if (self.profile.image.length == 0)
         return;
-    }
+    
     
     [[PSWebServices sharedInstance] fetchImage:self.profile.image parameters:@{@"crop":@"260"} completionBlock:^(id result, NSError *error){
-        NSLog(@"TEST 2");
         if (error){ // fail silently
             NSLog(@"ERROR: %@", [error localizedDescription]);
             return;
