@@ -40,6 +40,7 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)registerProfile:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 - (void)login:(NSDictionary *)credentials completion:(PSWebServiceRequestCompletionBlock)completionBlock;
 - (void)fetchProfileInfo:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)updateProfile:(PSProfile *)profile completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
 
 // MISC
