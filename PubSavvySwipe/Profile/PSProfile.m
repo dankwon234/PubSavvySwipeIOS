@@ -123,7 +123,10 @@
     
     if (self.lastName)
         params[@"lastName"] = self.lastName;
-    
+
+    if (self.image)
+        params[@"image"] = self.image;
+
     if (self.email)
         params[@"email"] = self.email;
 
