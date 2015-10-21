@@ -368,6 +368,33 @@
 
 - (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completion:(PSWebServiceRequestCompletionBlock)completionBlock
 {
+
+    NSData *imageData = image[@"data"];
+    NSString *imageName = image[@"name"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager POST:uploadUrl
+       parameters:nil
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [formData appendPartWithFileData:imageData name:@"file" fileName:imageName mimeType:@"image/jpeg"];
+}
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+              NSDictionary *results = responseDictionary[@"results"];
+              
+              if ([results[@"confirmation"] isEqualToString:@"success"]){
+                  if (completionBlock)
+                      completionBlock(results, nil);
+                  return;
+              }
+              
+              if (completionBlock)
+                  completionBlock(results, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:results[@"message"]}]);
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              completionBlock(nil, error);
+              
+          }];
     
 }
 
