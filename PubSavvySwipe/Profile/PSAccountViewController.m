@@ -142,11 +142,30 @@
 - (void)updateProfile:(UIButton *)btn
 {
     NSLog(@"updateProfile: ");
+    
+    [self.loadingIndicator startLoading];
+    if (self.profile.imageData){
+        [[PSWebServices sharedInstance] fetchUploadString:^(id result, NSError *error){
+            if (error){
+                [self.loadingIndicator stopLoading];
+                [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+                return;
+            }
+            
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self uploadImage:results[@"upload"]];
+            });
+        }];
+        return;
+    }
+    
+    
     NSCharacterSet *trim = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     self.profile.firstName = [self.firstNameField.text stringByTrimmingCharactersInSet:trim];
     self.profile.lastName = [self.lastNameField.text stringByTrimmingCharactersInSet:trim];
     
-    [self.loadingIndicator startLoading];
     [[PSWebServices sharedInstance] updateProfile:self.profile completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
@@ -159,7 +178,6 @@
         [self showAlertWithTitle:@"Profile Updated" message:nil];
         
     }];
-    
 }
 
 - (void)selectImage:(UIGestureRecognizer *)tap
@@ -168,6 +186,30 @@
     actionsheet.frame = CGRectMake(0, 150.0f, self.view.frame.size.width, 100.0f);
     actionsheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionsheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)uploadImage:(NSString *)uploadUrl
+{
+    NSDictionary *pkg = @{@"data":UIImageJPEGRepresentation(self.profile.imageData, 0.5f), @"name":@"image.jpg"};
+    [[PSWebServices sharedInstance] uploadImage:pkg toUrl:uploadUrl completion:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self.loadingIndicator stopLoading];
+            [self showAlertWithTitle:@"Error" message:[error localizedDescription]];
+            return;
+        }
+        
+        NSDictionary *results = (NSDictionary *)result;
+//        NSLog(@"%@", [results description]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *imageInfo = results[@"image"];
+            self.profile.image = imageInfo[@"id"];
+            self.profile.imageData = nil;
+            
+            [self updateProfile:nil];
+        });
+    }];
 }
 
 
