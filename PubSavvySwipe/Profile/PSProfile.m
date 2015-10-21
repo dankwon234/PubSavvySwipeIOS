@@ -54,7 +54,7 @@
     self.email = @"";
     self.image = @"";
     self.device = @"";
-    self.password = @"";
+    self.password = nil; // this should default to nil otherwise it might get stored on backend as ""
     self.imageData = nil;
     self.isPopulated = NO;
     if (notify == NO)
