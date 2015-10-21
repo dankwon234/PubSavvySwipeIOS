@@ -38,7 +38,7 @@
     imgOwl.frame = CGRectMake(0, 0, frame.size.width, frame.size.height+20);
     [view addSubview:imgOwl];
     
-    CGFloat dimen = 72.0f;
+    CGFloat dimen = 84.0f;
     self.profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 72.0f, dimen, dimen)];
     self.profileIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.profileIcon.backgroundColor = [UIColor blueColor];
@@ -90,8 +90,6 @@
     self.firstNameField.text = [self.profile.firstName capitalizedString];
     self.lastNameField.text = [self.profile.lastName capitalizedString];
     
-    
-    
     y = frame.size.height - 64.0f;
     UIButton *btnUpdate = [UIButton buttonWithType:UIButtonTypeCustom];
     btnUpdate.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -115,6 +113,27 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(logout:)];
+    
+    if (self.profile.image.length == 0){
+        NSLog(@"NO IMAGE!");
+        return;
+    }
+    
+    [[PSWebServices sharedInstance] fetchImage:self.profile.image parameters:@{@"crop":@"260"} completionBlock:^(id result, NSError *error){
+        NSLog(@"TEST 2");
+        if (error){ // fail silently
+            NSLog(@"ERROR: %@", [error localizedDescription]);
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"TEST 4");
+            UIImage *image = (UIImage *)result;
+            self.profileIcon.image = image;
+            
+        });
+        
+    }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
