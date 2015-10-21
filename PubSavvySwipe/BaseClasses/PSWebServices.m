@@ -21,6 +21,7 @@
 #define kPathArticle          @"/api/article/"
 #define kPathLogin            @"/api/login/"
 #define kPathRandomTerms      @"/api/autosearch/"
+#define kImageUrl             @"https://media-service.appspot.com/"
 
 //https://pubsavvyswipe.herokuapp.com/api/autosearch/5591a7ed6092181100f9fe79
 
@@ -337,12 +338,51 @@
 #pragma mark - IMAGES
 - (void)fetchImage:(NSString *)imageId parameters:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {
+    //check cache first:
+    NSString *filePath = [self createFilePath:imageId];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (data){
+        UIImage *image = [UIImage imageWithData:data];
+        //        NSLog(@"CACHED IMAGE: %@, %d bytes", imageId, (int)data.length);
+        if (!image)
+            NSLog(@"CACHED IMAGE IS NIL:");
+        
+        if (completionBlock)
+            completionBlock(image, nil);
+        
+        return;
+    }
     
+    
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kImageUrl]];
+    AFImageResponseSerializer *serializer = [[AFImageResponseSerializer alloc] init];
+    serializer.acceptableContentTypes = [serializer.acceptableContentTypes setByAddingObjectsFromArray:@[@"image/jpeg", @"image/png"]];
+    manager.responseSerializer = serializer;
+    
+    NSLog(@"FETCH IMAGE: %@", imageId);
+    [manager GET:[@"/site/images/" stringByAppendingString:imageId]
+      parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             //Save image to cache directory:
+             UIImage *img = (UIImage *)responseObject;
+             NSData *imgData = UIImageJPEGRepresentation(img, 1.0f);
+             NSLog(@"IMAGE FETCHED: %lu", imgData.length);
+             
+             [self cacheImage:img toPath:filePath];
+             img = [UIImage imageWithData:imgData];
+             completionBlock(img, nil);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
 }
 
 - (void)fetchUploadString:(PSWebServiceRequestCompletionBlock)completionBlock
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://media-service.appspot.com/"]];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kImageUrl]];
     
     [manager GET:kPathUpload
       parameters:nil
@@ -396,6 +436,37 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
           }];
     
 }
+
+
+#pragma mark - FileSavingStuff:
+- (void)cacheImage:(UIImage *)image toPath:(NSString *)filePath
+{
+    NSData *imgData = UIImageJPEGRepresentation(image, 1.0f);
+    [imgData writeToFile:filePath atomically:YES];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:filePath]]; //this prevents files from being backed up on itunes and iCloud
+}
+
+
+
+- (NSString *)createFilePath:(NSString *)fileName
+{
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"+"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:fileName];
+    return filePath;
+}
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    const char* filePath = [[URL path] fileSystemRepresentation];
+    const char* attrName = "com.apple.MobileBackup";
+    u_int8_t attrValue = 1;
+    
+    int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+    return result == 0;
+}
+
+
 
 
 
