@@ -334,6 +334,45 @@
 }
 
 
+#pragma mark - IMAGES
+- (void)fetchImage:(NSString *)imageId parameters:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    
+}
+
+- (void)fetchUploadString:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://media-service.appspot.com/"]];
+    
+    [manager GET:kPathUpload
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+             
+             if ([responseDictionary[@"confirmation"] isEqualToString:@"success"]){
+                 if (completionBlock)
+                     completionBlock(responseDictionary, nil);
+                 return;
+             }
+             
+             if (completionBlock)
+                 completionBlock(responseDictionary, [NSError errorWithDomain:kErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:responseDictionary[@"message"]}]);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+    
+}
+
+- (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completion:(PSWebServiceRequestCompletionBlock)completionBlock
+{
+    
+}
+
+
+
 #pragma mark - MISC
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock
 {

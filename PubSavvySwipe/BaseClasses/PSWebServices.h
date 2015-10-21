@@ -46,4 +46,11 @@ typedef void (^PSWebServiceRequestCompletionBlock)(id result, NSError *error);
 // MISC
 - (void)fetchHtml:(NSString *)address completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
 
+// Images
+- (void)fetchImage:(NSString *)imageId parameters:(NSDictionary *)params completionBlock:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchUploadString:(PSWebServiceRequestCompletionBlock)completionBlock;
+- (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completion:(PSWebServiceRequestCompletionBlock)completionBlock;
+
+
+
 @end
