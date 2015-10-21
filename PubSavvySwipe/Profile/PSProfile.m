@@ -19,7 +19,7 @@
 @synthesize device;
 @synthesize password;
 @synthesize isPopulated;
-
+@synthesize imageData;
 
 - (id)init
 {
@@ -55,6 +55,7 @@
     self.image = @"";
     self.device = @"";
     self.password = @"";
+    self.imageData = nil;
     self.isPopulated = NO;
     if (notify == NO)
         return;

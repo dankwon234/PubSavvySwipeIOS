@@ -18,6 +18,7 @@
 @property (copy, nonatomic) NSString *password;
 @property (copy, nonatomic) NSString *image;
 @property (copy, nonatomic) NSString *device;
+@property (strong, nonatomic) UIImage *imageData;
 @property (nonatomic)BOOL isPopulated;
 + (PSProfile *)sharedProfile;
 - (void)populate:(NSDictionary *)profileInfo;
