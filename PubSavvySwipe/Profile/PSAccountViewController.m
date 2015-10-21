@@ -12,6 +12,7 @@
 @property (strong, nonatomic) UITextField *firstNameField;
 @property (strong, nonatomic) UITextField *lastNameField;
 @property (strong, nonatomic) UITextField *passwordField;
+@property (strong, nonatomic) UIImageView *profileIcon;
 @end
 
 @implementation PSAccountViewController
@@ -38,18 +39,18 @@
     [view addSubview:imgOwl];
     
     CGFloat dimen = 72.0f;
-    UIImageView *profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 72.0f, dimen, dimen)];
-    profileIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    profileIcon.backgroundColor = [UIColor blueColor];
-    profileIcon.center = CGPointMake(0.5f*frame.size.width, profileIcon.center.y);
-    profileIcon.userInteractionEnabled = YES;
-    [profileIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectImage:)]];
-    profileIcon.layer.cornerRadius = 0.5f*dimen;
-    profileIcon.layer.masksToBounds = YES;
-    [view addSubview:profileIcon];
+    self.profileIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 72.0f, dimen, dimen)];
+    self.profileIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.profileIcon.backgroundColor = [UIColor blueColor];
+    self.profileIcon.center = CGPointMake(0.5f*frame.size.width, self.profileIcon.center.y);
+    self.profileIcon.userInteractionEnabled = YES;
+    [self.profileIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectImage:)]];
+    self.profileIcon.layer.cornerRadius = 0.5f*dimen;
+    self.profileIcon.layer.masksToBounds = YES;
+    [view addSubview:self.profileIcon];
     
     
-    CGFloat y = profileIcon.frame.origin.y+profileIcon.frame.size.height+48.0f;
+    CGFloat y = self.profileIcon.frame.origin.y+self.profileIcon.frame.size.height+48.0f;
     CGFloat x = 32.0f;
     CGFloat h = 44.0f;
     CGFloat width = frame.size.width;
@@ -232,7 +233,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"imagePickerController: didFinishPickingMediaWithInfo: %@", [info description]);
-    
     UIImage *image = info[UIImagePickerControllerEditedImage];
     CGFloat w = image.size.width;
     CGFloat h = image.size.height;
@@ -244,6 +244,7 @@
     }
     
     self.profile.imageData = image;
+    self.profileIcon.image = image;
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
