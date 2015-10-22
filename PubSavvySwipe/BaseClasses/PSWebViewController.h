@@ -8,7 +8,7 @@
 
 #import "PSViewController.h"
 
-@interface PSWebViewController : PSViewController <UIWebViewDelegate>
+@interface PSWebViewController : PSViewController <UIWebViewDelegate, UIActionSheetDelegate>
 
 
 @property (copy, nonatomic) NSString *url;

@@ -48,10 +48,33 @@
     [super viewDidLoad];
     [self addCustomBackButton];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                           target:self
+                                                                                           action:@selector(showSafariOption)];
+
     [self.loadingIndicator startLoading];
-//    NSString *url = [NSString stringWithFormat:@"http://www.ncbi.nlm.nih.gov/m/pubmed/%@/", self.article.pmid];
     [self.articleWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
+
+- (void)showSafariOption
+{
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:@"PubSavvy" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", nil];
+    actionsheet.frame = CGRectMake(0, 150.0f, self.view.frame.size.width, 100.0f);
+    actionsheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionsheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"actionSheet clickedButtonAtIndex: %d", (int)buttonIndex);
+    if (buttonIndex != 0)
+        return;
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.url]];
+}
+
+
 
 #pragma mark - UIWebviewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
