@@ -98,6 +98,10 @@
         NSDictionary *response = (NSDictionary *)result;
         NSLog(@"%@", [response description]);
         
+        for (PSArticle *article in self.articles)
+            [article removeObserver:self forKeyPath:@"isFree"];
+        
+        
         self.articles = [NSMutableArray array];
         NSArray *results = response[@"results"];
         if (results.count == 0){
