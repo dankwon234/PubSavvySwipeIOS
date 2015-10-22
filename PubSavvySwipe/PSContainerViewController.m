@@ -284,8 +284,10 @@
             return;
         }
         
-        if (self.relatedVc==nil)
+        if (self.relatedVc == nil)
             self.relatedVc = [[PSRelatedViewController alloc] init];
+        else
+            [self.relatedVc checkRefresh];
         
         self.currentVc = self.relatedVc;
     }
