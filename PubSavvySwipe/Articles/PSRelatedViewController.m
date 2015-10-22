@@ -59,9 +59,30 @@
 {
     if (self.shouldRefresh == NO)
         return;
-
+    
+    [self reset];
     [self searchRelatedArticles:self.device.saved];
 }
+
+- (void)reset
+{
+    for (PSArticle *article in self.articles)
+        [article removeObserver:self forKeyPath:@"isFree"];
+    
+    self.articles = [NSMutableArray array];
+    self.currentArticle = nil;
+    self.offset = 0;
+    self.topView.delegate = nil;
+    self.topView = nil;
+    for (UIView *view in self.view.subviews) {
+        if (view.tag < 1000)
+            continue;
+        
+        [view removeFromSuperview];
+    }
+}
+
+
 
 - (void)searchRelatedArticles:(NSArray *)saved
 {
@@ -97,9 +118,6 @@
         self.shouldRefresh = NO;
         NSDictionary *response = (NSDictionary *)result;
         NSLog(@"%@", [response description]);
-        
-        for (PSArticle *article in self.articles)
-            [article removeObserver:self forKeyPath:@"isFree"];
         
         
         self.articles = [NSMutableArray array];
