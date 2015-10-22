@@ -10,7 +10,7 @@
 
 
 @interface PSRelatedViewController ()
-
+@property (nonatomic) BOOL shouldRefresh;
 @end
 
 
@@ -22,6 +22,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.colorTheme = kLightGray;
+        self.shouldRefresh = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshRelatedArticles:)
+                                                     name:kArticleSavedNotification
+                                                   object:nil];
+        
+
         
     }
     
@@ -42,6 +49,19 @@
     [self searchRelatedArticles:self.device.saved];
 }
 
+- (void)refreshRelatedArticles:(NSNotification *)note
+{
+    NSLog(@"refreshRelatedArticles: ");
+    self.shouldRefresh = YES;
+}
+
+- (void)checkRefresh
+{
+    if (self.shouldRefresh == NO)
+        return;
+
+    [self searchRelatedArticles:self.device.saved];
+}
 
 - (void)searchRelatedArticles:(NSArray *)saved
 {
@@ -49,7 +69,8 @@
     int max = (saved.count < 3) ? (int)saved.count : 3;
     for (int i=0; i<max; i++){
         [pmids appendString:saved[i]];
-        [pmids appendString:@","];
+        if (i != max-1)
+            [pmids appendString:@","];
     }
     
     NSLog(@"PMIDS: %@", pmids);
@@ -73,6 +94,7 @@
             return;
         }
         
+        self.shouldRefresh = NO;
         NSDictionary *response = (NSDictionary *)result;
         NSLog(@"%@", [response description]);
         

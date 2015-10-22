@@ -11,4 +11,5 @@
 
 @interface PSRelatedViewController : PSArticlesViewController
 
+- (void)checkRefresh;
 @end
