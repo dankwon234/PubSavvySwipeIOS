@@ -43,6 +43,8 @@
     lblFrameResearch.font = lblCreatedBy.font;
     lblFrameResearch.textAlignment = NSTextAlignmentCenter;
     lblFrameResearch.text = @"Frame Research, LLC";
+    lblFrameResearch.userInteractionEnabled = YES;
+    [lblFrameResearch addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewWebsite)]];
     [view addSubview:lblFrameResearch];
     y += lblFrameResearch.frame.size.height+32.0f;
     
@@ -102,13 +104,21 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
 {
-    NSLog(@"controller didFinishWithResult:");
+//    NSLog(@"controller didFinishWithResult:");
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)reviewInAppstore:(UIButton *)btn
 {
-    NSLog(@"reviewInAppstore: ");
+//    NSLog(@"reviewInAppstore: ");
 }
+
+- (void)viewWebsite
+{
+//    NSLog(@"viewWebsite: ");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.frameresearch.com/"]];
+}
+
+
 
 @end
