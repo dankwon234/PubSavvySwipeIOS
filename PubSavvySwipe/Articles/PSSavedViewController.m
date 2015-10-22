@@ -181,6 +181,7 @@
     
     PSArticle *article = self.saved[indexPath.row];
     NSLog(@"REMOVE ARTICLE: %@", article.pmid);
+    [article removeObserver:self forKeyPath:@"isFree"];
     [self.saved removeObject:article];
     [self.articlesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
